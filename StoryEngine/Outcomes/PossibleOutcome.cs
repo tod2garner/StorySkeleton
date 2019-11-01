@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    class PossibleOutcome
+    public class PossibleOutcome
     {
         public PossibleOutcome(int thePercentChance, IOutcome givenOutcome)
         {

@@ -8,6 +8,6 @@ namespace StoryEngine
 {
     public interface IEvent
     {        
-        bool AreAllPrerequisitesMet();
+        bool AreAllPrerequisitesMet(SocietySnapshot currentCast);
     }
 }

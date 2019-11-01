@@ -9,7 +9,7 @@ namespace StoryEngine
     /// <summary>
     /// I would be willing to ___ that person/group
     /// </summary>
-    enum EthicsScale
+    public enum EthicsScale
     {                   //I see them as a...
         Murder = -10,        //demon
         Beat = -3,           //savage
@@ -20,7 +20,7 @@ namespace StoryEngine
         Confide = 10,        //confidant
     }
 
-    enum SuspicionScale
+    public enum SuspicionScale
     {
         Naive = 1,
         Relaxed = 2,
@@ -29,7 +29,7 @@ namespace StoryEngine
         Paranoid = 7
     }
 
-    enum Morality
+    public enum Morality
     {
         Exploit,        //hawk
         Reciprocate,    //match

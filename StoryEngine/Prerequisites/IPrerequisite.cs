@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    interface IPrerequisite
+    public interface IPrerequisite
     {
         bool CanBeFulfilled(SocietySnapshot currentCast);
     }

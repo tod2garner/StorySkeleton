@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine.GeneratorEngine
 {
-    interface IPlotGenerator
+    public interface IPlotGenerator
     {
         //Implement:
         //      fully random events (ignoring prerequisites)

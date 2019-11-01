@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine.SocietyGenerators
 {
-    interface IRelationshipGenerator
+    public interface IRelationshipGenerator
     {
     }
 }

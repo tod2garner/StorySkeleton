@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    class Relationship
+    public class Relationship
     {
         public Relationship(int givenOtherId, EthicsScale initialTrust, EthicsScale initialEthics)
         {

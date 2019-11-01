@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    interface IOutcome
+    public interface IOutcome
     {
         void Execute();
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine.SocietyGenerators
 {
-    interface IRandomCharacterGenerator
+    public interface IRandomCharacterGenerator
     {
     }
 }

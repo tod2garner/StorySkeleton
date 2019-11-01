@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    abstract class AEvent : IEvent
+    public abstract class AEvent : IEvent
     {
         //Future: triggers, chance to trigger other event(s)
         

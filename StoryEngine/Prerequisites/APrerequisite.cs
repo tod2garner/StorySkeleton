@@ -9,7 +9,7 @@ namespace StoryEngine
     /// <summary>
     /// Defines conditions that participants must meet to be included in an event
     /// </summary>
-    abstract class APrerequisite : IPrerequisite
+    public abstract class APrerequisite : IPrerequisite
     {
         //Specifically, need way to align participant selection across roles, as prereqs are by role        
 

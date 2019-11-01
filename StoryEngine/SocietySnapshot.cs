@@ -9,7 +9,7 @@ namespace StoryEngine
     /// <summary>
     /// At a specific point in time, a snapshot of all characters with their traits and relationships
     /// </summary>
-    class SocietySnapshot
+    public class SocietySnapshot
     {
         private List<Character> allCharacters;
         public List<Character> AllCharacters { get { return allCharacters; } }

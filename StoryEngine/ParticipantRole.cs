@@ -9,7 +9,7 @@ namespace StoryEngine
     /// <summary>
     /// Group of characters playing the same role within a specific event.
     /// </summary>
-    class ParticipantRole
+    public class ParticipantRole
     {
         ParticipantRole()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    class Character
+    public class Character
     {
         public Character(int givenId, string givenName)
         {

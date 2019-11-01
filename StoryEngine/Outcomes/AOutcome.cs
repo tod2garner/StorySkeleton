@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    abstract class AOutcome : IOutcome
+    public abstract class AOutcome : IOutcome
     {
         //Concrete classes to create:
         // MutualChangeInTrust (increase/decrease)
