@@ -11,17 +11,16 @@ namespace StoryEngine
     /// </summary>
     abstract class APrerequisite : IPrerequisite
     {
-        //Specifically, need way to align participant selection across roles, as prereqs are by role
-        //TODO - MOVE PREREQ out of group and up to event level so that roles can align
+        //Specifically, need way to align participant selection across roles, as prereqs are by role        
 
         //Abstract classes to create:
-        //quantity rule (min/max role count)
-        //relation rule
-        //for a single role (e.g. conversation = mutual min trust)
-        //for two roles (e.g. betrayal = ethics for one, trust for other)
+        //  quantity rule (min/max role count)
+        //  relation rule
+        //      for a single role (e.g. conversation = mutual min trust)
+        //      for two roles (e.g. betrayal = ethics for one, trust for other)
         //Future:
-        //character trait rule (e.g. baseSuspicion min/max)
-        //used for interactions with minor/un-named characters?
+        //  character trait rule (e.g. baseSuspicion min/max)
+        //      used for interactions with minor/un-named characters?
 
 
         //Concrete classes to create:
@@ -33,9 +32,8 @@ namespace StoryEngine
         //      unevenTrust_Larger
         //Future:
         //      ethics equivalents
-
-
-        public bool IsFulfilled()
+        
+        public bool CanBeFulfilled(SocietySnapshot currentCast)
         {
             throw new NotImplementedException();
         }

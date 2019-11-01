@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoryEngine
+namespace StoryEngine.SocietyGenerators
 {
-    interface IPrerequisite
+    interface IRandomCharacterGenerator
     {
-        bool CanBeFulfilled(SocietySnapshot currentCast);
     }
 }

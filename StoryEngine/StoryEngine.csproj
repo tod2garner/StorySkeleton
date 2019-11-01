@@ -52,7 +52,12 @@
     <Compile Include="Prerequisites\IPrerequisite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship.cs" />
+    <Compile Include="SocietyGenerators\IRandomCharacterGenerator.cs" />
+    <Compile Include="SocietyGenerators\IRelationshipGenerator.cs" />
+    <Compile Include="SocietySnapshot.cs" />
+    <Compile Include="_PlotGenerators\IPlotGenerator.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
