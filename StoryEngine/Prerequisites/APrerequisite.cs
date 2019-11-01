@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StoryEngine
+{
+    /// <summary>
+    /// Defines conditions that participants must meet to be included in an event
+    /// </summary>
+    abstract class APrerequisite : IPrerequisite
+    {
+        //Specifically, need way to align participant selection across roles, as prereqs are by role
+        //TODO - MOVE PREREQ out of group and up to event level so that roles can align
+
+        //Abstract classes to create:
+        //quantity rule (min/max role count)
+        //relation rule
+        //for a single role (e.g. conversation = mutual min trust)
+        //for two roles (e.g. betrayal = ethics for one, trust for other)
+        //Future:
+        //character trait rule (e.g. baseSuspicion min/max)
+        //used for interactions with minor/un-named characters?
+
+
+        //Concrete classes to create:
+        //      minTrust
+        //      maxTrust
+        //      exactTrust
+        //      mutualTrust_Min/Max/Exact
+        //      unevenTrust_Smaller
+        //      unevenTrust_Larger
+        //Future:
+        //      ethics equivalents
+
+
+        public bool IsFulfilled()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
