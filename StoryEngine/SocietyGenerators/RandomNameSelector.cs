@@ -17,13 +17,16 @@ namespace StoryEngine.SocietyGenerators
             PopulateDefaultList_MaleNames();
         }
 
-        public List<string> SelectRandomNamesFromDefaultNameList(int howMany)
+        public List<string> SelectRandomNamesFromDefaultNameList(int howMany, Random rng = null)
         {
             if (howMany < 1)
                 throw new ArgumentOutOfRangeException();
 
             var finalChosen = new List<string>(howMany);
-            Random rng = new Random();
+            
+            if (rng == null)
+                rng = new Random();
+
             int percentMaleNames = rng.Next(35, 65);
             int countMaleNames = (howMany * percentMaleNames) / 100;
             int countFemaleNames = howMany - countMaleNames;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoryEngine.GeneratorEngine
+namespace StoryEngine.PlotGenerators
 {
     public interface IPlotGenerator
     {
@@ -15,5 +15,7 @@ namespace StoryEngine.GeneratorEngine
         //      story arch, based on emotional magnitude scores (example: follow conflict-climax-resolve pattern, or others)
         //Future:
         //      given list of events to incorporate, fill in around them (using any method above)
+
+        Plot GenerateNewPlot();
     }
 }

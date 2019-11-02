@@ -17,24 +17,28 @@ namespace StoryEngine.SocietyGenerators
                 throw new ArgumentOutOfRangeException();
 
             var s = new SocietySnapshot();
+            
+            Random rng = new Random();
 
             RandomNameSelector nameFactory = new RandomNameSelector();
-            List<string> allNames = nameFactory.SelectRandomNamesFromDefaultNameList(characterCount);
+            List<string> allNames = nameFactory.SelectRandomNamesFromDefaultNameList(characterCount, rng);
 
             RandomCharacterGenerator_Default characterFactory = new RandomCharacterGenerator_Default();
             for (int i = 0; i < characterCount; i++)
-                s.AllCharacters.Add(characterFactory.CreateCharacter(i, allNames[i]));
+                s.AllCharacters.Add(characterFactory.CreateCharacter(i, allNames[i], rng));
 
             if (characterCount > 1)
-                CreateStartingRelationships(s);
+                CreateStartingRelationships(s, rng);
 
             return s;
         }
 
-        protected void CreateStartingRelationships(SocietySnapshot s)
+        protected void CreateStartingRelationships(SocietySnapshot s, Random rng = null)
         {
-            Random rng = new Random();
             RelationshipGenerator_Default relationFactory = new RelationshipGenerator_Default();
+
+            if(rng == null)
+                rng = new Random();
 
             //Each character given min of 1 relationship, diminishing odds for each additional relationship
             foreach (Character c in s.AllCharacters)

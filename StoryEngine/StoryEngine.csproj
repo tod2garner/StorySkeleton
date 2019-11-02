@@ -62,6 +62,7 @@
     <Compile Include="SocietyGenerators\StartingCastGenerator_Default.cs" />
     <Compile Include="SocietySnapshot.cs" />
     <Compile Include="_PlotGenerators\IPlotGenerator.cs" />
+    <Compile Include="_PlotGenerators\APlotGenerator.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
