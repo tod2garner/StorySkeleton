@@ -56,6 +56,18 @@ namespace StoryEngine
             set { baseMorality = value; }
         }
 
+        public Character Copy()
+        {
+            var theCopy = new Character(this.Id, this.Name);
+            theCopy.BaseMorality = this.BaseMorality;
+            theCopy.BaseSuspicion = this.BaseSuspicion;
+
+            foreach (Relationship r in this.AllRelations)
+                theCopy.AllRelations.Add(r.Copy());
+
+            return theCopy;
+        }
+
         public bool IsAcquaintedWith(int otherCharacterId)
         {
             return AllRelations.Any(r => r.OtherId == otherCharacterId);

@@ -20,19 +20,13 @@ namespace StoryEngine
         /// <summary>
         /// Id of person who's perspective this relationship is from
         /// </summary>
-        public int SelfId
-        {
-            get { return selfId; }
-        }
+        public int SelfId { get { return selfId; } }
 
         private int otherId;
         /// <summary>
         /// Id of other person in relationship
         /// </summary>
-        public int OtherId
-        {
-            get { return otherId; }
-        }
+        public int OtherId { get { return otherId; } }
 
         private EthicsScale trust;
         /// <summary>
@@ -59,11 +53,19 @@ namespace StoryEngine
         /// </summary>
         private int durabilityOfTrust;
 
-
         /// <summary>
         /// If positive, progress towards next higher ethics level. If negative, progress towards next lowest level.
         /// </summary>
         private int durabilityOfEthics;
+
+        public Relationship Copy()
+        {
+            var theCopy = new Relationship(this.SelfId, this.OtherId, this.Trust, this.Ethics);
+            theCopy.durabilityOfEthics = this.durabilityOfEthics;
+            theCopy.durabilityOfTrust = this.durabilityOfTrust;
+
+            return theCopy;
+        }
 
         /// <summary>
         /// Increases or decreases trust, and also updates ethics to match. 
@@ -157,7 +159,6 @@ namespace StoryEngine
 
             return higher;
         }
-
 
         private EthicsScale LowerLevel(EthicsScale current)
         {

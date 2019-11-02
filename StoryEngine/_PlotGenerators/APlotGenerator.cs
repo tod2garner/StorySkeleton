@@ -8,18 +8,33 @@ namespace StoryEngine.PlotGenerators
 {
     public abstract class APlotGenerator : IPlotGenerator
     {
+        public const int MAX_EVENT_COUNT = 100;
+        public const int MAX_CHARACTER_COUNT = 20;
         protected const int DEFAULT_STARTING_CHARACTER_COUNT = 5;
 
-        public Plot GenerateNewPlot()
-        {
-            Plot p = new Plot(GetStartingCast());
+        //Implement concrete classes:
+        //      fully random events (ignoring prerequisites)
+        //      random events, only limited to prerequisites
+        //      genre random - blend of probabilities for genre (i.e. drama vs. action vs. mystery)
+        //      story arch, based on emotional magnitude scores (example: follow conflict-climax-resolve pattern, or others)
+        //Future:
+        //      given list of events to incorporate, fill in around them (using any method above)
 
-            LoadLibraryOfPossibleEvents();
+        private Plot plotInProgress;
+        private SocietySnapshot currentCast;
+        private List<IEvent> eventLibrary;
+
+        public Plot GenerateNewPlot(List<IEvent> givenEventLibrary)
+        {
+            this.eventLibrary = givenEventLibrary;
+
+            currentCast = GetStartingCast();
+            plotInProgress = new Plot(currentCast);
+
             CreateSequenceOfEvents();
 
-            return p;
+            return plotInProgress;
         }
-        
 
         protected SocietySnapshot GetStartingCast()
         {
@@ -27,14 +42,9 @@ namespace StoryEngine.PlotGenerators
             return castFactory.CreateStartingCast(DEFAULT_STARTING_CHARACTER_COUNT);
         }
 
-        protected void LoadLibraryOfPossibleEvents()
+        protected void StoreSnapshot()
         {
-            throw new NotImplementedException();
-        }
-
-        protected void StoreSnapshotAfterEvent()
-        {
-            throw new NotImplementedException();
+            plotInProgress.TheCastOverTime.Add(currentCast.Copy());
         }
 
         protected abstract void CreateSequenceOfEvents();

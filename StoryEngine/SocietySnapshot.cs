@@ -20,5 +20,15 @@ namespace StoryEngine
         public List<Character> AllCharacters { get { return allCharacters; } }
 
         //Future: implement generic groups (ie races, nationalities, economic classes)
+
+        public SocietySnapshot Copy()
+        {
+            var theCopy = new SocietySnapshot();
+
+            foreach (Character c in AllCharacters)
+                theCopy.AllCharacters.Add(c.Copy());
+
+            return theCopy;
+        }
     }
 }

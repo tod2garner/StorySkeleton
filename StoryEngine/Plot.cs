@@ -11,9 +11,6 @@ namespace StoryEngine
     /// </summary>
     public class Plot
     {
-        public const int MAX_EVENT_COUNT = 100;
-        public const int MAX_CHARACTER_COUNT = 20;
-
         public Plot(SocietySnapshot givenStartingCast)
         {
             startingCast = givenStartingCast;
