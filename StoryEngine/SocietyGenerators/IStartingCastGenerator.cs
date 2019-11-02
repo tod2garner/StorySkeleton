@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace StoryEngine.SocietyGenerators
 {
-    public interface IRandomCharacterGenerator
+    public interface IStartingCastGenerator
     {
-        Character CreateCharacter(int id, string name);
+        SocietySnapshot CreateStartingCast(int characterCount);
     }
 }

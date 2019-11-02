@@ -56,5 +56,9 @@ namespace StoryEngine
             set { baseMorality = value; }
         }
 
+        public bool IsAcquaintedWith(int otherCharacterId)
+        {
+            return AllRelations.Any(r => r.OtherId == otherCharacterId);
+        }
     }
 }

@@ -11,6 +11,11 @@ namespace StoryEngine
     /// </summary>
     public class SocietySnapshot
     {
+        public SocietySnapshot()
+        {
+            allCharacters = new List<Character>();
+        }
+
         private List<Character> allCharacters;
         public List<Character> AllCharacters { get { return allCharacters; } }
 

@@ -11,7 +11,7 @@ namespace StoryEngine
     /// </summary>
     public class ParticipantRole
     {
-        ParticipantRole()
+        public ParticipantRole()
         {
             theParticipants = new List<Character>();
             allPossibleOutcomes = new List<PossibleOutcome>();

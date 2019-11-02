@@ -8,11 +8,21 @@ namespace StoryEngine
 {
     public class Relationship
     {
-        public Relationship(int givenOtherId, EthicsScale initialTrust, EthicsScale initialEthics)
+        public Relationship(int givenSelfId, int givenOtherId, EthicsScale initialTrust, EthicsScale initialEthics)
         {
+            this.selfId = givenSelfId;
             this.otherId = givenOtherId;
-            trust = initialTrust;
-            ethics = initialEthics;
+            this.trust = initialTrust;
+            this.ethics = initialEthics;
+        }
+
+        private int selfId;
+        /// <summary>
+        /// Id of person who's perspective this relationship is from
+        /// </summary>
+        public int SelfId
+        {
+            get { return selfId; }
         }
 
         private int otherId;
