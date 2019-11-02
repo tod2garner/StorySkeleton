@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace StoryEngine
 {
     /// <summary>
-    /// Group of characters playing the same role within a specific event.
+    /// Group of characters playing the same role within a specific incident.
     /// </summary>
     public class ParticipantRole
     {

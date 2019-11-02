@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    public interface IEvent
+    public interface IIncident
     {        
         bool AreAllPrerequisitesMet(SocietySnapshot currentCast);
     }

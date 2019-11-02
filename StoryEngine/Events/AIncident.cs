@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    public abstract class AEvent : IEvent
+    public abstract class AIncident : IIncident
     {
-        //Future: triggers, chance to trigger other event(s)
+        //Future: triggers, chance to trigger other incident(s)
         
         public bool AreAllPrerequisitesMet(SocietySnapshot currentCast)
         {

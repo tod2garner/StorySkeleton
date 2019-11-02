@@ -8,6 +8,6 @@ namespace StoryEngine.PlotGenerators
 {
     public interface IPlotGenerator
     {
-        Plot GenerateNewPlot(List<IEvent> givenEventLibrary);
+        Plot GenerateNewPlot(IncidentLibrary givenPossibleIncidents);
     }
 }

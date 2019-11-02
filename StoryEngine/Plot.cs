@@ -14,12 +14,12 @@ namespace StoryEngine
         public Plot(SocietySnapshot givenStartingCast)
         {
             startingCast = givenStartingCast;
-            theEvents = new List<IEvent>();
+            theIncidents = new List<IIncident>();
             theCastOverTime = new List<SocietySnapshot>();
         }
 
-        private List<IEvent> theEvents;
-        public List<IEvent> TheEvents { get { return theEvents; } }
+        private List<IIncident> theIncidents;
+        public List<IIncident> TheIncidents { get { return theIncidents; } }
 
         /// <summary>
         /// Character information before Event #1

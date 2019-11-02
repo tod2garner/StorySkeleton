@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace StoryEngine
 {
     /// <summary>
-    /// Defines conditions that participants must meet to be included in an event
+    /// Defines conditions that participants must meet to be included in an incident
     /// </summary>
     public abstract class APrerequisite : IPrerequisite
     {

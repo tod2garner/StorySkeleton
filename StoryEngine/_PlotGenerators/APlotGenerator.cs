@@ -8,7 +8,7 @@ namespace StoryEngine.PlotGenerators
 {
     public abstract class APlotGenerator : IPlotGenerator
     {
-        public const int MAX_EVENT_COUNT = 100;
+        public const int MAX_INCIDENT_COUNT = 100;
         public const int MAX_CHARACTER_COUNT = 20;
         protected const int DEFAULT_STARTING_CHARACTER_COUNT = 5;
 
@@ -22,11 +22,11 @@ namespace StoryEngine.PlotGenerators
 
         private Plot plotInProgress;
         private SocietySnapshot currentCast;
-        private List<IEvent> eventLibrary;
+        private IncidentLibrary possibleIncidents;
 
-        public Plot GenerateNewPlot(List<IEvent> givenEventLibrary)
+        public Plot GenerateNewPlot(IncidentLibrary givenPossibleIncidents)
         {
-            this.eventLibrary = givenEventLibrary;
+            this.possibleIncidents = givenPossibleIncidents;
 
             currentCast = GetStartingCast();
             plotInProgress = new Plot(currentCast);
