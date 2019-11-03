@@ -35,7 +35,7 @@ namespace StoryEngine.SocietyGenerators
 
         protected void CreateStartingRelationships(SocietySnapshot s, Random rng = null)
         {
-            RelationshipGenerator_Default relationFactory = new RelationshipGenerator_Default();
+            Character.RelationshipGenerator = new RelationshipGenerator_Default();
 
             if(rng == null)
                 rng = new Random();
@@ -57,14 +57,14 @@ namespace StoryEngine.SocietyGenerators
                     if (rng.Next(0, 100) < percentChance)
                     {
                         var other = unrelated[rng.Next(0, unrelated.Count)];
-                        c.AllRelations.Add(relationFactory.CreateRelationship(c, other));
+                        c.CreateRelationshipWith(other);
 
                         if (other.IsAcquaintedWith(c.Id) == false)
                         {
                             //Most relationships are two way 
                             //  rare for one person to trust another when other doesn't even know them
                             if (rng.Next(0, 100) < PERCENT_CHANCE_FOR_ONEWAY_RELATIONSHIP)
-                                other.AllRelations.Add(relationFactory.CreateRelationship(other, c));
+                                other.CreateRelationshipWith(c);
                         }
                     }
                 }

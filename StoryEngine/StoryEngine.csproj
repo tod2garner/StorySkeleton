@@ -41,8 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\IncidentLibrary.cs" />
+    <Compile Include="Outcomes\MultiOutcome.cs" />
+    <Compile Include="Outcomes\Outcome_ChangeTrust.cs" />
+    <Compile Include="Outcomes\Outcome_ChangeTrust_Divergent.cs" />
+    <Compile Include="Outcomes\Outcome_ChangeTrust_Mutual.cs" />
     <Compile Include="ParticipantRole.cs" />
-    <Compile Include="Outcomes\PossibleOutcome.cs" />
+    <Compile Include="PossibleResult.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\AIncident.cs" />

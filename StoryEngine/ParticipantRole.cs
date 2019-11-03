@@ -14,20 +14,20 @@ namespace StoryEngine
         public ParticipantRole()
         {
             theParticipants = new List<Character>();
-            allPossibleOutcomes = new List<PossibleOutcome>();
+            allPossibleOutcomes = new List<PossibleResult>();
         }
 
         private List<Character> theParticipants;
         public List<Character> Participants { get { return theParticipants; } }
         
-        private List<PossibleOutcome> allPossibleOutcomes;
-        public List<PossibleOutcome> AllPossibleOutcomes { get { return allPossibleOutcomes; } }        
+        private List<PossibleResult> allPossibleOutcomes;
+        public List<PossibleResult> AllPossibleOutcomes { get { return allPossibleOutcomes; } }        
 
         public bool IsOutcome100Percent()
         {
             int totalOutcomePercent = 0;
 
-            foreach(PossibleOutcome p in allPossibleOutcomes)
+            foreach(PossibleResult p in allPossibleOutcomes)
             {
                 totalOutcomePercent += p.PercentChance;
             }

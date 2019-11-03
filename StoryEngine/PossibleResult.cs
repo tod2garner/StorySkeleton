@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    public class PossibleOutcome
+    public class PossibleResult
     {
-        public PossibleOutcome(int thePercentChance, IOutcome givenOutcome)
+        public PossibleResult(int thePercentChance, IOutcome givenOutcome)
         {
             if(givenOutcome == null)
                 throw new ArgumentNullException();

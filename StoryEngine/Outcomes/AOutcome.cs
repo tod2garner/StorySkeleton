@@ -8,17 +8,10 @@ namespace StoryEngine
 {
     public abstract class AOutcome : IOutcome
     {
-        //Concrete classes to create:
-        // MutualChangeInTrust (increase/decrease)
-        // DirectionalChangeInTrust (one side changes, other does not)     
-        // DivergentChangeInTrust (one side opposite other)
-        // For list of participants, partial inclusion for one or both sides
-        
+        //#TODO
+        //  For list of participants, partial inclusion for one or both sides
         // Future: personalilty change outcomes
 
-        public void Execute()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Execute();
     }
 }

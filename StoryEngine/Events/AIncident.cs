@@ -24,6 +24,7 @@ namespace StoryEngine
         //Concrete classes
         //          One role - participants
         //          Two role - acting, acted upon
+        //          3 roles  - acting, acted upon, interrupting (e.g. hero rescues victim from attackers)
         //Future:
         //      Add classes with observer roles
         //      Multi-stage events - recursive triggers, and option to force a final trigger (e.g. deception)

@@ -14,7 +14,8 @@ namespace StoryEngine
         //Specifically, need way to align participant selection across roles, as prereqs are by role        
 
         //Abstract classes to create:
-        //  quantity rule (min/max role count)
+        //  quantity rule (min/max role count) 
+        //      - by default, if no min role count on event, role can be left empty and filled by unnamed minor character
         //  relation rule
         //      for a single role (e.g. conversation = mutual min trust)
         //      for two roles (e.g. betrayal = ethics for one, trust for other)

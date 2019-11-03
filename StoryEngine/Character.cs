@@ -3,11 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StoryEngine.SocietyGenerators;
 
 namespace StoryEngine
 {
     public class Character
     {
+        private static IRelationshipGenerator relationshipGenerator;
+        public static IRelationshipGenerator RelationshipGenerator
+        {
+            get
+            {
+                if (relationshipGenerator == null)
+                    relationshipGenerator = new RelationshipGenerator_Default();
+
+                return relationshipGenerator;
+            }
+            set { relationshipGenerator = value; }
+        }
+
         public Character(int givenId, string givenName)
         {
             this.id = givenId;
@@ -68,9 +82,24 @@ namespace StoryEngine
             return theCopy;
         }
 
+        public void CreateRelationshipWith(Character target)
+        {
+            var newRelation = RelationshipGenerator.CreateRelationship(this, target);
+            this.AllRelations.Add(newRelation);
+        }
+
         public bool IsAcquaintedWith(int otherCharacterId)
         {
             return AllRelations.Any(r => r.OtherId == otherCharacterId);
+        }
+
+        public void ChangeTrust(int magnitude, Character target)
+        {
+            if (this.IsAcquaintedWith(target.Id) == false)
+                CreateRelationshipWith(target);
+
+            var relation = this.AllRelations.First(r => r.OtherId == target.Id);
+            relation.ChangeTrust(magnitude, this.BaseSuspicion, this.BaseMorality);
         }
     }
 }
