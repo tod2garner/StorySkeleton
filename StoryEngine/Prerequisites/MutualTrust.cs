@@ -74,9 +74,8 @@ namespace StoryEngine
             return (this.AreRoleMinMaxCountsMet() && this.IsMetByCurrentParticipants());
         }
 
-        protected bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
+        protected virtual bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
-            //#TODO - create companion class using "GetEthicsTowards" with all other logic identical
             return PassesBenchmark(a.GetTrustTowards(b.Id)) && PassesBenchmark(b.GetTrustTowards(a.Id));
         }
 
@@ -112,6 +111,36 @@ namespace StoryEngine
     {
         /// <param name="maximum">Inclusive maximum trust value</param>
         public MutualTrust_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole) { }
+
+        protected override bool PassesBenchmark(EthicsScale value)
+        {
+            return value <= this.benchmarkTrust;
+        }
+    }
+
+    public abstract class MutualEthics : MutualTrust
+    {
+        protected override bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
+        {
+            return PassesBenchmark(a.GetEthicsTowards(b.Id)) && PassesBenchmark(b.GetEthicsTowards(a.Id));
+        }
+    }
+
+    public class MutualEthics_Min : MutualEthics
+    {
+        /// <param name="minimum">Inclusive minimum ethics value</param>
+        public MutualEthics_Min(EthicsScale minimum, IncidentRole whichRole) : base(minimum, whichRole) { }
+
+        protected override bool PassesBenchmark(EthicsScale value)
+        {
+            return value >= this.benchmarkTrust;
+        }
+    }
+
+    public class MutualEthics_Max : MutualEthics
+    {
+        /// <param name="maximum">Inclusive maximum ethics value</param>
+        public MutualEthics_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
