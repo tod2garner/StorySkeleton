@@ -45,7 +45,7 @@
     <Compile Include="Outcomes\Outcome_ChangeTrust.cs" />
     <Compile Include="Outcomes\Outcome_ChangeTrust_Divergent.cs" />
     <Compile Include="Outcomes\Outcome_ChangeTrust_Mutual.cs" />
-    <Compile Include="ParticipantRole.cs" />
+    <Compile Include="IncidentRole.cs" />
     <Compile Include="PossibleResult.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Enums.cs" />
@@ -54,8 +54,11 @@
     <Compile Include="Outcomes\IOutcome.cs" />
     <Compile Include="Outcomes\AOutcome.cs" />
     <Compile Include="Plot.cs" />
+    <Compile Include="Prerequisites\ACrossRolePrerequisite.cs" />
     <Compile Include="Prerequisites\APrerequisite.cs" />
+    <Compile Include="Prerequisites\ARolePrerequisite.cs" />
     <Compile Include="Prerequisites\IPrerequisite.cs" />
+    <Compile Include="Prerequisites\MutualTrust.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship.cs" />
     <Compile Include="SocietyGenerators\IRandomCharacterGenerator.cs" />

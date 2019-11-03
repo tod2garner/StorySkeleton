@@ -10,13 +10,13 @@ namespace StoryEngine
     {
         //Future: triggers, chance to trigger other incident(s)
         
-        public bool AreAllPrerequisitesMet(SocietySnapshot currentCast)
+        public bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast)
         {
-            return !prerequisites.Any(p => p.CanBeFulfilled(currentCast) == false);
+            return !prerequisites.Any(p => p.TryToFulfill(currentCast) == false);
         }
 
-        private List<ParticipantRole> allParticipants;
-        public List<ParticipantRole> AllParticipants { get { return allParticipants; } }
+        private List<IncidentRole> allParticipants;
+        public List<IncidentRole> AllParticipants { get { return allParticipants; } }
 
         private List<IPrerequisite> prerequisites;
         public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }

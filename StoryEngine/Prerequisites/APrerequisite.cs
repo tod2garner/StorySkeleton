@@ -11,11 +11,9 @@ namespace StoryEngine
     /// </summary>
     public abstract class APrerequisite : IPrerequisite
     {
-        //Specifically, need way to align participant selection across roles, as prereqs are by role        
+        //#TODO        
 
         //Abstract classes to create:
-        //  quantity rule (min/max role count) 
-        //      - by default, if no min role count on event, role can be left empty and filled by unnamed minor character
         //  relation rule
         //      for a single role (e.g. conversation = mutual min trust)
         //      for two roles (e.g. betrayal = ethics for one, trust for other)
@@ -33,10 +31,9 @@ namespace StoryEngine
         //      unevenTrust_Larger
         //Future:
         //      ethics equivalents
-        
-        public bool CanBeFulfilled(SocietySnapshot currentCast)
-        {
-            throw new NotImplementedException();
-        }
+
+        public abstract bool TryToFulfill(SocietySnapshot currentCast, Random rng = null);
+
+        protected abstract bool AreRoleMinMaxCountsMet();
     }
 }

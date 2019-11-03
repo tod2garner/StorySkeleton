@@ -8,6 +8,6 @@ namespace StoryEngine
 {
     public interface IPrerequisite
     {
-        bool CanBeFulfilled(SocietySnapshot currentCast);
+        bool TryToFulfill(SocietySnapshot currentCast, Random rng = null);
     }
 }

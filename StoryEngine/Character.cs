@@ -84,13 +84,11 @@ namespace StoryEngine
 
         public void CreateRelationshipWith(Character target)
         {
+            if (target.Id == this.Id)
+                throw new ArgumentException("Cannot create relationship with self");
+
             var newRelation = RelationshipGenerator.CreateRelationship(this, target);
             this.AllRelations.Add(newRelation);
-        }
-
-        public bool IsAcquaintedWith(int otherCharacterId)
-        {
-            return AllRelations.Any(r => r.OtherId == otherCharacterId);
         }
 
         public void ChangeTrust(int magnitude, Character target)
@@ -100,6 +98,48 @@ namespace StoryEngine
 
             var relation = this.AllRelations.First(r => r.OtherId == target.Id);
             relation.ChangeTrust(magnitude, this.BaseSuspicion, this.BaseMorality);
+        }
+
+        public bool IsAcquaintedWith(int otherCharacterId)
+        {
+            return AllRelations.Any(r => r.OtherId == otherCharacterId);
+        }
+
+        public bool TrustLevelIsMutual(Character other)
+        {
+            var myTrustTowardsThem = this.GetTrustTowards(other.Id);
+            var theirTrustTowardsMe = other.GetTrustTowards(this.Id);
+
+            return myTrustTowardsThem == theirTrustTowardsMe;
+        }
+
+        public bool EthicsLevelIsMutual(Character other)
+        {
+            var myEthicsTowardsThem = this.GetEthicsTowards(other.Id);
+            var theirEthicsTowardsMe = other.GetEthicsTowards(this.Id);
+
+            return myEthicsTowardsThem == theirEthicsTowardsMe;
+        }
+
+        public EthicsScale? GetTrustTowards(int otherCharacterId)
+        {
+            if (this.IsAcquaintedWith(otherCharacterId) == false)
+                return null;
+            else
+            {
+                var relation = this.AllRelations.First(r => r.OtherId == otherCharacterId);
+                return relation.Trust;
+            }
+        }
+        public EthicsScale? GetEthicsTowards(int otherCharacterId)
+        {
+            if (this.IsAcquaintedWith(otherCharacterId) == false)
+                return null;
+            else
+            {
+                var relation = this.AllRelations.First(r => r.OtherId == otherCharacterId);
+                return relation.Ethics;
+            }
         }
     }
 }

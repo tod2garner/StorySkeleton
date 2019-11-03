@@ -31,8 +31,8 @@ namespace StoryEngine
 
     public enum Morality
     {
-        Exploit,        //hawk
-        Reciprocate,    //match
-        Forgive         //dove
+        Exploit = -1,        //hawk
+        Reciprocate = 0,     //match
+        Forgive = 1          //dove
     }
 }
