@@ -32,7 +32,9 @@ namespace StoryEngine
         //Future:
         //      ethics equivalents
 
-        public abstract bool TryToFulfill(SocietySnapshot currentCast, Random rng = null);
+        public abstract bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null);
+
+        public abstract bool IsMetByCurrentParticipants();
 
         protected abstract bool AreRoleMinMaxCountsMet();
     }

@@ -18,25 +18,36 @@ namespace StoryEngine
             this.role = whichRole;
         }
 
+        public override bool IsMetByCurrentParticipants()
+        {
+            foreach (Character a in role.Participants)
+            {
+                if (role.Participants.Any(b => (a.Id != b.Id) && (HaveMutualTrustThatPassesBenchmark(a, b) == false)))
+                    return false;
+            }
+
+            return true;
+        }
+
         //Rather than checking for the largest possible group with mutual trust,
         // we simply use a random starting point and try to form a qualifying group.
-        public override bool TryToFulfill(SocietySnapshot currentCast, Random rng = null)
+        public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null)
         {
             int maxParticipants = role.MaxCount.HasValue ? role.MaxCount.Value : IncidentRole.DEFAULT_ROLE_MAX_COUNT;
             int minParticipants = role.MinCount.HasValue ? role.MinCount.Value : 0; //role can be left empty, assumed filled by unnamed minor characters
-            
+
             List<Character> candidates = new List<Character>();
             foreach (Character a in currentCast.AllCharacters)
             {
-                int countQualifyingMutualTrust = currentCast.AllCharacters.Count(b => (b.Id != a.Id) && PassesBenchmark(a.GetTrustTowards(b.Id)) && PassesBenchmark(b.GetTrustTowards(a.Id)));
-                
+                int countQualifyingMutualTrust = currentCast.AllCharacters.Count(b => (b.Id != a.Id) && HaveMutualTrustThatPassesBenchmark(a, b));
+
                 if (countQualifyingMutualTrust >= minParticipants)
                     candidates.Add(a);
             }
 
             if (candidates.Any() == false)
                 return false;
-            
+
             if (rng == null)
                 rng = new Random();
 
@@ -44,7 +55,7 @@ namespace StoryEngine
             role.Participants.Add(firstChar);
             candidates.Remove(firstChar);
 
-            var finalCandidates = candidates.Where(b => PassesBenchmark(firstChar.GetTrustTowards(b.Id)) && PassesBenchmark(b.GetTrustTowards(firstChar.Id))).ToList();
+            var finalCandidates = candidates.Where(b => HaveMutualTrustThatPassesBenchmark(b, firstChar)).ToList();
 
             maxParticipants = System.Math.Min(maxParticipants, finalCandidates.Count);
             int targetCount = rng.Next(minParticipants, maxParticipants);
@@ -54,13 +65,19 @@ namespace StoryEngine
                 var nextChar = finalCandidates[rng.Next(0, finalCandidates.Count)];
                 finalCandidates.Remove(nextChar);
 
-                if (role.Participants.Any(p => PassesBenchmark(p.GetTrustTowards(nextChar.Id)) == false || PassesBenchmark(nextChar.GetTrustTowards(p.Id)) == false))
+                if (role.Participants.Any(p => HaveMutualTrustThatPassesBenchmark(p, nextChar) == false))
                     continue;
 
                 role.Participants.Add(nextChar);
             }
-            
-            return this.AreRoleMinMaxCountsMet();
+
+            return (this.AreRoleMinMaxCountsMet() && this.IsMetByCurrentParticipants());
+        }
+
+        protected bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
+        {
+            //#TODO - create companion class using "GetEthicsTowards" with all other logic identical
+            return PassesBenchmark(a.GetTrustTowards(b.Id)) && PassesBenchmark(b.GetTrustTowards(a.Id));
         }
 
         protected virtual bool PassesBenchmark(EthicsScale? value)
@@ -80,10 +97,7 @@ namespace StoryEngine
     public class MutualTrust_Min : MutualTrust
     {
         /// <param name="minimum">Inclusive minimum trust value</param>
-        public MutualTrust_Min(EthicsScale minimum, IncidentRole whichRole) : base(minimum, whichRole)
-        {
-            //Only calling base constructor
-        }
+        public MutualTrust_Min(EthicsScale minimum, IncidentRole whichRole) : base(minimum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -97,10 +111,7 @@ namespace StoryEngine
     public class MutualTrust_Max : MutualTrust
     {
         /// <param name="maximum">Inclusive maximum trust value</param>
-        public MutualTrust_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole)
-        {
-            //Only calling base constructor
-        }
+        public MutualTrust_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {

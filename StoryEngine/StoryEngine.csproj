@@ -57,6 +57,7 @@
     <Compile Include="Prerequisites\ACrossRolePrerequisite.cs" />
     <Compile Include="Prerequisites\APrerequisite.cs" />
     <Compile Include="Prerequisites\ARolePrerequisite.cs" />
+    <Compile Include="Prerequisites\DirectionalTrust.cs" />
     <Compile Include="Prerequisites\IPrerequisite.cs" />
     <Compile Include="Prerequisites\MutualTrust.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

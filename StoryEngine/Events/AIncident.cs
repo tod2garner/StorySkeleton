@@ -12,7 +12,7 @@ namespace StoryEngine
         
         public bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast)
         {
-            return !prerequisites.Any(p => p.TryToFulfill(currentCast) == false);
+            return !prerequisites.Any(p => p.TryToFulfillFromScratch(currentCast) == false);
         }
 
         private List<IncidentRole> allParticipants;
