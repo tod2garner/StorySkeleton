@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace UnitTests
 {
     [TestClass]
-    public class UnitTests1
+    public class zScratchPaper
     {
         [TestMethod]
-        public void ScratchPaper()
+        public void z__ScratchPaper()
         {
             IncidentRole hunters = new IncidentRole();
             hunters.AllPossibleOutcomes.Add(new PossibleResult(30, new Outcome_ChangeTrust_Mutual(1, hunters.Participants, hunters.Participants)));

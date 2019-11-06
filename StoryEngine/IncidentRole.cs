@@ -54,7 +54,7 @@ namespace StoryEngine
         private List<PossibleResult> allPossibleOutcomes;
         public List<PossibleResult> AllPossibleOutcomes { get { return allPossibleOutcomes; } }        
         
-        public bool IsOutcome100Percent()
+        public bool IsOutcomeTotal100Percent()
         {
             int totalOutcomePercent = 0;
 

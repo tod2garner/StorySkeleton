@@ -30,24 +30,13 @@ namespace StoryEngine
         }
 
         private int id;
-        public int Id
-        {
-            get { return id; }
-        }
+        public int Id { get { return id; } }
 
         private string name;
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get { return name; } }
 
         private List<Relationship> allRelations;
-        public List<Relationship> AllRelations
-        {
-            get { return allRelations; }
-            set { allRelations = value; }
-        }
+        public List<Relationship> AllRelations { get { return allRelations; } }
 
         private SuspicionScale baseSuspicion;
         /// <summary>
@@ -86,6 +75,9 @@ namespace StoryEngine
         {
             if (target.Id == this.Id)
                 throw new ArgumentException("Cannot create relationship with self");
+
+            if(this.AllRelations.Any(r => r.OtherId == target.Id))
+                throw new ArgumentException("Relationship with target already exists");
 
             var newRelation = RelationshipGenerator.CreateRelationship(this, target);
             this.AllRelations.Add(newRelation);

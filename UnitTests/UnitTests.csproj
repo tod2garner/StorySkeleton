@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTests1.cs" />
+    <Compile Include="UtCharacter.cs" />
+    <Compile Include="UtRelationship.cs" />
+    <Compile Include="UtRole.cs" />
+    <Compile Include="zScratchPaper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
