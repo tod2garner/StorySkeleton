@@ -24,12 +24,12 @@ namespace StoryEngine
 
         private void LoadFromFile()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //#TODO
         }
 
         private void SaveToFile()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();//#TODO
         }
     }
 }

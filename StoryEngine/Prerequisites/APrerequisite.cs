@@ -12,26 +12,15 @@ namespace StoryEngine
     public abstract class APrerequisite : IPrerequisite
     {
         //#TODO        
+        
+        //Concrete classes to create:
+        //      unevenTrust_Smaller
+        //      unevenTrust_Larger
 
-        //Abstract classes to create:
-        //  relation rule
-        //      for a single role (e.g. conversation = mutual min trust)
-        //      for two roles (e.g. betrayal = ethics for one, trust for other)
         //Future:
         //  character trait rule (e.g. baseSuspicion min/max)
         //      used for interactions with minor/un-named characters?
-
-
-        //Concrete classes to create:
-        //      minTrust
-        //      maxTrust
-        //      exactTrust
-        //      mutualTrust_Min/Max/Exact
-        //      unevenTrust_Smaller
-        //      unevenTrust_Larger
-        //Future:
-        //      ethics equivalents
-
+        
         public abstract bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null);
 
         public abstract bool IsMetByCurrentParticipants();

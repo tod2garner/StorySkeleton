@@ -93,6 +93,9 @@ namespace StoryEngine
 
         public void ChangeTrust(int magnitude, Character target)
         {
+            if (magnitude == 0 || this.Id == target.Id)
+                return;
+
             if (this.IsAcquaintedWith(target.Id) == false)
                 CreateRelationshipWith(target);
 

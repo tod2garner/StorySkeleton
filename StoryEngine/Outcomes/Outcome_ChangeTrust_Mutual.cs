@@ -8,10 +8,10 @@ namespace StoryEngine
 {
     public class Outcome_ChangeTrust_Mutual : MultiOutcome
     {
-        public Outcome_ChangeTrust_Mutual(int magnitude, List<Character> selfList, List<Character> targetList)
+        public Outcome_ChangeTrust_Mutual(int magnitude, List<Character> listA, List<Character> listB) : base()
         {
-            this.theOutcomes.Add(new Outcome_ChangeTrust(magnitude, selfList, targetList));
-            this.theOutcomes.Add(new Outcome_ChangeTrust(magnitude, targetList, selfList));
-        }        
+            this.theOutcomes.Add(new Outcome_ChangeTrust(magnitude, listA, listB));
+            this.theOutcomes.Add(new Outcome_ChangeTrust(magnitude, listB, listA));
+        }
     }
 }

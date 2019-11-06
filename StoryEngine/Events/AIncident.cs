@@ -8,18 +8,7 @@ namespace StoryEngine
 {
     public abstract class AIncident : IIncident
     {
-        //Future: triggers, chance to trigger other incident(s)
-        
-        public bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast)
-        {
-            return !prerequisites.Any(p => p.TryToFulfillFromScratch(currentCast) == false);
-        }
-
-        private List<IncidentRole> allParticipants;
-        public List<IncidentRole> AllParticipants { get { return allParticipants; } }
-
-        private List<IPrerequisite> prerequisites;
-        public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
+        //#TODO Future: triggers, chance to trigger other incident(s)
 
         //Concrete classes
         //          One role - participants
@@ -28,5 +17,21 @@ namespace StoryEngine
         //Future:
         //      Add classes with observer roles
         //      Multi-stage events - recursive triggers, and option to force a final trigger (e.g. deception)
+
+        public AIncident(List<IPrerequisite> givenPrereqs)
+        {
+            prerequisites = givenPrereqs;
+        }
+        
+        public bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast)
+        {
+            var primaryPrereq = MyPrerequisites.First(); //first in list always given priority
+            primaryPrereq.TryToFulfillFromScratch(currentCast);
+
+            return !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
+        }        
+
+        protected List<IPrerequisite> prerequisites;
+        public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
     }
 }

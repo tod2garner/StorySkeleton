@@ -10,6 +10,11 @@ namespace StoryEngine
     {
         protected List<IOutcome> theOutcomes;
 
+        protected MultiOutcome()
+        {
+            theOutcomes = new List<IOutcome>();
+        }
+
         public override void Execute()
         {
             foreach (IOutcome o in theOutcomes)

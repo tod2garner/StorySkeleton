@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\IncidentLibrary.cs" />
+    <Compile Include="Events\Incident_OneRole.cs" />
     <Compile Include="Outcomes\MultiOutcome.cs" />
     <Compile Include="Outcomes\Outcome_ChangeTrust.cs" />
     <Compile Include="Outcomes\Outcome_ChangeTrust_Divergent.cs" />
