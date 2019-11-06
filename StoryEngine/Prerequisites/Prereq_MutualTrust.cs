@@ -8,11 +8,11 @@ namespace StoryEngine
 {
     //#TODO - add unit tests
 
-    public abstract class MutualTrust : ARolePrerequisite
+    public abstract class Prereq_MutualTrust : ARolePrerequisite
     {
         protected EthicsScale benchmarkTrust;
 
-        public MutualTrust(EthicsScale benchmark, IncidentRole whichRole)
+        public Prereq_MutualTrust(EthicsScale benchmark, IncidentRole whichRole)
         {
             benchmarkTrust = benchmark;
             this.role = whichRole;
@@ -39,9 +39,9 @@ namespace StoryEngine
             List<Character> candidates = new List<Character>();
             foreach (Character a in currentCast.AllCharacters)
             {
-                int countQualifyingMutualTrust = currentCast.AllCharacters.Count(b => (b.Id != a.Id) && HaveMutualTrustThatPassesBenchmark(a, b));
+                int countQualifyingRelations = currentCast.AllCharacters.Count(b => (b.Id != a.Id) && HaveMutualTrustThatPassesBenchmark(a, b));
 
-                if (countQualifyingMutualTrust >= minParticipants)
+                if (countQualifyingRelations >= minParticipants)
                     candidates.Add(a);
             }
 
@@ -58,7 +58,7 @@ namespace StoryEngine
             var finalCandidates = candidates.Where(b => HaveMutualTrustThatPassesBenchmark(b, firstChar)).ToList();
 
             maxParticipants = System.Math.Min(maxParticipants, finalCandidates.Count);
-            int targetCount = rng.Next(minParticipants, maxParticipants);
+            int targetCount = rng.Next(minParticipants, maxParticipants + 1);
 
             while (finalCandidates.Any() && role.Participants.Count < targetCount)
             {
@@ -93,7 +93,7 @@ namespace StoryEngine
     /// <summary>
     /// Every character in the role must trust each other character in the role at least this much (inclusive min)
     /// </summary>
-    public class MutualTrust_Min : MutualTrust
+    public class MutualTrust_Min : Prereq_MutualTrust
     {
         /// <param name="minimum">Inclusive minimum trust value</param>
         public MutualTrust_Min(EthicsScale minimum, IncidentRole whichRole) : base(minimum, whichRole) { }
@@ -107,7 +107,7 @@ namespace StoryEngine
     /// <summary>
     /// Every character in the role must trust each other character in the role no greater than max (inclusive)
     /// </summary>
-    public class MutualTrust_Max : MutualTrust
+    public class MutualTrust_Max : Prereq_MutualTrust
     {
         /// <param name="maximum">Inclusive maximum trust value</param>
         public MutualTrust_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole) { }
@@ -118,8 +118,10 @@ namespace StoryEngine
         }
     }
 
-    public abstract class MutualEthics : MutualTrust
+    public abstract class MutualEthics : Prereq_MutualTrust
     {
+        public MutualEthics(EthicsScale benchmark, IncidentRole whichRole) : base(benchmark, whichRole) { }
+
         protected override bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
             return PassesBenchmark(a.GetEthicsTowards(b.Id)) && PassesBenchmark(b.GetEthicsTowards(a.Id));
