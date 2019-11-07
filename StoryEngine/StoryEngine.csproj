@@ -40,18 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\IncidentLibrary.cs" />
-    <Compile Include="Events\Incident_OneRole.cs" />
-    <Compile Include="Outcomes\MultiOutcome.cs" />
+    <Compile Include="Incidents\IncidentLibrary.cs" />
+    <Compile Include="Incidents\Incident.cs" />
     <Compile Include="Outcomes\Outcome_ChangeTrust.cs" />
-    <Compile Include="Outcomes\Outcome_ChangeTrust_Divergent.cs" />
-    <Compile Include="Outcomes\Outcome_ChangeTrust_Mutual.cs" />
-    <Compile Include="IncidentRole.cs" />
+    <Compile Include="Role.cs" />
     <Compile Include="PossibleResult.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Events\AIncident.cs" />
-    <Compile Include="Events\IIncident.cs" />
+    <Compile Include="Incidents\AIncident.cs" />
+    <Compile Include="Incidents\IIncident.cs" />
     <Compile Include="Outcomes\IOutcome.cs" />
     <Compile Include="Outcomes\AOutcome.cs" />
     <Compile Include="Plot.cs" />

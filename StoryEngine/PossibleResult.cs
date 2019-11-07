@@ -8,23 +8,18 @@ namespace StoryEngine
 {
     public class PossibleResult
     {
-        public PossibleResult(int thePercentChance, IOutcome givenOutcome)
+        public PossibleResult(int thePercentChance)
         {
-            if(givenOutcome == null)
-                throw new ArgumentNullException();
 
             if (thePercentChance > 100 || thePercentChance < 1)
                 throw new ArgumentOutOfRangeException();
 
             this.percentChance = thePercentChance;
-            this.theOutcome = givenOutcome;
+            this.theOutcomes = new List<IOutcome>();
         }
-        
-        private IOutcome theOutcome;
-        public IOutcome TheOutcome
-        {
-            get { return theOutcome; }
-        }
+
+        private List<IOutcome> theOutcomes;
+        public List<IOutcome> TheOutcomes { get { return theOutcomes; } }
 
         private int percentChance;
         /// <summary>
@@ -33,6 +28,14 @@ namespace StoryEngine
         public int PercentChance
         {
             get { return percentChance; }
+        }
+
+        public void Execute()
+        {
+            foreach (var o in TheOutcomes)
+            {
+                o.Execute();
+            }
         }
     }
 }

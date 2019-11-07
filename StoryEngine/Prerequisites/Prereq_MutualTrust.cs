@@ -12,7 +12,7 @@ namespace StoryEngine
     {
         protected EthicsScale benchmarkTrust;
 
-        public Prereq_MutualTrust(EthicsScale benchmark, IncidentRole whichRole)
+        public Prereq_MutualTrust(EthicsScale benchmark, Role whichRole)
         {
             benchmarkTrust = benchmark;
             this.role = whichRole;
@@ -33,7 +33,7 @@ namespace StoryEngine
         // we simply use a random starting point and try to form a qualifying group.
         public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null)
         {
-            int maxParticipants = role.MaxCount.HasValue ? role.MaxCount.Value : IncidentRole.DEFAULT_ROLE_MAX_COUNT;
+            int maxParticipants = role.MaxCount.HasValue ? role.MaxCount.Value : Role.DEFAULT_ROLE_MAX_COUNT;
             int minParticipants = role.MinCount.HasValue ? role.MinCount.Value : 0; //role can be left empty, assumed filled by unnamed minor characters
 
             List<Character> candidates = new List<Character>();
@@ -96,7 +96,7 @@ namespace StoryEngine
     public class MutualTrust_Min : Prereq_MutualTrust
     {
         /// <param name="minimum">Inclusive minimum trust value</param>
-        public MutualTrust_Min(EthicsScale minimum, IncidentRole whichRole) : base(minimum, whichRole) { }
+        public MutualTrust_Min(EthicsScale minimum, Role whichRole) : base(minimum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -110,7 +110,7 @@ namespace StoryEngine
     public class MutualTrust_Max : Prereq_MutualTrust
     {
         /// <param name="maximum">Inclusive maximum trust value</param>
-        public MutualTrust_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole) { }
+        public MutualTrust_Max(EthicsScale maximum, Role whichRole) : base(maximum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -120,7 +120,7 @@ namespace StoryEngine
 
     public abstract class MutualEthics : Prereq_MutualTrust
     {
-        public MutualEthics(EthicsScale benchmark, IncidentRole whichRole) : base(benchmark, whichRole) { }
+        public MutualEthics(EthicsScale benchmark, Role whichRole) : base(benchmark, whichRole) { }
 
         protected override bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
@@ -131,7 +131,7 @@ namespace StoryEngine
     public class MutualEthics_Min : MutualEthics
     {
         /// <param name="minimum">Inclusive minimum ethics value</param>
-        public MutualEthics_Min(EthicsScale minimum, IncidentRole whichRole) : base(minimum, whichRole) { }
+        public MutualEthics_Min(EthicsScale minimum, Role whichRole) : base(minimum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -142,7 +142,7 @@ namespace StoryEngine
     public class MutualEthics_Max : MutualEthics
     {
         /// <param name="maximum">Inclusive maximum ethics value</param>
-        public MutualEthics_Max(EthicsScale maximum, IncidentRole whichRole) : base(maximum, whichRole) { }
+        public MutualEthics_Max(EthicsScale maximum, Role whichRole) : base(maximum, whichRole) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {

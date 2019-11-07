@@ -18,20 +18,37 @@ namespace StoryEngine
         //      Add classes with observer roles
         //      Multi-stage events - recursive triggers, and option to force a final trigger (e.g. deception)
 
-        public AIncident(List<IPrerequisite> givenPrereqs)
+        public AIncident()
         {
-            prerequisites = givenPrereqs;
+            prerequisites = new List<IPrerequisite>();
+            allPossibleOutcomes = new List<PossibleResult>();
         }
         
+        protected List<IPrerequisite> prerequisites;
+        public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
+        
+        private List<PossibleResult> allPossibleOutcomes;
+        public List<PossibleResult> AllPossibleOutcomes { get { return allPossibleOutcomes; } }
+
+
         public bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast)
         {
             var primaryPrereq = MyPrerequisites.First(); //first in list always given priority
             primaryPrereq.TryToFulfillFromScratch(currentCast);
 
             return !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
-        }        
+        }
 
-        protected List<IPrerequisite> prerequisites;
-        public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
+        public bool IsOutcomeTotal100Percent()
+        {
+            int totalOutcomePercent = 0;
+
+            foreach (PossibleResult p in allPossibleOutcomes)
+            {
+                totalOutcomePercent += p.PercentChance;
+            }
+
+            return totalOutcomePercent == 100;
+        }
     }
 }

@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UtCharacter.cs" />
+    <Compile Include="UtIncident.cs" />
+    <Compile Include="UtOutcome.cs" />
     <Compile Include="UtRelationship.cs" />
     <Compile Include="UtRole.cs" />
     <Compile Include="zScratchPaper.cs" />

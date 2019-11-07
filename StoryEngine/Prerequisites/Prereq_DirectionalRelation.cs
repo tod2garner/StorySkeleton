@@ -10,7 +10,7 @@ namespace StoryEngine
 
     public abstract class Prereq_DirectionalRelation : ACrossRolePrerequisite
     {
-        public Prereq_DirectionalRelation(IncidentRole roleA, IncidentRole roleB)
+        public Prereq_DirectionalRelation(Role roleA, Role roleB)
         {
             this.roleAlpha = roleA;
             this.roleBeta = roleB;
@@ -62,13 +62,13 @@ namespace StoryEngine
             return (this.AreRoleMinMaxCountsMet() && this.IsMetByCurrentParticipants());
         }
 
-        protected static void AddParticipantsRandomly(IncidentRole theRole, List<Character> theCandidates, Random rng = null)
+        protected static void AddParticipantsRandomly(Role theRole, List<Character> theCandidates, Random rng = null)
         {
             if (rng == null)
                 rng = new Random();
 
             int min = theRole.MinCount.HasValue ? theRole.MinCount.Value : 0; //role can be left empty, assumed filled by unnamed minor characters
-            int max = theRole.MaxCount.HasValue ? theRole.MaxCount.Value : IncidentRole.DEFAULT_ROLE_MAX_COUNT;
+            int max = theRole.MaxCount.HasValue ? theRole.MaxCount.Value : Role.DEFAULT_ROLE_MAX_COUNT;
             max = System.Math.Min(max, theCandidates.Count);
 
             int targetCount = rng.Next(min, max + 1);
@@ -88,7 +88,7 @@ namespace StoryEngine
     {
         protected EthicsScale benchmarkTrust_AtoB;
 
-        public DirectionalEthics(IncidentRole roleA, IncidentRole roleB, EthicsScale trust_AtoB) : base(roleA, roleB)
+        public DirectionalEthics(Role roleA, Role roleB, EthicsScale trust_AtoB) : base(roleA, roleB)
         {
             benchmarkTrust_AtoB = trust_AtoB;
         }
@@ -113,7 +113,7 @@ namespace StoryEngine
     {
         protected EthicsScale benchmarkTrust_AtoB;
 
-        public DirectionalTrust(IncidentRole roleA, IncidentRole roleB, EthicsScale trust_AtoB) : base(roleA, roleB)
+        public DirectionalTrust(Role roleA, Role roleB, EthicsScale trust_AtoB) : base(roleA, roleB)
         {
             benchmarkTrust_AtoB = trust_AtoB;
         }
@@ -137,7 +137,7 @@ namespace StoryEngine
     public class DirectionalEthics_Min : DirectionalEthics
     {
         /// <param name="minimum_AtoB">Inclusive minimum ethics value</param>
-        public DirectionalEthics_Min(IncidentRole roleA, IncidentRole roleB, EthicsScale minimum_AtoB) : base(roleA, roleB, minimum_AtoB) { }
+        public DirectionalEthics_Min(Role roleA, Role roleB, EthicsScale minimum_AtoB) : base(roleA, roleB, minimum_AtoB) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -148,7 +148,7 @@ namespace StoryEngine
     public class DirectionalEthics_Max : DirectionalEthics
     {
         /// <param name="maximum_AtoB">Inclusive maximum ethics value</param>
-        public DirectionalEthics_Max(IncidentRole roleA, IncidentRole roleB, EthicsScale maximum_AtoB) : base(roleA, roleB, maximum_AtoB) { }
+        public DirectionalEthics_Max(Role roleA, Role roleB, EthicsScale maximum_AtoB) : base(roleA, roleB, maximum_AtoB) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -159,7 +159,7 @@ namespace StoryEngine
     public class DirectionalTrust_Min : DirectionalTrust
     {
         /// <param name="minimum_AtoB">Inclusive minimum trust value</param>
-        public DirectionalTrust_Min(IncidentRole roleA, IncidentRole roleB, EthicsScale minimum_AtoB) : base(roleA, roleB, minimum_AtoB) { }
+        public DirectionalTrust_Min(Role roleA, Role roleB, EthicsScale minimum_AtoB) : base(roleA, roleB, minimum_AtoB) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -170,7 +170,7 @@ namespace StoryEngine
     public class DirectionalTrust_Max : DirectionalTrust
     {
         /// <param name="maximum_AtoB">Inclusive maximum trust value</param>
-        public DirectionalTrust_Max(IncidentRole roleA, IncidentRole roleB, EthicsScale maximum_AtoB) : base(roleA, roleB, maximum_AtoB) { }
+        public DirectionalTrust_Max(Role roleA, Role roleB, EthicsScale maximum_AtoB) : base(roleA, roleB, maximum_AtoB) { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {

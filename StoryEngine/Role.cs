@@ -9,14 +9,13 @@ namespace StoryEngine
     /// <summary>
     /// Group of characters playing the same role within a specific incident.
     /// </summary>
-    public class IncidentRole
+    public class Role
     {
         public const int DEFAULT_ROLE_MAX_COUNT = 4; //#TODO - move to config file?
 
-        public IncidentRole()
+        public Role()
         {
             myParticipants = new List<Character>();
-            allPossibleOutcomes = new List<PossibleResult>();
         }
 
         private List<Character> myParticipants;
@@ -51,19 +50,5 @@ namespace StoryEngine
             return true;
         }
 
-        private List<PossibleResult> allPossibleOutcomes;
-        public List<PossibleResult> AllPossibleOutcomes { get { return allPossibleOutcomes; } }        
-        
-        public bool IsOutcomeTotal100Percent()
-        {
-            int totalOutcomePercent = 0;
-
-            foreach(PossibleResult p in allPossibleOutcomes)
-            {
-                totalOutcomePercent += p.PercentChance;
-            }
-
-            return totalOutcomePercent == 100;
-        }
     }
 }

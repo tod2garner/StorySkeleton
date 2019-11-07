@@ -11,7 +11,7 @@ namespace StoryEngine
     /// </summary>
     public abstract class ARolePrerequisite : APrerequisite
     {
-        protected IncidentRole role;
+        protected Role role;
 
         protected override bool AreRoleMinMaxCountsMet()
         {

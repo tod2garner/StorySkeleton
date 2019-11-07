@@ -9,21 +9,26 @@ namespace StoryEngine
     public class Outcome_ChangeTrust : AOutcome
     {
         private int magnitude;
-        private List<Character> selves;
-        private List<Character> targets;
+        public int Magnitude { get { return magnitude; } }
 
-        public Outcome_ChangeTrust(int magnitudeOfTrustChange, List<Character> selfList, List<Character> targetList)
+        private Role beingChanged;
+        public Role BeingChanged { get { return beingChanged; } }
+
+        private Role towards;
+        public Role Towards { get { return towards; } }
+
+        public Outcome_ChangeTrust(int magnitudeOfTrustChange, Role change, Role target)
         {
             magnitude = magnitudeOfTrustChange;
-            selves = selfList;
-            targets = targetList;
+            beingChanged = change;
+            towards = target;
         }
         
         public override void Execute()
         {
-            foreach (Character s in selves)
+            foreach (Character s in beingChanged.Participants)
             {
-                foreach (Character t in targets)
+                foreach (Character t in towards.Participants)
                 {
                     s.ChangeTrust(magnitude, t);
                 }

@@ -11,15 +11,14 @@ namespace UnitTests
     [TestClass]
     public class UtRole
     {
-        IncidentRole theRole;
+        Role theRole;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            theRole = new IncidentRole();
+            theRole = new Role();
 
             Assert.IsNotNull(theRole.Participants);
-            Assert.IsNotNull(theRole.AllPossibleOutcomes);
             Assert.IsNull(theRole.MinCount);
             Assert.IsNull(theRole.MaxCount);
         }
@@ -32,18 +31,6 @@ namespace UnitTests
 
         [TestMethod]
         public void AreMinAndMaxMet_IsFalse()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        public void IsOutcomeTotal100Percent_IsTrue()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        public void IsOutcomeTotal100Percent_IsFalse()
         {
             throw new NotImplementedException();
         }
