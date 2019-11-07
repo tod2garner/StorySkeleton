@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    //#TODO - add unit tests
-
     public abstract class Prereq_MutualTrust : ARolePrerequisite
     {
         protected EthicsScale benchmarkTrust;

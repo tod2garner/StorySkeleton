@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    //#TODO - add unit tests
-
     public abstract class Prereq_DirectionalRelation : ACrossRolePrerequisite
     {
         public Prereq_DirectionalRelation(Role roleA, Role roleB)
