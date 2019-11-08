@@ -8,6 +8,9 @@ namespace StoryEngine
 {
     public class Relationship
     {
+        //#TODO - move const to config file later?
+        private const int SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS = 100;//Dictates how many events it takes to change trust levels
+
         public Relationship(int givenSelfId, int givenOtherId, EthicsScale initialTrust, EthicsScale initialEthics)
         {
             this.selfId = givenSelfId;
@@ -78,7 +81,7 @@ namespace StoryEngine
         /// <param name="characterMorality"></param>
         public void ChangeTrust(int magnitude, SuspicionScale characterBaseSuspicion, Morality characterMorality)
         {
-            magnitude *= 100; //Arbitrary, to avoid problems with integer division
+            magnitude *= SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS;
 
             if (magnitude == 0)
                 return;
@@ -144,7 +147,7 @@ namespace StoryEngine
             if (next == current) //already at max/min level
                 return null;
 
-            int gap = (next - current) * 100;
+            int gap = (next - current) * SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS;
 
             return gap;
         }
