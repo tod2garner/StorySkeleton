@@ -158,55 +158,88 @@ namespace UnitTests
         [TestMethod]
         public void CharacterChangeTrust_NewRelationship()
         {
-            throw new NotImplementedException();
+            int relationCountBefore = theCharacter.AllRelations.Count();
+            var newChar2 = new Character(2, "char2");
+            var trustBefore = theCharacter.GetTrustTowards(newChar2.Id);
+            
+            theCharacter.ChangeTrust(3, newChar2);
+
+            int relationCountAfter = theCharacter.AllRelations.Count();
+            var trustAfter = theCharacter.GetTrustTowards(newChar2.Id);
+
+            Assert.AreEqual(1, relationCountAfter - relationCountBefore);
+            Assert.AreNotEqual(trustBefore, trustAfter);
+            Assert.IsNotNull(trustAfter);
         }
 
         [TestMethod]
-        public void TrustLevelIsMutual_IsTrue()
+        public void IsTrustLevelMutual_IsTrue()
         {
-            throw new NotImplementedException();
+            otherOne.CreateRelationshipWith(theCharacter);
+
+            Assert.IsTrue(theCharacter.IsTrustLevelMutual(otherOne));
         }
 
         [TestMethod]
-        public void TrustLevelIsMutual_IsFalse()
+        public void IsTrustLevelMutual_IsFalse()
         {
-            throw new NotImplementedException();
+            otherOne.BaseSuspicion = SuspicionScale.Relaxed;
+            otherOne.CreateRelationshipWith(theCharacter);
+
+            Assert.IsFalse(theCharacter.IsTrustLevelMutual(otherOne));
         }
 
         [TestMethod]
-        public void EthicsLevelIsMutual_IsTrue()
+        public void IsTrustLevelMutual_IsFalseForOneWayRelation()
         {
-            throw new NotImplementedException();
+            Assert.IsFalse(theCharacter.IsTrustLevelMutual(otherOne));
         }
 
         [TestMethod]
-        public void EthicsLevelIsMutual_IsFalse()
+        public void IsEthicsLevelMutual_IsTrue()
         {
-            throw new NotImplementedException();
+            otherOne.CreateRelationshipWith(theCharacter);
+
+            Assert.IsTrue(theCharacter.IsEthicsLevelMutual(otherOne));
+        }
+
+        [TestMethod]
+        public void IsEthicsLevelMutual_IsFalse()
+        {
+            otherOne.BaseMorality = Morality.Forgive;
+            otherOne.CreateRelationshipWith(theCharacter);
+
+            Assert.IsFalse(theCharacter.IsEthicsLevelMutual(otherOne));
+        }
+
+        [TestMethod]
+        public void IsEthicsLevelMutual_IsFalseForOneWayRelation()
+        {            
+            Assert.IsFalse(theCharacter.IsEthicsLevelMutual(otherOne));
         }
 
         [TestMethod]
         public void GetTrustTowards_NullIfUnknownCharacter()
         {
-            throw new NotImplementedException();
+            Assert.IsNull(theCharacter.GetTrustTowards(99));
         }
 
         [TestMethod]
         public void GetTrustTowards_CorrectValue()
         {
-            throw new NotImplementedException();
+            Assert.AreEqual(EthicsScale.Exploit, theCharacter.GetTrustTowards(1));
         }
 
         [TestMethod]
         public void GetEthicsTowards_NullIfUnknownCharacter()
         {
-            throw new NotImplementedException();
+            Assert.IsNull(theCharacter.GetEthicsTowards(99));
         }
 
         [TestMethod]
         public void GetEthicsTowards_CorrectValue()
         {
-            throw new NotImplementedException();
+            Assert.AreEqual(EthicsScale.Coexist, theCharacter.GetEthicsTowards(1));
         }
     }
 }

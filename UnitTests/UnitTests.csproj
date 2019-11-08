@@ -45,6 +45,7 @@
     <Compile Include="UtCharacter.cs" />
     <Compile Include="UtIncident.cs" />
     <Compile Include="UtOutcome.cs" />
+    <Compile Include="UtPossibleResult.cs" />
     <Compile Include="UtPrerequisite_CrossRole.cs" />
     <Compile Include="UtPrerequisite_OneRole.cs" />
     <Compile Include="UtRelationship.cs" />

@@ -102,7 +102,7 @@ namespace StoryEngine
             return AllRelations.Any(r => r.OtherId == otherCharacterId);
         }
 
-        public bool TrustLevelIsMutual(Character other)
+        public bool IsTrustLevelMutual(Character other)
         {
             var myTrustTowardsThem = this.GetTrustTowards(other.Id);
             var theirTrustTowardsMe = other.GetTrustTowards(this.Id);
@@ -110,7 +110,7 @@ namespace StoryEngine
             return myTrustTowardsThem == theirTrustTowardsMe;
         }
 
-        public bool EthicsLevelIsMutual(Character other)
+        public bool IsEthicsLevelMutual(Character other)
         {
             var myEthicsTowardsThem = this.GetEthicsTowards(other.Id);
             var theirEthicsTowardsMe = other.GetEthicsTowards(this.Id);

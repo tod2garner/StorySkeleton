@@ -16,10 +16,10 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            int givenMagnitude = 1;
+            int givenMagnitude = 3;
             var role1 = new Role();
             var role2 = new Role();
-            theOutcome = new Outcome_ChangeTrust(1, role1, role2);
+            theOutcome = new Outcome_ChangeTrust(givenMagnitude, role1, role2);
 
             Assert.AreEqual(givenMagnitude, theOutcome.Magnitude);
             Assert.IsNotNull(theOutcome.BeingChanged);
@@ -28,10 +28,38 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void WhenExecuted_ThenTrustIsChanged_NewRelation()
+        {
+            var the1 = new Character(1, "the1");
+            var theOther = new Character(2, "theOther");
+            var trustBefore = the1.GetTrustTowards(theOther.Id);
+
+            theOutcome.BeingChanged.Participants.Add(the1);
+            theOutcome.Towards.Participants.Add(theOther);
+
+            theOutcome.Execute();
+
+            var trustAfter = the1.GetTrustTowards(theOther.Id);
+            Assert.AreNotEqual(trustBefore, trustAfter);
+            Assert.IsNotNull(trustAfter);
+        }
+
+        [TestMethod]
         public void WhenExecuted_ThenTrustIsChanged()
         {
-            throw new NotImplementedException();
+            var the1 = new Character(1, "the1");
+            var theOther = new Character(2, "theOther");
+            the1.CreateRelationshipWith(theOther);
+            var trustBefore = the1.GetTrustTowards(theOther.Id);
+
+            theOutcome.BeingChanged.Participants.Add(the1);
+            theOutcome.Towards.Participants.Add(theOther);
+
+            theOutcome.Execute();
+
+            var trustAfter = the1.GetTrustTowards(theOther.Id);
+            Assert.AreNotEqual(trustBefore, trustAfter);
         }
-        
+
     }
 }
