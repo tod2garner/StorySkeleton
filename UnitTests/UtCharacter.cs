@@ -13,6 +13,7 @@ namespace UnitTests
     {
 
         private Character theCharacter;
+        private Character otherOne;
 
         [TestInitialize]
         public void TestInitialize()
@@ -22,8 +23,8 @@ namespace UnitTests
             Assert.AreEqual(theCharacter.Id, 0);
             Assert.AreEqual(theCharacter.Name, "given");
 
-            var other = new Character(1, "other1");
-            theCharacter.CreateRelationshipWith(other);
+            otherOne = new Character(1, "other1");
+            theCharacter.CreateRelationshipWith(otherOne);
 
             Assert.AreEqual(theCharacter.AllRelations.Count, 1);            
         }
@@ -103,24 +104,55 @@ namespace UnitTests
         [TestMethod]
         public void CharacterChangeTrust_Increase()
         {
-            throw new NotImplementedException();
+            var theRelationship = theCharacter.AllRelations.First();
+            var trustBefore = theRelationship.Trust;
+
+            theCharacter.ChangeTrust(3, otherOne);
+
+            var trustAfter = theRelationship.Trust;
+            Assert.IsTrue(trustAfter > trustBefore);            
         }
+
         [TestMethod]
         public void CharacterChangeTrust_Decrease()
         {
-            throw new NotImplementedException();
+            var theRelationship = theCharacter.AllRelations.First();
+            var trustBefore = theRelationship.Trust;
+
+            theCharacter.ChangeTrust(-2, otherOne);
+
+            var trustAfter = theRelationship.Trust;
+            Assert.IsTrue(trustAfter < trustBefore);
         }
 
         [TestMethod]
         public void CharacterChangeTrust_ZeroMagnitude()
         {
-            throw new NotImplementedException();
+            var theRelationship = theCharacter.AllRelations.First();
+            var trustBefore = theRelationship.Trust;
+            var trustProgressBefore = theRelationship.DurabilityOfTrust;
+
+            theCharacter.ChangeTrust(0, otherOne);
+
+            var trustAfter = theRelationship.Trust;
+            var trustProgressAfter = theRelationship.DurabilityOfTrust;
+            Assert.AreEqual(trustBefore, trustAfter);
+            Assert.AreEqual(trustProgressBefore, trustProgressAfter);
         }
 
         [TestMethod]
-        public void CharacterChangeTrust_TargetSelf()
+        public void CharacterChangeTrust_TargetSelf_NoChange()
         {
-            throw new NotImplementedException();
+            var theRelationship = theCharacter.AllRelations.First();
+            var trustBefore = theRelationship.Trust;
+            var trustProgressBefore = theRelationship.DurabilityOfTrust;
+
+            theCharacter.ChangeTrust(-2, theCharacter);
+
+            var trustAfter = theRelationship.Trust;
+            var trustProgressAfter = theRelationship.DurabilityOfTrust;
+            Assert.AreEqual(trustBefore, trustAfter);
+            Assert.AreEqual(trustProgressBefore, trustProgressAfter);
         }
 
         [TestMethod]

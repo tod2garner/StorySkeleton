@@ -27,6 +27,8 @@ namespace StoryEngine
             this.id = givenId;
             this.name = givenName;
             allRelations = new List<Relationship>();
+
+            this.baseSuspicion = SuspicionScale.Average;
         }
 
         private int id;
