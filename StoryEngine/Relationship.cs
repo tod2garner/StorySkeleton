@@ -47,16 +47,18 @@ namespace StoryEngine
             get { return ethics; }
             set { ethics = value; }
         }
-
+        
+        private int durabilityOfTrust;
         /// <summary>
         /// If positive, progress towards next higher trust level. If negative, progress towards next lowest level.
         /// </summary>
-        private int durabilityOfTrust;
+        public int DurabilityOfTrust { get { return durabilityOfTrust; } }
 
+        private int durabilityOfEthics;
         /// <summary>
         /// If positive, progress towards next higher ethics level. If negative, progress towards next lowest level.
         /// </summary>
-        private int durabilityOfEthics;
+        public int DurabilityOfEthics { get { return durabilityOfEthics; } }
 
         public Relationship Copy()
         {
@@ -101,21 +103,35 @@ namespace StoryEngine
                 durabilityOfEthics += magnitude;
             }
 
-            UpdateLevelFromDurability(trust, durabilityOfTrust);
-            UpdateLevelFromDurability(ethics, durabilityOfEthics);
+            UpdateLevelFromDurability(ref trust, ref durabilityOfTrust);
+            UpdateLevelFromDurability(ref ethics, ref durabilityOfEthics);
         }
 
+        //#TODO - change private methods to be protected, and add Mock class to be unit tested
 
-        private void UpdateLevelFromDurability(EthicsScale level, int durability)
+        private void UpdateLevelFromDurability(ref EthicsScale level, ref int durability)
         {
-            int threshold = GapToNextLevel(level, durability > 0);
-            if (durability > threshold)
-                trust = HigherLevel(level);
-            else if (durability < threshold)
-                trust = LowerLevel(level);
+            bool movingUpwards = durability > 0;
+            int? threshold = GapToNextLevel(level, movingUpwards);
+
+            if (threshold == null) //already at max/min level
+                return;
+
+            if (movingUpwards && durability >= threshold)
+            {
+                level = HigherLevel(level);
+                durability -= threshold.Value;
+                UpdateLevelFromDurability(ref level, ref durability);
+            }                
+            else if (!movingUpwards && durability <= threshold)
+            {
+                level = LowerLevel(level);
+                durability -= threshold.Value;
+                UpdateLevelFromDurability(ref level, ref durability);
+            }                
         }
 
-        private int GapToNextLevel(EthicsScale currentLevel, bool movingUpwards)
+        private int? GapToNextLevel(EthicsScale currentLevel, bool movingUpwards)
         {
             int next = 0;
             if (movingUpwards)
@@ -124,6 +140,10 @@ namespace StoryEngine
                 next = (int)LowerLevel(currentLevel);
 
             int current = (int)currentLevel;
+
+            if (next == current) //already at max/min level
+                return null;
+
             int gap = (next - current) * 100;
 
             return gap;

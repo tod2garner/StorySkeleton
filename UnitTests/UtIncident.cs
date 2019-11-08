@@ -28,13 +28,25 @@ namespace UnitTests
         [TestMethod]
         public void IsOutcomeTotal100Percent_IsTrue()
         {
-            throw new NotImplementedException();
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(12));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(13));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(15));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(25));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(35));
+
+            Assert.IsTrue(theIncident.IsOutcomeTotal100Percent());
         }
 
         [TestMethod]
         public void IsOutcomeTotal100Percent_IsFalse()
         {
-            throw new NotImplementedException();
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(12));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(13));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(15));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(25));
+            theIncident.AllPossibleOutcomes.Add(new PossibleResult(34));
+
+            Assert.IsFalse(theIncident.IsOutcomeTotal100Percent());
         }
 
         [TestMethod]

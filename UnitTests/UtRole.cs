@@ -24,15 +24,104 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void AreMinAndMaxMet_IsTrue()
+        public void AreMinAndMaxMet_NullLimits_ZeroParticipants_IsTrue()
         {
-            throw new NotImplementedException();
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
+        }
+
+
+        [TestMethod]
+        public void AreMinAndMaxMet_NullLimits_SomeParticipants_IsTrue()
+        {
+            theRole.Participants.Add(new Character(0, "one"));
+            theRole.Participants.Add(new Character(1, "two"));
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
         }
 
         [TestMethod]
-        public void AreMinAndMaxMet_IsFalse()
+        public void AreMinAndMaxMet_MinOf1_IsTrue()
         {
-            throw new NotImplementedException();
+            theRole.MinCount = 1;
+            theRole.Participants.Add(new Character(0, "one"));
+
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MinOf2_IsTrue()
+        {
+            theRole.MinCount = 2;
+            theRole.Participants.Add(new Character(0, "one"));
+            theRole.Participants.Add(new Character(1, "two"));
+            theRole.Participants.Add(new Character(2, "three"));
+            theRole.Participants.Add(new Character(3, "four"));
+
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MaxOf1_IsTrue()
+        {
+            theRole.MaxCount = 1;
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MaxOf2_IsTrue()
+        {
+            theRole.MaxCount = 2;
+            theRole.Participants.Add(new Character(0, "one"));
+
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MaxOf3_IsTrue()
+        {
+            theRole.MaxCount = 3;
+            theRole.Participants.Add(new Character(0, "one"));
+            theRole.Participants.Add(new Character(1, "two"));
+            theRole.Participants.Add(new Character(2, "three"));
+
+            Assert.IsTrue(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MinOf1_IsFalse()
+        {
+            theRole.MinCount = 1;
+            Assert.IsFalse(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MinOf3_IsFalse()
+        {
+            theRole.MinCount = 3;
+            theRole.Participants.Add(new Character(0, "one"));
+            theRole.Participants.Add(new Character(1, "two"));
+
+            Assert.IsFalse(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MaxOf0_IsFalse()
+        {
+            theRole.MaxCount = 0;
+            theRole.Participants.Add(new Character(0, "one"));
+
+            Assert.IsFalse(theRole.AreMinAndMaxMet());
+        }
+
+        [TestMethod]
+        public void AreMinAndMaxMet_MaxOf3_IsFalse()
+        {
+            theRole.MaxCount = 3;
+            theRole.Participants.Add(new Character(0, "one"));
+            theRole.Participants.Add(new Character(1, "two"));
+            theRole.Participants.Add(new Character(2, "three"));
+            theRole.Participants.Add(new Character(3, "four"));
+
+            Assert.IsFalse(theRole.AreMinAndMaxMet());
         }
     }
 }
