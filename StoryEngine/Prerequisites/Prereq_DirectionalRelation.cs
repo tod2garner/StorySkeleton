@@ -22,7 +22,7 @@ namespace StoryEngine
                     return false;
             }
 
-            return true;
+            return this.AreRoleMinMaxCountsMet();
         }
 
         public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null)
@@ -57,7 +57,7 @@ namespace StoryEngine
 
             AddParticipantsRandomly(roleAlpha, remainingAlphaCandidates, rng);
 
-            return (this.AreRoleMinMaxCountsMet() && this.IsMetByCurrentParticipants());
+            return this.IsMetByCurrentParticipants();
         }
 
         protected static void AddParticipantsRandomly(Role theRole, List<Character> theCandidates, Random rng = null)
@@ -69,10 +69,16 @@ namespace StoryEngine
             int max = theRole.MaxCount.HasValue ? theRole.MaxCount.Value : Role.DEFAULT_ROLE_MAX_COUNT;
             max = System.Math.Min(max, theCandidates.Count);
 
+            if (min > max)
+                return;
+
             int targetCount = rng.Next(min, max + 1);
 
             for (int i = 0; i < targetCount; i++)
             {
+                if (theCandidates.Count == 0)
+                    break;
+
                 var nextChosen = theCandidates[rng.Next(0, theCandidates.Count)];
                 theRole.Participants.Add(nextChosen);
                 theCandidates.Remove(nextChosen);

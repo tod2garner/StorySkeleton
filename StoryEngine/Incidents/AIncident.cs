@@ -34,7 +34,7 @@ namespace StoryEngine
         public bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast)
         {
             var primaryPrereq = MyPrerequisites.First(); //first in list always given priority
-            primaryPrereq.TryToFulfillFromScratch(currentCast);
+            var ableToFill = primaryPrereq.TryToFulfillFromScratch(currentCast);
 
             return !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
         }

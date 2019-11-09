@@ -24,7 +24,7 @@ namespace StoryEngine
                     return false;
             }
 
-            return true;
+            return this.AreRoleMinMaxCountsMet();
         }
 
         //Rather than checking for the largest possible group with mutual trust,
@@ -69,7 +69,7 @@ namespace StoryEngine
                 role.Participants.Add(nextChar);
             }
 
-            return (this.AreRoleMinMaxCountsMet() && this.IsMetByCurrentParticipants());
+            return this.IsMetByCurrentParticipants();
         }
 
         protected virtual bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)

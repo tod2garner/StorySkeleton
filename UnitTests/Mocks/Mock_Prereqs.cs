@@ -21,6 +21,11 @@ namespace UnitTests.Mocks
             return this.PassesBenchmark(value);
         }
 
+        public bool PublicAreRoleMinMaxCountsMet()
+        {
+            return this.AreRoleMinMaxCountsMet();
+        }
+
         public Role GetRole()
         {
             return this.role;
@@ -49,6 +54,11 @@ namespace UnitTests.Mocks
         public void PublicAddParticipantsRandomly(Role theRole, List<Character> theCandidates, Random rng = null)
         {
             DirectionalEthics_Max.AddParticipantsRandomly(theRole, theCandidates, rng);
+        }
+
+        public bool PublicAreRoleMinMaxCountsMet()
+        {
+            return this.AreRoleMinMaxCountsMet();
         }
 
         public Role GetRoleA()

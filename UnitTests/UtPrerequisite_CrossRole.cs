@@ -27,87 +27,238 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void PassesBenchmark_IsTrue()
+        public void PassesBenchmark_IsTrue() //givenValue <= max in prereq 
         {
-            throw new NotImplementedException();
+            var givenValue = EthicsScale.Exploit;
+            Assert.IsTrue(maxEthics.PublicPassesBenchmark(givenValue));
+
+            givenValue = EthicsScale.Beat;
+            Assert.IsTrue(maxEthics.PublicPassesBenchmark(givenValue));
         }
 
         [TestMethod]
-        public void PassesBenchmark_IsFalse()
+        public void PassesBenchmark_IsFalse() //givenValue not <= max in prereq 
         {
-            throw new NotImplementedException();
+            var givenValue = EthicsScale.Embrace;
+            Assert.IsFalse(maxEthics.PublicPassesBenchmark(givenValue));
         }
 
         [TestMethod]
         public void HasDirectionalRelationThatPassesBenchmark_IsTrue()
         {
-            throw new NotImplementedException();
+            var one = new Character(1, "one");
+            one.BaseMorality = Morality.Exploit;
+            var two = new Character(2, "two");
+            one.CreateRelationshipWith(two);
+            var theRelation = one.AllRelations.First();
+
+            Assert.IsTrue(theRelation.Ethics <= maxEthics.GetBenchmark_AtoB());
+            Assert.IsTrue(maxEthics.PublicHasDirectionalRelationThatPassesBenchmark(one, two));
         }
 
         [TestMethod]
-        public void HasDirectionalRelationThatPassesBenchmark_IsFalse()
+        public void HasDirectionalRelationThatPassesBenchmark_WithNoRelation_IsFalse()
         {
-            throw new NotImplementedException();
+            var one = new Character(1, "one");
+            var two = new Character(2, "two");
+
+            Assert.IsFalse(maxEthics.PublicHasDirectionalRelationThatPassesBenchmark(one, two));
         }
-        
+
+        [TestMethod]
+        public void HasDirectionalRelationThatPassesBenchmark_BeyondLimit_IsFalse()
+        {
+            var one = new Character(1, "one");
+            one.BaseMorality = Morality.Forgive;
+            var two = new Character(2, "two");
+            one.CreateRelationshipWith(two);
+            var theRelation = one.AllRelations.First();
+
+            Assert.IsTrue(theRelation.Ethics > maxEthics.GetBenchmark_AtoB());
+            Assert.IsFalse(maxEthics.PublicHasDirectionalRelationThatPassesBenchmark(one, two));
+        }
+
         [TestMethod]
         public void AddParticipantsRandomly_WhenMaxIsZero_NoneAreAdded()
         {
-            throw new NotImplementedException();
+            var theRole = maxEthics.GetRoleA();
+            theRole.MaxCount = 0;
+            var theList = new List<Character>();
+
+            maxEthics.PublicAddParticipantsRandomly(theRole, theList);
+
+            Assert.IsTrue(theRole.Participants.Count <= 0);
         }
 
         [TestMethod]
         public void AddParticipantsRandomly_WhenMaxIsNull_DefaultMaxApplies()
         {
-            throw new NotImplementedException();
+            var defaultMax = Role.DEFAULT_ROLE_MAX_COUNT;
+            var givenMin = 3;
+            var theRole = maxEthics.GetRoleA();
+            theRole.MinCount = givenMin;
+
+            var theList = new List<Character>(defaultMax * 2);
+            for (int i = 0; i < defaultMax * 2; i++)
+                theList.Add(new Character(i, "name" + i));
+
+            maxEthics.PublicAddParticipantsRandomly(theRole, theList);
+
+            Assert.IsTrue(theRole.Participants.Count >= givenMin);
+            Assert.IsTrue(theRole.Participants.Count <= defaultMax);
         }
 
         [TestMethod]
-        public void AddParticipantsRandomly_WhenMinIsNull_StillAdds()
+        public void AddParticipantsRandomly_WhenMinIsNull_NoError()
         {
-            throw new NotImplementedException();
+            var givenMax = 5;
+            var theRole = maxEthics.GetRoleA();
+            theRole.MaxCount = givenMax;
+
+            Assert.IsNull(theRole.MinCount);
+
+            var theList = new List<Character>(givenMax * 2);
+            for (int i = 0; i < givenMax * 2; i++)
+                theList.Add(new Character(i, "name" + i));
+
+            maxEthics.PublicAddParticipantsRandomly(theRole, theList);
+
+            Assert.IsTrue(theRole.Participants.Count <= givenMax);
         }
 
         [TestMethod]
-        public void AddParticipantsRandomly_ResultsIsWithinMinMaxRange()
+        public void AddParticipantsRandomly_ResultIsWithinMinMaxRange()
         {
-            throw new NotImplementedException();
+            var givenMax = 5;
+            var givenMin = 3;
+            var theRole = maxEthics.GetRoleA();
+            theRole.MaxCount = givenMax;
+            theRole.MinCount = givenMin;
+
+            var theList = new List<Character>(givenMax * 2);
+            for (int i = 0; i < givenMax * 2; i++)
+                theList.Add(new Character(i, "name" + i));
+
+            maxEthics.PublicAddParticipantsRandomly(theRole, theList);
+
+            Assert.IsTrue(theRole.Participants.Count >= givenMin);
+            Assert.IsTrue(theRole.Participants.Count <= givenMax);
         }
 
         [TestMethod]
         public void AreRoleMinMaxCountsMet_IsTrue()
         {
-            throw new NotImplementedException();
+            var theRole1 = maxEthics.GetRoleA();
+            theRole1.MaxCount = 4;
+            theRole1.MinCount = 2;
+            theRole1.Participants.Add(new Character(1, "c1"));
+            theRole1.Participants.Add(new Character(2, "c2"));
+            theRole1.Participants.Add(new Character(3, "c3"));
+
+            var theRole2 = maxEthics.GetRoleB();
+            theRole2.MaxCount = 1;
+            theRole2.MinCount = 1;
+            theRole2.Participants.Add(new Character(4, "c4"));
+
+            Assert.IsTrue(maxEthics.PublicAreRoleMinMaxCountsMet());
         }
 
         [TestMethod]
         public void AreRoleMinMaxCountsMet_IsFalse()
         {
-            throw new NotImplementedException();
+            var theRole1 = maxEthics.GetRoleA();
+            theRole1.MaxCount = 1;
+            theRole1.MinCount = 3;
+
+            Assert.IsFalse(maxEthics.PublicAreRoleMinMaxCountsMet());
         }
 
         [TestMethod]
         public void IsMetByCurrentParticipants_IsTrue()
         {
-            throw new NotImplementedException();
+            var one = new Character(1, "one");
+            var two = new Character(2, "two");
+            var theRole1 = maxEthics.GetRoleA();
+            var theRole2 = maxEthics.GetRoleB();
+            theRole1.Participants.Add(one);
+            theRole2.Participants.Add(two);
+
+            one.BaseMorality = Morality.Exploit;
+            one.CreateRelationshipWith(two);
+            var theRelation = one.AllRelations.First();
+
+            Assert.IsTrue(theRelation.Ethics <= maxEthics.GetBenchmark_AtoB());
+            Assert.IsTrue(maxEthics.IsMetByCurrentParticipants());
         }
 
         [TestMethod]
         public void IsMetByCurrentParticipants_IsFalse()
         {
-            throw new NotImplementedException();
+            var one = new Character(1, "one");
+            var two = new Character(2, "two");
+            var theRole1 = maxEthics.GetRoleA();
+            var theRole2 = maxEthics.GetRoleB();
+            theRole1.Participants.Add(one);
+            theRole2.Participants.Add(two);
+
+            one.BaseMorality = Morality.Forgive;
+            one.CreateRelationshipWith(two);
+            var theRelation = one.AllRelations.First();
+
+            Assert.IsTrue(theRelation.Ethics > maxEthics.GetBenchmark_AtoB());
+            Assert.IsFalse(maxEthics.IsMetByCurrentParticipants());
         }
 
         [TestMethod]
         public void TryToFulfillFromScratch_Succeeds()
         {
-            throw new NotImplementedException();
+            var role1 = maxEthics.GetRoleA();
+            var role2 = maxEthics.GetRoleB();
+            role1.MinCount = 1;
+            role2.MinCount = 1;
+
+            var currentCast = new SocietySnapshot();
+
+            for (int i = 0; i < 5; i++)
+                currentCast.AllCharacters.Add(new Character(i, "name" + i));
+
+            foreach (Character c in currentCast.AllCharacters)
+            {
+                c.BaseMorality = Morality.Exploit;
+
+                for (int i = 0; i < 5; i++)
+                    if (c.Id != i)
+                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
+            }
+
+            Assert.IsTrue(maxEthics.TryToFulfillFromScratch(currentCast));
+            Assert.IsTrue(role1.Participants.Count > 0);
+            Assert.IsTrue(role2.Participants.Count > 0);
         }
 
         [TestMethod]
         public void TryToFulfillFromScratch_Fails()
         {
-            throw new NotImplementedException();
+            var role1 = maxEthics.GetRoleA();
+            var role2 = maxEthics.GetRoleB();
+            role1.MinCount = 1;
+            role2.MinCount = 1;
+
+            var currentCast = new SocietySnapshot();
+
+            for (int i = 0; i < 5; i++)
+                currentCast.AllCharacters.Add(new Character(i, "name" + i));
+
+            foreach (Character c in currentCast.AllCharacters)
+            {
+                c.BaseMorality = Morality.Forgive;
+
+                for (int i = 0; i < 5; i++)
+                    if (c.Id != i)
+                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
+            }
+
+            Assert.IsFalse(maxEthics.TryToFulfillFromScratch(currentCast));
         }
     }
 }
