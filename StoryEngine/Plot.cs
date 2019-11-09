@@ -31,6 +31,14 @@ namespace StoryEngine
         /// List of character information, where the 1st snapshot is after Event #1, the 2nd after Event #2, etc.
         /// </summary>
         public List<SocietySnapshot> TheCastOverTime { get { return theCastOverTime; } }
+        
+
+        public void ExecuteIncidentAndStoreAfter(IIncident oneIncident, SocietySnapshot currentCast, Random rng = null)
+        {
+            oneIncident.RollDiceAndExecuteOneOutcome(currentCast, rng);
+            this.TheIncidents.Add(oneIncident);
+            this.TheCastOverTime.Add(currentCast.Copy());
+        }
 
     }
 }

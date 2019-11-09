@@ -8,7 +8,8 @@ namespace StoryEngine
 {
     public interface IIncident
     {        
-        bool CanAllPrerequisitesBeMet(SocietySnapshot currentCast);
-        bool IsOutcomeTotal100Percent();
+        bool TryToFulfillAllPrerequisites(SocietySnapshot currentCast);
+        int GetTotalOutcomePercentChance();
+        void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null);
     }
 }
