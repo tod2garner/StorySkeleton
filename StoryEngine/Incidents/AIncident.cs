@@ -13,11 +13,18 @@ namespace StoryEngine
         //Future:
         //      Multi-stage events - recursive triggers, and option to force a final trigger (e.g. deception)
 
-        public AIncident()
+        public AIncident(string givenName)
         {
+            this.name = givenName;
             prerequisites = new List<IPrerequisite>();
             allPossibleOutcomes = new List<PossibleResult>();
         }
+
+        private string name;
+        public string Name { get { return name; } }
+
+        protected string textSummary;
+        public string GetTextSummary() { return textSummary; }
 
         protected List<IPrerequisite> prerequisites;
         public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
@@ -81,6 +88,7 @@ namespace StoryEngine
 
         public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null)
         {
+            this.textSummary = string.Format("INCIDENT: {0}/n", this.name);
 
             if (rng == null)
                 rng = new Random();
@@ -91,7 +99,7 @@ namespace StoryEngine
             {
                 if (diceRoll < p.PercentChance)
                 {
-                    p.Execute();
+                    this.textSummary += p.Execute();
                     return;
                 }
 

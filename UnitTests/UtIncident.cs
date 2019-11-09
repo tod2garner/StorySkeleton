@@ -214,7 +214,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ExecuteOutcome_IsSuccessful()
+        public void RollDiceAndExecuteOneOutcome_IsSuccessful()
         {
             throw new NotImplementedException();
         }
@@ -225,6 +225,11 @@ namespace UnitTests
             throw new NotImplementedException();
         }
 
+        [TestMethod]
+        public void GetTextSummary_IsSuccessful()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

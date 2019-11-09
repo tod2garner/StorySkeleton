@@ -8,6 +8,6 @@ namespace StoryEngine
 {
     public interface IOutcome
     {
-        void Execute();
+        string Execute();
     }
 }

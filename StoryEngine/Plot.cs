@@ -40,5 +40,14 @@ namespace StoryEngine
             this.TheCastOverTime.Add(currentCast.Copy());
         }
 
+        public List<string> CompileTextNarrative()
+        {
+            var textNarrative = new List<string>(this.TheIncidents.Count);
+            foreach(IIncident x in this.TheIncidents)
+            {
+                textNarrative.Add(x.GetTextSummary());
+            }
+        }
+
     }
 }

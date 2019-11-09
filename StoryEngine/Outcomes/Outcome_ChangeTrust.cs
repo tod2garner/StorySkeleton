@@ -24,15 +24,17 @@ namespace StoryEngine
             towards = target;
         }
         
-        public override void Execute()
+        public override string Execute()
         {
+            string textSummary = "Outcome:/n";
             foreach (Character s in beingChanged.Participants)
             {
                 foreach (Character t in towards.Participants)
                 {
-                    s.ChangeTrust(magnitude, t);
+                    textSummary += string.Format(" -- {0}/n", s.ChangeTrust(magnitude, t));                    
                 }
             }
+            return textSummary;
         }
     }
 }

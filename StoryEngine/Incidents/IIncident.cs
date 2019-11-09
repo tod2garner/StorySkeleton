@@ -11,5 +11,6 @@ namespace StoryEngine
         bool TryToFulfillAllPrerequisites(SocietySnapshot currentCast);
         int GetTotalOutcomePercentChance();
         void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null);
+        string GetTextSummary();
     }
 }

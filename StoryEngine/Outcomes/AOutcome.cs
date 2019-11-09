@@ -12,6 +12,6 @@ namespace StoryEngine
         //  For list of participants, partial inclusion for one or both sides
         // Future: personalilty change outcomes
 
-        public abstract void Execute();
+        public abstract string Execute();
     }
 }
