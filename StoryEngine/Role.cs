@@ -13,13 +13,20 @@ namespace StoryEngine
     {
         public const int DEFAULT_ROLE_MAX_COUNT = 4; //#TODO - move to config file?
 
-        public Role()
+        public Role(string roleName)
         {
+            this.name = roleName;
             myParticipants = new List<Character>();
         }
 
         private List<Character> myParticipants;
         public List<Character> Participants { get { return myParticipants; } }
+
+        private string name;
+        /// <summary>
+        /// Used to coordinate between multiple prerequisites simultaneously when trying to populate an event
+        /// </summary>
+        public string RoleName { get { return name; } }
 
         private int? minCount;
         /// <summary>
@@ -30,7 +37,7 @@ namespace StoryEngine
         {
             get { return minCount; }
             set { minCount = value; }
-        }        
+        }
 
         private int? maxCount;
         public int? MaxCount

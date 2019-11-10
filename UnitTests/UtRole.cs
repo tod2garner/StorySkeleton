@@ -16,8 +16,9 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            theRole = new Role();
+            theRole = new Role("test");
 
+            Assert.AreEqual("test", theRole.RoleName);
             Assert.IsNotNull(theRole.Participants);
             Assert.IsNull(theRole.MinCount);
             Assert.IsNull(theRole.MaxCount);

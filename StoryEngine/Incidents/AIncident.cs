@@ -58,20 +58,34 @@ namespace StoryEngine
                 theCandidates.Remove(nextChosen);
             }
         }
-        
-        public bool TryToFulfillAllPrerequisites(SocietySnapshot currentCast)
+
+        public static List<Character> TestCandidatesAgainstOtherPrereqs(List<Character> myCandidates, string suggestedRole, List<IPrerequisite> otherPrereqs)
+        {
+            var passedAllTests = new List<Character>(myCandidates.Count);
+            passedAllTests = myCandidates.Where(c => false == otherPrereqs.Any(p => false == p.WouldBeMetBySuggestedParticipant(c, suggestedRole))).ToList();
+            return passedAllTests;
+        }
+
+        public static void AddParticipantsRandomly_RetestingAfterEach(Role theRole, List<Character> theCandidates, List<IPrerequisite> otherPrereqs, Random rng = null)
+        {
+            throw new NotImplementedException();             
+        }
+
+        public bool TryToFulfillAllPrerequisites(SocietySnapshot currentCast, Random rng = null)
         {
             if(MyPrerequisites.Any() == false)
             {
-                PopulateAllRolesRandomly(currentCast);
+                PopulateAllRolesRandomly(currentCast, rng);
                 return true;
             }
 
             //#TODO - fix for multiple prerequisites, simultaneous
-            var primaryPrereq = MyPrerequisites.First(); //first in list always given priority
-            var ableToFill = primaryPrereq.TryToFulfillFromScratch(currentCast);
+            var primaryPrereq = MyPrerequisites.First(); //first in list always given priority - #TODO, change to most roles involved
+            var otherPrereqs = MyPrerequisites.Where(p => p != primaryPrereq).ToList();
+            var ableToFill = primaryPrereq.TryToFulfillFromScratch(currentCast, otherPrereqs, rng);
 
-            return !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
+            var allAreFulfilled = !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
+            return allAreFulfilled;
         }
 
         public int GetTotalOutcomePercentChance()

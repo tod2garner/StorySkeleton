@@ -17,8 +17,8 @@ namespace UnitTests
         public void TestInitialize()
         {
             int givenMagnitude = 3;
-            var role1 = new Role();
-            var role2 = new Role();
+            var role1 = new Role("r1");
+            var role2 = new Role("r2");
             theOutcome = new Outcome_ChangeTrust(givenMagnitude, role1, role2);
 
             Assert.AreEqual(givenMagnitude, theOutcome.Magnitude);

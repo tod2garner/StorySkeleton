@@ -17,8 +17,8 @@ namespace UnitTests
         public void TestInitialize()
         {
             EthicsScale givenMax = EthicsScale.Exploit;
-            Role role1 = new Role();
-            Role role2 = new Role();
+            Role role1 = new Role("r1");
+            Role role2 = new Role("r2");
             maxEthics = new Mocks.Mock_Prereq_DirectionalEthics_Max(givenMax, role1, role2);
 
             Assert.AreEqual(maxEthics.GetBenchmark_AtoB(), givenMax);
@@ -164,7 +164,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsTrue(maxEthics.TryToFulfillFromScratch(currentCast));
+            Assert.IsTrue(maxEthics.TryToFulfillFromScratch(currentCast, null));
             Assert.IsTrue(role1.Participants.Count > 0);
             Assert.IsTrue(role2.Participants.Count > 0);
         }
@@ -191,7 +191,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsFalse(maxEthics.TryToFulfillFromScratch(currentCast));
+            Assert.IsFalse(maxEthics.TryToFulfillFromScratch(currentCast, null));
         }
     }
 }

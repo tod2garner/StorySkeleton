@@ -27,10 +27,23 @@ namespace StoryEngine
             return this.AreRoleMinMaxCountsMet();
         }
 
+        public override bool WouldBeMetBySuggestedParticipant(Character candidate, string nameOfRole)
+        {
+            if (nameOfRole == this.role.RoleName)
+            {
+                if (role.Participants.Any(a => HaveMutualTrustThatPassesBenchmark(a, candidate) == false))
+                    return false;
+            }
+
+            return true;
+        }
+
         //Rather than checking for the largest possible group with mutual trust,
         // we simply use a random starting point and try to form a qualifying group.
-        public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null)
+        public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, List<IPrerequisite> otherPrereqs, Random rng = null)
         {
+            throw new NotImplementedException();//#TODO implement otherPrerequs
+
             int maxParticipants = role.MaxCount.HasValue ? role.MaxCount.Value : Role.DEFAULT_ROLE_MAX_COUNT;
             int minParticipants = role.MinCount.HasValue ? role.MinCount.Value : 0; //role can be left empty, assumed filled by unnamed minor characters
 

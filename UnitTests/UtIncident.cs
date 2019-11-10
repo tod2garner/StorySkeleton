@@ -21,19 +21,19 @@ namespace UnitTests
             Assert.AreEqual("testIncident", theIncident.Name);
             Assert.IsNotNull(theIncident.AllPossibleOutcomes);
             Assert.IsNotNull(theIncident.MyPrerequisites);
-            Assert.IsNotNull(theIncident.AllParticipants);
+            Assert.IsNotNull(theIncident.AllParticipantRoles);
         }
 
         private void Setup_Basic_Prerequisites()
         {
-            var role1 = new Role();
+            var role1 = new Role("r1");
             role1.MinCount = 2;
-            var role2 = new Role();
+            var role2 = new Role("r2");
             role2.MinCount = 1;
             role2.MaxCount = 3;
 
-            theIncident.AllParticipants.Add(role1);
-            theIncident.AllParticipants.Add(role2);
+            theIncident.AllParticipantRoles.Add(role1);
+            theIncident.AllParticipantRoles.Add(role2);
             theIncident.MyPrerequisites.Add(new DirectionalEthics_Max(EthicsScale.Exploit, role1, role2));
             theIncident.MyPrerequisites.Add(new MutualTrust_Min(EthicsScale.Cooperate, role1));
 
@@ -150,7 +150,7 @@ namespace UnitTests
         [TestMethod]
         public void AddParticipantsRandomly_WhenMaxIsZero_NoneAreAdded()
         {
-            var theRole = new Role();
+            var theRole = new Role("r");
             theRole.MaxCount = 0;
             var theList = new List<Character>();
 
@@ -164,7 +164,7 @@ namespace UnitTests
         {
             var defaultMax = Role.DEFAULT_ROLE_MAX_COUNT;
             var givenMin = 3;
-            var theRole = new Role();
+            var theRole = new Role("r");
             theRole.MinCount = givenMin;
 
             var theList = new List<Character>(defaultMax * 2);
@@ -181,7 +181,7 @@ namespace UnitTests
         public void AddParticipantsRandomly_WhenMinIsNull_NoError()
         {
             var givenMax = 5;
-            var theRole = new Role();
+            var theRole = new Role("r");
             theRole.MaxCount = givenMax;
 
             Assert.IsNull(theRole.MinCount);
@@ -200,7 +200,7 @@ namespace UnitTests
         {
             var givenMax = 5;
             var givenMin = 3;
-            var theRole = new Role();
+            var theRole = new Role("r");
             theRole.MaxCount = givenMax;
             theRole.MinCount = givenMin;
 

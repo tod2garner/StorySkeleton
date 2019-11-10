@@ -70,13 +70,13 @@ namespace UnitTests
             var accidentalOffense = new Incident("Accidental Offense");
             //create event from scratch - no prerequisites
 
-            var partyGivingOffense = new Role();
-            var partyOffended = new Role();
+            var partyGivingOffense = new Role("partyGivingOffense");
+            var partyOffended = new Role("partyOffended");
             partyGivingOffense.MinCount = 1;
             partyOffended.MinCount = 1;
 
-            accidentalOffense.AllParticipants.Add(partyGivingOffense);
-            accidentalOffense.AllParticipants.Add(partyOffended);
+            accidentalOffense.AllParticipantRoles.Add(partyGivingOffense);
+            accidentalOffense.AllParticipantRoles.Add(partyOffended);
 
             Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyOffended, partyGivingOffense);
             Outcome_ChangeTrust largeTrustLoss = new Outcome_ChangeTrust(-2, partyOffended, partyGivingOffense);
@@ -105,13 +105,13 @@ namespace UnitTests
             var socialAgression = new Incident("Social Agression");
             
             //Add roles
-            var partyAttacking = new Role();
-            var partyDefending = new Role();
+            var partyAttacking = new Role("partyAttacking");
+            var partyDefending = new Role("partyDefending");
             partyAttacking.MinCount = 1;
             partyDefending.MinCount = 1;
 
-            socialAgression.AllParticipants.Add(partyAttacking);
-            socialAgression.AllParticipants.Add(partyDefending);
+            socialAgression.AllParticipantRoles.Add(partyAttacking);
+            socialAgression.AllParticipantRoles.Add(partyDefending);
 
             //Add prereqs
             DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, partyAttacking, partyDefending);
@@ -156,10 +156,10 @@ namespace UnitTests
             var socialCooperation = new Incident("Social Cooperation");
             
             //Add roles
-            var cooperatives = new Role();
+            var cooperatives = new Role("cooperatives");
             cooperatives.MinCount = 2;
 
-            socialCooperation.AllParticipants.Add(cooperatives);
+            socialCooperation.AllParticipantRoles.Add(cooperatives);
 
             //Add prereqs
             MutualTrust_Min prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Exploit, cooperatives);

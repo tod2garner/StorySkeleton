@@ -10,11 +10,11 @@ namespace StoryEngine
     {
         public Incident(string givenName) : base(givenName)
         {
-            allParticipants = new List<Role>();
+            allRoles = new List<Role>();
         }
 
-        private List<Role> allParticipants;
-        public List<Role> AllParticipants { get { return allParticipants; } }
+        private List<Role> allRoles;
+        public List<Role> AllParticipantRoles { get { return allRoles; } }
 
         public override void PopulateAllRolesRandomly(SocietySnapshot currentCast, Random rng = null)
         {
@@ -23,7 +23,7 @@ namespace StoryEngine
 
             var nonParticipants = currentCast.AllCharacters.ToList();//must copy list to avoid changes to original
 
-            foreach (Role r in this.allParticipants)
+            foreach (Role r in this.allRoles)
             {
                 AIncident.AddParticipantsRandomly(r, nonParticipants, rng);
                 nonParticipants = nonParticipants.Where(n => false == r.Participants.Any(p => n.Id == p.Id)).ToList();

@@ -17,7 +17,7 @@ namespace UnitTests
         public void TestInitialize()
         {
             EthicsScale givenMin = EthicsScale.Coexist;
-            Role theRole = new Role();
+            Role theRole = new Role("r");
             minMutualTrust = new Mocks.Mock_Prereq_MutualTrust_Min(givenMin, theRole);
 
             Assert.AreEqual(minMutualTrust.GetBenchmark(), givenMin);
@@ -220,7 +220,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsTrue(minMutualTrust.TryToFulfillFromScratch(currentCast));
+            Assert.IsTrue(minMutualTrust.TryToFulfillFromScratch(currentCast, null));
             Assert.IsTrue(theRole.Participants.Count >= givenMin);
         }
 
@@ -245,7 +245,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsFalse(minMutualTrust.TryToFulfillFromScratch(currentCast));
+            Assert.IsFalse(minMutualTrust.TryToFulfillFromScratch(currentCast, null));
         }
     }
 }

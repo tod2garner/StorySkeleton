@@ -8,8 +8,10 @@ namespace StoryEngine
 {
     public interface IPrerequisite
     {
-        bool TryToFulfillFromScratch(SocietySnapshot currentCast, Random rng = null);
+        bool TryToFulfillFromScratch(SocietySnapshot currentCast, List<IPrerequisite> otherPrereqs, Random rng = null);
 
         bool IsMetByCurrentParticipants();
+
+        bool WouldBeMetBySuggestedParticipant(Character candidate, string nameOfRole);
     }
 }
