@@ -8,7 +8,7 @@ namespace StoryEngine
 {
     public class Incident : AIncident
     {
-        public Incident() : base()
+        public Incident(string givenName) : base(givenName)
         {
             allParticipants = new List<Role>();
         }
@@ -21,7 +21,7 @@ namespace StoryEngine
             if (rng == null)
                 rng = new Random();
 
-            var nonParticipants = currentCast.AllCharacters;
+            var nonParticipants = currentCast.AllCharacters.ToList();//must copy list to avoid changes to original
 
             foreach (Role r in this.allParticipants)
             {

@@ -3,6 +3,7 @@ using StoryEngine;
 using StoryEngine.SocietyGenerators;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace UnitTests
         {
             //Create a simple plot from scratch
 
-            int characterCount = 10;
+            int characterCount = 15;
             StartingCastGenerator_Default characterFactory = new StartingCastGenerator_Default();
             SocietySnapshot currentCast = characterFactory.CreateStartingCast(characterCount);
             Plot thePlot = new Plot(currentCast);
@@ -27,42 +28,46 @@ namespace UnitTests
             var socialAgression = createIncidentManually_Agression_Social();
             var socialCooperation = createIncidentManually_Cooperation_Social();
 
+            //Create sequence of events
+            Random rng = new Random();
+
             //Event #1
             var ableToFillRoles = accidentalOffense.TryToFulfillAllPrerequisites(currentCast);
             Assert.IsTrue(ableToFillRoles);            
-            thePlot.ExecuteIncidentAndStoreAfter(accidentalOffense, currentCast);
-
+            thePlot.ExecuteIncidentAndStoreAfter(accidentalOffense, currentCast, rng);
+            
             //Event #2
             ableToFillRoles = socialAgression.TryToFulfillAllPrerequisites(currentCast);
             Assert.IsTrue(ableToFillRoles);
-            thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast);
-
+            thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast, rng);
+            
             //Event #3
             ableToFillRoles = socialCooperation.TryToFulfillAllPrerequisites(currentCast);
             Assert.IsTrue(ableToFillRoles);
-            thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast);
+            thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast, rng);
 
             //Event #4
             ableToFillRoles = socialAgression.TryToFulfillAllPrerequisites(currentCast);
             Assert.IsTrue(ableToFillRoles);
-            thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast);
+            thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast, rng);
 
             //Event #5
             ableToFillRoles = socialCooperation.TryToFulfillAllPrerequisites(currentCast);
             Assert.IsTrue(ableToFillRoles);
-            thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast);
+            thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast, rng);
+            
 
             //Display narrative
             var theTextNarrative = thePlot.CompileTextNarrative();
             foreach(string s in theTextNarrative)
-                Console.Error.Write(s);
+                Debug.WriteLine(s);
 
-            Assert.IsTrue(false);
+            Assert.IsTrue(true);
         }
 
         private IIncident createIncidentManually_AccidentalOffense()
         {
-            var accidentalOffense = new Incident();
+            var accidentalOffense = new Incident("Accidental Offense");
             //create event from scratch - no prerequisites
 
             var partyGivingOffense = new Role();
@@ -97,7 +102,7 @@ namespace UnitTests
 
         private IIncident createIncidentManually_Agression_Social()
         {
-            var socialAgression = new Incident();
+            var socialAgression = new Incident("Social Agression");
             
             //Add roles
             var partyAttacking = new Role();
@@ -110,8 +115,8 @@ namespace UnitTests
 
             //Add prereqs
             DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(partyAttacking, partyDefending, EthicsScale.Exploit);
-            MutualTrust_Min prereq_AttackerMinTrust = new MutualTrust_Min(EthicsSCale.Exploit, partyAttacking);
-            MutualTrust_Min prereq_DefenderMinTrust = new MutualTrust_Min(EthicsSCale.Exploit, partyDefending);
+            MutualTrust_Min prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyAttacking);
+            MutualTrust_Min prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyDefending);
 
             socialAgression.MyPrerequisites.Add(prereqEthicsMax);
             socialAgression.MyPrerequisites.Add(prereq_AttackerMinTrust);
@@ -148,7 +153,7 @@ namespace UnitTests
 
         private IIncident createIncidentManually_Cooperation_Social()
         {
-            var socialCooperation = new Incident();
+            var socialCooperation = new Incident("Social Cooperation");
             
             //Add roles
             var cooperatives = new Role();
@@ -157,7 +162,7 @@ namespace UnitTests
             socialCooperation.AllParticipants.Add(cooperatives);
 
             //Add prereqs
-            MutualTrust_Min prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsSCale.Exploit, cooperatives);
+            MutualTrust_Min prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Exploit, cooperatives);
 
             socialCooperation.MyPrerequisites.Add(prereq_CooperativesMinTrust);
 
@@ -167,13 +172,13 @@ namespace UnitTests
             Outcome_ChangeTrust cooperativesBonding_Major = new Outcome_ChangeTrust(3, cooperatives, cooperatives);
 
             PossibleResult commonBonding = new PossibleResult(70);
-            commonBonding.TheOutcomes.Add(defendersBonding_Small);
+            commonBonding.TheOutcomes.Add(cooperativesBonding_Small);
 
             PossibleResult unlikelyBonding = new PossibleResult(20);
-            unlikelyBonding.TheOutcomes.Add(defendersBonding_Large);
+            unlikelyBonding.TheOutcomes.Add(cooperativesBonding_Large);
 
             PossibleResult rareBonding = new PossibleResult(10);
-            rareBonding.TheOutcomes.Add(defendersBonding_Major);
+            rareBonding.TheOutcomes.Add(cooperativesBonding_Major);
 
             socialCooperation.AllPossibleOutcomes.Add(commonBonding);
             socialCooperation.AllPossibleOutcomes.Add(unlikelyBonding);

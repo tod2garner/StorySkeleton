@@ -74,15 +74,10 @@ namespace StoryEngine
 
         protected virtual bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
-            return PassesBenchmark(a.GetTrustTowards(b.Id)) && PassesBenchmark(b.GetTrustTowards(a.Id));
-        }
+            var trustAtoB = a.GetTrustTowards(b);
+            var trustBtoA = b.GetTrustTowards(a);
 
-        protected virtual bool PassesBenchmark(EthicsScale? value)
-        {
-            if (value.HasValue == false) //#TODO - overwrite method for situations where a null relationship would meet benchmark
-                return false;
-
-            return PassesBenchmark(value.Value);
+            return PassesBenchmark(trustAtoB) && PassesBenchmark(trustBtoA);
         }
 
         protected abstract bool PassesBenchmark(EthicsScale value);
@@ -122,7 +117,7 @@ namespace StoryEngine
 
         protected override bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
-            return PassesBenchmark(a.GetEthicsTowards(b.Id)) && PassesBenchmark(b.GetEthicsTowards(a.Id));
+            return PassesBenchmark(a.GetEthicsTowards(b)) && PassesBenchmark(b.GetEthicsTowards(a));
         }
     }
 

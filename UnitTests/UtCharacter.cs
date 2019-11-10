@@ -26,7 +26,7 @@ namespace UnitTests
             otherOne = new Character(1, "other1");
             theCharacter.CreateRelationshipWith(otherOne);
 
-            Assert.AreEqual(theCharacter.AllRelations.Count, 1);            
+            Assert.AreEqual(theCharacter.AllRelations.Count, 1);
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@ namespace UnitTests
             theCharacter.ChangeTrust(3, otherOne);
 
             var trustAfter = theRelationship.Trust;
-            Assert.IsTrue(trustAfter > trustBefore);            
+            Assert.IsTrue(trustAfter > trustBefore);
         }
 
         [TestMethod]
@@ -160,12 +160,12 @@ namespace UnitTests
         {
             int relationCountBefore = theCharacter.AllRelations.Count();
             var newChar2 = new Character(2, "char2");
-            var trustBefore = theCharacter.GetTrustTowards(newChar2.Id);
-            
+            var trustBefore = theCharacter.GetTrustTowardsId(newChar2.Id);
+
             theCharacter.ChangeTrust(3, newChar2);
 
             int relationCountAfter = theCharacter.AllRelations.Count();
-            var trustAfter = theCharacter.GetTrustTowards(newChar2.Id);
+            var trustAfter = theCharacter.GetTrustTowardsId(newChar2.Id);
 
             Assert.AreEqual(1, relationCountAfter - relationCountBefore);
             Assert.AreNotEqual(trustBefore, trustAfter);
@@ -214,32 +214,56 @@ namespace UnitTests
 
         [TestMethod]
         public void IsEthicsLevelMutual_IsFalseForOneWayRelation()
-        {            
+        {
             Assert.IsFalse(theCharacter.IsEthicsLevelMutual(otherOne));
         }
 
         [TestMethod]
-        public void GetTrustTowards_NullIfUnknownCharacter()
+        public void GetTrustTowardsId_NullIfUnknownCharacter()
         {
-            Assert.IsNull(theCharacter.GetTrustTowards(99));
+            Assert.IsNull(otherOne.GetTrustTowardsId(theCharacter.Id));
         }
 
         [TestMethod]
-        public void GetTrustTowards_CorrectValue()
+        public void GetTrustTowardsId_CorrectValue()
         {
-            Assert.AreEqual(EthicsScale.Exploit, theCharacter.GetTrustTowards(1));
+            Assert.AreEqual(EthicsScale.Exploit, theCharacter.GetTrustTowardsId(otherOne.Id));
         }
 
         [TestMethod]
-        public void GetEthicsTowards_NullIfUnknownCharacter()
+        public void GetEthicsTowardsId_NullIfUnknownCharacter()
         {
-            Assert.IsNull(theCharacter.GetEthicsTowards(99));
+            Assert.IsNull(otherOne.GetEthicsTowardsId(theCharacter.Id));
         }
 
         [TestMethod]
-        public void GetEthicsTowards_CorrectValue()
+        public void GetEthicsTowardsId_CorrectValue()
         {
-            Assert.AreEqual(EthicsScale.Coexist, theCharacter.GetEthicsTowards(1));
+            Assert.AreEqual(EthicsScale.Coexist, theCharacter.GetEthicsTowardsId(otherOne.Id));
+        }
+
+        [TestMethod]
+        public void GetTrustTowards_UnknownCharacter_CorrectValue()
+        {
+            Assert.AreEqual(EthicsScale.Exploit, otherOne.GetTrustTowards(theCharacter));
+        }
+
+        [TestMethod]
+        public void GetTrustTowards_KnownCharacter_CorrectValue()
+        {
+            Assert.AreEqual(EthicsScale.Exploit, theCharacter.GetTrustTowards(otherOne));
+        }
+
+        [TestMethod]
+        public void GetEthicsTowards_UnknownCharacter_CorrectValue()
+        {
+            Assert.AreEqual(EthicsScale.Coexist, otherOne.GetEthicsTowards(theCharacter));
+        }
+
+        [TestMethod]
+        public void GetEthicsTowards_KnownCharacter_CorrectValue()
+        {
+            Assert.AreEqual(EthicsScale.Coexist, theCharacter.GetEthicsTowards(otherOne));
         }
     }
 }

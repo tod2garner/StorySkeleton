@@ -32,14 +32,14 @@ namespace UnitTests
         {
             var the1 = new Character(1, "the1");
             var theOther = new Character(2, "theOther");
-            var trustBefore = the1.GetTrustTowards(theOther.Id);
+            var trustBefore = the1.GetTrustTowardsId(theOther.Id);
 
             theOutcome.BeingChanged.Participants.Add(the1);
             theOutcome.Towards.Participants.Add(theOther);
 
             theOutcome.Execute();
 
-            var trustAfter = the1.GetTrustTowards(theOther.Id);
+            var trustAfter = the1.GetTrustTowardsId(theOther.Id);
             Assert.AreNotEqual(trustBefore, trustAfter);
             Assert.IsNotNull(trustAfter);
         }
@@ -50,14 +50,14 @@ namespace UnitTests
             var the1 = new Character(1, "the1");
             var theOther = new Character(2, "theOther");
             the1.CreateRelationshipWith(theOther);
-            var trustBefore = the1.GetTrustTowards(theOther.Id);
+            var trustBefore = the1.GetTrustTowardsId(theOther.Id);
 
             theOutcome.BeingChanged.Participants.Add(the1);
             theOutcome.Towards.Participants.Add(theOther);
 
             theOutcome.Execute();
 
-            var trustAfter = the1.GetTrustTowards(theOther.Id);
+            var trustAfter = the1.GetTrustTowardsId(theOther.Id);
             Assert.AreNotEqual(trustBefore, trustAfter);
         }
 
@@ -72,10 +72,10 @@ namespace UnitTests
             the1.CreateRelationshipWith(theOther2);
             the2.CreateRelationshipWith(theOther);
             the2.CreateRelationshipWith(theOther2);
-            var trustBefore11 = the1.GetTrustTowards(theOther.Id);
-            var trustBefore12 = the1.GetTrustTowards(theOther2.Id);
-            var trustBefore21 = the2.GetTrustTowards(theOther.Id);
-            var trustBefore22 = the2.GetTrustTowards(theOther2.Id);
+            var trustBefore11 = the1.GetTrustTowardsId(theOther.Id);
+            var trustBefore12 = the1.GetTrustTowardsId(theOther2.Id);
+            var trustBefore21 = the2.GetTrustTowardsId(theOther.Id);
+            var trustBefore22 = the2.GetTrustTowardsId(theOther2.Id);
 
             theOutcome.BeingChanged.Participants.Add(the1);
             theOutcome.BeingChanged.Participants.Add(the2);
@@ -84,10 +84,10 @@ namespace UnitTests
 
             theOutcome.Execute();
 
-            var trustAfter11 = the1.GetTrustTowards(theOther.Id);
-            var trustAfter12 = the1.GetTrustTowards(theOther2.Id);
-            var trustAfter21 = the2.GetTrustTowards(theOther.Id);
-            var trustAfter22 = the2.GetTrustTowards(theOther2.Id);
+            var trustAfter11 = the1.GetTrustTowardsId(theOther.Id);
+            var trustAfter12 = the1.GetTrustTowardsId(theOther2.Id);
+            var trustAfter21 = the2.GetTrustTowardsId(theOther.Id);
+            var trustAfter22 = the2.GetTrustTowardsId(theOther2.Id);
             Assert.AreNotEqual(trustBefore11, trustAfter11);
             Assert.AreNotEqual(trustBefore12, trustAfter12);
             Assert.AreNotEqual(trustBefore21, trustAfter21);

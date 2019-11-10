@@ -30,15 +30,15 @@ namespace StoryEngine
             get { return percentChance; }
         }
 
-        public string Execute()
+        public List<string> Execute()
         {
-            string textSummary = string.Empty;
+            var textSummary = new List<string>();
             foreach (var o in TheOutcomes)
             {
-                textSummary += o.Execute();
+                textSummary.AddRange(o.Execute());
             }
 
-            return textSummary.Trim();
+            return textSummary;
         }
     }
 }

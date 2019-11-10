@@ -16,8 +16,9 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            theIncident = new Incident();
+            theIncident = new Incident("testIncident");
 
+            Assert.AreEqual("testIncident", theIncident.Name);
             Assert.IsNotNull(theIncident.AllPossibleOutcomes);
             Assert.IsNotNull(theIncident.MyPrerequisites);
             Assert.IsNotNull(theIncident.AllParticipants);

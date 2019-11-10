@@ -74,7 +74,7 @@ namespace StoryEngine
 
         protected override bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b)
         {
-            return PassesBenchmark(a.GetEthicsTowards(b.Id));
+            return PassesBenchmark(a.GetEthicsTowardsId(b.Id));
         }
 
         protected virtual bool PassesBenchmark(EthicsScale? theValue)
@@ -99,7 +99,7 @@ namespace StoryEngine
 
         protected override bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b)
         {
-            return PassesBenchmark(a.GetTrustTowards(b.Id));
+            return PassesBenchmark(a.GetTrustTowardsId(b.Id));
         }
 
         protected virtual bool PassesBenchmark(EthicsScale? theValue)

@@ -45,8 +45,10 @@ namespace StoryEngine
             var textNarrative = new List<string>(this.TheIncidents.Count);
             foreach(IIncident x in this.TheIncidents)
             {
-                textNarrative.Add(x.GetTextSummary());
+                textNarrative.AddRange(x.GetTextSummary());
             }
+
+            return textNarrative;
         }
 
     }

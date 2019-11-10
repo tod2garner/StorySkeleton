@@ -23,8 +23,8 @@ namespace StoryEngine
         private string name;
         public string Name { get { return name; } }
 
-        protected string textSummary;
-        public string GetTextSummary() { return textSummary; }
+        protected List<string> textSummary;
+        public List<string> GetTextSummary() { return textSummary; }
 
         protected List<IPrerequisite> prerequisites;
         public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
@@ -88,7 +88,8 @@ namespace StoryEngine
 
         public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null)
         {
-            this.textSummary = string.Format("INCIDENT: {0}/n", this.name);
+            this.textSummary = new List<string>();
+            this.textSummary.Add(string.Format("INCIDENT: {0}", this.name));
 
             if (rng == null)
                 rng = new Random();
@@ -99,7 +100,7 @@ namespace StoryEngine
             {
                 if (diceRoll < p.PercentChance)
                 {
-                    this.textSummary += p.Execute();
+                    this.textSummary.AddRange(p.Execute());
                     return;
                 }
 

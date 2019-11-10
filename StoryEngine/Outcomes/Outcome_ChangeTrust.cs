@@ -24,14 +24,19 @@ namespace StoryEngine
             towards = target;
         }
         
-        public override string Execute()
+        public override List<string> Execute()
         {
-            string textSummary = "Outcome:/n";
+            var textSummary = new List<string>();
+            textSummary.Add("  Outcome: Change Trust");
+
             foreach (Character s in beingChanged.Participants)
             {
                 foreach (Character t in towards.Participants)
                 {
-                    textSummary += string.Format(" -- {0}/n", s.ChangeTrust(magnitude, t));                    
+                    var description = s.ChangeTrust(magnitude, t);
+
+                    if(description.Length > 0)
+                        textSummary.Add(string.Format("    - {0}", description));                    
                 }
             }
             return textSummary;

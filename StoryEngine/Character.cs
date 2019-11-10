@@ -78,23 +78,35 @@ namespace StoryEngine
             if (target.Id == this.Id)
                 throw new ArgumentException("Cannot create relationship with self");
 
-            if(this.AllRelations.Any(r => r.OtherId == target.Id))
+            if (this.AllRelations.Any(r => r.OtherId == target.Id))
                 throw new ArgumentException("Relationship with target already exists");
 
             var newRelation = RelationshipGenerator.CreateRelationship(this, target);
             this.AllRelations.Add(newRelation);
         }
 
-        public void ChangeTrust(int magnitude, Character target)
+        public string ChangeTrust(int magnitude, Character target)
         {
             if (magnitude == 0 || this.Id == target.Id)
-                return;
+                return string.Empty;
+
+            string textSummary = "";
 
             if (this.IsAcquaintedWith(target.Id) == false)
+            {
                 CreateRelationshipWith(target);
+                textSummary += string.Format("{0} meets {1} for the first time. ", this.Name, target.Name);
+            }
 
             var relation = this.AllRelations.First(r => r.OtherId == target.Id);
             relation.ChangeTrust(magnitude, this.BaseSuspicion, this.BaseMorality);
+
+            if (magnitude < 0)
+                textSummary += string.Format("{0} loses some trust in {1}.", this.Name, target.Name);
+            else
+                textSummary += string.Format("{0} gains more trust in {1}.", this.Name, target.Name);
+
+            return textSummary;
         }
 
         public bool IsAcquaintedWith(int otherCharacterId)
@@ -104,21 +116,21 @@ namespace StoryEngine
 
         public bool IsTrustLevelMutual(Character other)
         {
-            var myTrustTowardsThem = this.GetTrustTowards(other.Id);
-            var theirTrustTowardsMe = other.GetTrustTowards(this.Id);
+            var myTrustTowardsThem = this.GetTrustTowardsId(other.Id);
+            var theirTrustTowardsMe = other.GetTrustTowardsId(this.Id);
 
             return myTrustTowardsThem == theirTrustTowardsMe;
         }
 
         public bool IsEthicsLevelMutual(Character other)
         {
-            var myEthicsTowardsThem = this.GetEthicsTowards(other.Id);
-            var theirEthicsTowardsMe = other.GetEthicsTowards(this.Id);
+            var myEthicsTowardsThem = this.GetEthicsTowardsId(other.Id);
+            var theirEthicsTowardsMe = other.GetEthicsTowardsId(this.Id);
 
             return myEthicsTowardsThem == theirEthicsTowardsMe;
         }
 
-        public EthicsScale? GetTrustTowards(int otherCharacterId)
+        public EthicsScale? GetTrustTowardsId(int otherCharacterId)
         {
             if (this.IsAcquaintedWith(otherCharacterId) == false)
                 return null;
@@ -128,7 +140,24 @@ namespace StoryEngine
                 return relation.Trust;
             }
         }
-        public EthicsScale? GetEthicsTowards(int otherCharacterId)
+
+        public EthicsScale GetTrustTowards(Character other)
+        {
+            var theTrust = GetTrustTowardsId(other.Id);
+
+            if (theTrust.HasValue)
+                return theTrust.Value;
+            else
+            {
+                //strangers, check potential relation if they met
+                var futureRelation = Character.RelationshipGenerator.CreateRelationship(this, other);
+                theTrust = futureRelation.Trust;
+            }
+
+            return theTrust.Value;
+        }
+
+        public EthicsScale? GetEthicsTowardsId(int otherCharacterId)
         {
             if (this.IsAcquaintedWith(otherCharacterId) == false)
                 return null;
@@ -137,6 +166,22 @@ namespace StoryEngine
                 var relation = this.AllRelations.First(r => r.OtherId == otherCharacterId);
                 return relation.Ethics;
             }
+        }
+
+        public EthicsScale GetEthicsTowards(Character other)
+        {
+            var theEthics = GetEthicsTowardsId(other.Id);
+
+            if (theEthics.HasValue)
+                return theEthics.Value;
+            else
+            {
+                //strangers, check potential relation if they met
+                var futureRelation = Character.RelationshipGenerator.CreateRelationship(this, other);
+                theEthics = futureRelation.Ethics;
+            }
+
+            return theEthics.Value;
         }
     }
 }
