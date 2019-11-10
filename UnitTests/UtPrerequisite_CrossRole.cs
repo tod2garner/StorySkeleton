@@ -19,7 +19,7 @@ namespace UnitTests
             EthicsScale givenMax = EthicsScale.Exploit;
             Role role1 = new Role();
             Role role2 = new Role();
-            maxEthics = new Mocks.Mock_Prereq_DirectionalEthics_Max(role1, role2, givenMax);
+            maxEthics = new Mocks.Mock_Prereq_DirectionalEthics_Max(givenMax, role1, role2);
 
             Assert.AreEqual(maxEthics.GetBenchmark_AtoB(), givenMax);
             Assert.IsNotNull(maxEthics.GetRoleA());

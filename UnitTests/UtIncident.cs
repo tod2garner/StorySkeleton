@@ -34,7 +34,7 @@ namespace UnitTests
 
             theIncident.AllParticipants.Add(role1);
             theIncident.AllParticipants.Add(role2);
-            theIncident.MyPrerequisites.Add(new DirectionalEthics_Max(role1, role2, EthicsScale.Exploit));
+            theIncident.MyPrerequisites.Add(new DirectionalEthics_Max(EthicsScale.Exploit, role1, role2));
             theIncident.MyPrerequisites.Add(new MutualTrust_Min(EthicsScale.Cooperate, role1));
 
         }

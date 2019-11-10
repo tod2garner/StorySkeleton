@@ -39,7 +39,7 @@ namespace UnitTests.Mocks
 
     public class Mock_Prereq_DirectionalEthics_Max : DirectionalEthics_Max
     {
-        public Mock_Prereq_DirectionalEthics_Max(Role roleA, Role roleB, EthicsScale maximum_AtoB) : base(roleA, roleB, maximum_AtoB) { }
+        public Mock_Prereq_DirectionalEthics_Max(EthicsScale maximum_AtoB, Role roleA, Role roleB) : base(maximum_AtoB, roleA, roleB) { }
 
         public bool PublicHasDirectionalRelationThatPassesBenchmark(Character a, Character b)
         {
@@ -68,7 +68,7 @@ namespace UnitTests.Mocks
 
         public EthicsScale GetBenchmark_AtoB()
         {
-            return this.benchmarkTrust_AtoB;
+            return this.benchmarkEthics_AtoB;
         }
     }
 

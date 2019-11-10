@@ -114,7 +114,7 @@ namespace UnitTests
             socialAgression.AllParticipants.Add(partyDefending);
 
             //Add prereqs
-            DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(partyAttacking, partyDefending, EthicsScale.Exploit);
+            DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, partyAttacking, partyDefending);
             MutualTrust_Min prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyAttacking);
             MutualTrust_Min prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyDefending);
 
