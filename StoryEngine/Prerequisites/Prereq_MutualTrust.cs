@@ -38,53 +38,20 @@ namespace StoryEngine
             return true;
         }
 
-        //Rather than checking for the largest possible group with mutual trust,
-        // we simply use a random starting point and try to form a qualifying group.
-        public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, List<IPrerequisite> otherPrereqs, Random rng = null)
+        public override bool IsCharacterViableFirstCandidateForRole(Character candidate, string nameOfRole, SocietySnapshot currentCast)
         {
-            throw new NotImplementedException();//#TODO implement otherPrerequs
-
-            int maxParticipants = role.MaxCount.HasValue ? role.MaxCount.Value : Role.DEFAULT_ROLE_MAX_COUNT;
-            int minParticipants = role.MinCount.HasValue ? role.MinCount.Value : 0; //role can be left empty, assumed filled by unnamed minor characters
-
-            List<Character> candidates = new List<Character>();
-            foreach (Character a in currentCast.AllCharacters)
+            if (nameOfRole == this.role.RoleName)
             {
-                int countQualifyingRelations = currentCast.AllCharacters.Count(b => (b.Id != a.Id) && HaveMutualTrustThatPassesBenchmark(a, b));
+                int minParticipants = role.MinCount.HasValue ? role.MinCount.Value : 0;
+                int countQualifyingRelations = currentCast.AllCharacters.Count(b => HaveMutualTrustThatPassesBenchmark(candidate, b));
 
-                if (countQualifyingRelations >= minParticipants)
-                    candidates.Add(a);
+                if (countQualifyingRelations < minParticipants)
+                    return false;
             }
 
-            if (candidates.Any() == false)
-                return false;
-
-            if (rng == null)
-                rng = new Random();
-
-            var firstChar = candidates[rng.Next(0, candidates.Count)];
-            role.Participants.Add(firstChar);
-            candidates.Remove(firstChar);
-
-            var finalCandidates = candidates.Where(b => HaveMutualTrustThatPassesBenchmark(b, firstChar)).ToList();
-
-            maxParticipants = System.Math.Min(maxParticipants, finalCandidates.Count);
-            int targetCount = rng.Next(minParticipants, maxParticipants + 1);
-
-            while (finalCandidates.Any() && role.Participants.Count < targetCount)
-            {
-                var nextChar = finalCandidates[rng.Next(0, finalCandidates.Count)];
-                finalCandidates.Remove(nextChar);
-
-                if (role.Participants.Any(p => HaveMutualTrustThatPassesBenchmark(p, nextChar) == false))
-                    continue;
-
-                role.Participants.Add(nextChar);
-            }
-
-            return this.IsMetByCurrentParticipants();
+            return true;
         }
-
+        
         protected virtual bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
             var trustAtoB = a.GetTrustTowards(b);

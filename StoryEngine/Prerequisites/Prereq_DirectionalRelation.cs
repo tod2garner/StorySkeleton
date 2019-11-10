@@ -41,43 +41,24 @@ namespace StoryEngine
             return true;
         }
 
-        public override bool TryToFulfillFromScratch(SocietySnapshot currentCast, List<IPrerequisite> otherPrereqs, Random rng = null)
+        public override bool IsCharacterViableFirstCandidateForRole(Character candidate, string nameOfRole, SocietySnapshot currentCast)
         {
-            throw new NotImplementedException();//#TODO implement otherPrerequs
-
-            int minRoleB = roleBeta.MinCount.HasValue ? roleBeta.MinCount.Value : 0;
-
-            List<Character> alphaCandidates = new List<Character>();
-            foreach (Character a in currentCast.AllCharacters)
+            if (nameOfRole == this.roleAlpha.RoleName)
             {
-                int countQualifyingRelations = currentCast.AllCharacters.Count(b => (b.Id != a.Id) && HasDirectionalRelationThatPassesBenchmark(a, b));
-
-                if (countQualifyingRelations >= minRoleB)
-                    alphaCandidates.Add(a);
+                int minRoleB = roleBeta.MinCount.HasValue ? roleBeta.MinCount.Value : 0;
+                if (CountRelationsThatPassBenchmark(candidate) < minRoleB)
+                    return false;
+            }
+            else if (nameOfRole == this.roleBeta.RoleName)
+            {
+                if(false == currentCast.AllCharacters.Any(a => HasDirectionalRelationThatPassesBenchmark(a, candidate)))
+                    return false;
             }
 
-            if (alphaCandidates.Any() == false)
-                return false;
-
-            if (rng == null)
-                rng = new Random();
-
-            var firstAlpha = alphaCandidates[rng.Next(0, alphaCandidates.Count)];
-            roleAlpha.Participants.Add(firstAlpha);
-            alphaCandidates.Remove(firstAlpha);
-
-            var myBetaCandidates = currentCast.AllCharacters.Where(b => (b.Id != firstAlpha.Id) && HasDirectionalRelationThatPassesBenchmark(firstAlpha, b)).ToList();
-            var testedBetaCandidates = TestCandidatesAgainstOtherPrereqs(myBetaCandidates, roleBeta.RoleName, otherPrereqs);
-
-            AIncident.AddParticipantsRandomly(roleBeta, testedBetaCandidates, rng);
-
-            alphaCandidates = alphaCandidates.Where(a => false == roleBeta.Participants.Any(b => a.Id == b.Id)).ToList();
-            var remainingAlphaCandidates = alphaCandidates.Where(a => false == roleBeta.Participants.Any(b => false == HasDirectionalRelationThatPassesBenchmark(a, b))).ToList();
-
-            AIncident.AddParticipantsRandomly(roleAlpha, remainingAlphaCandidates, rng);
-
-            return this.IsMetByCurrentParticipants();
+            return true;
         }
+        
+        protected abstract int CountRelationsThatPassBenchmark(Character alpha);
 
         protected abstract bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b);
     }
@@ -89,6 +70,11 @@ namespace StoryEngine
         public DirectionalEthics(EthicsScale ethics_AtoB, Role roleA, Role roleB) : base(roleA, roleB)
         {
             benchmarkEthics_AtoB = ethics_AtoB;
+        }
+
+        protected override int CountRelationsThatPassBenchmark(Character alpha)
+        {
+            return alpha.AllRelations.Count(r => PassesBenchmark(alpha.GetEthicsTowardsId(r.OtherId)));
         }
 
         protected override bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b)
@@ -114,6 +100,11 @@ namespace StoryEngine
         public DirectionalTrust(EthicsScale trust_AtoB, Role roleA, Role roleB) : base(roleA, roleB)
         {
             benchmarkTrust_AtoB = trust_AtoB;
+        }
+
+        protected override int CountRelationsThatPassBenchmark(Character alpha)
+        {
+            return alpha.AllRelations.Where(r => PassesBenchmark(alpha.GetTrustTowardsId(r.OtherId))).Count();
         }
 
         protected override bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b)

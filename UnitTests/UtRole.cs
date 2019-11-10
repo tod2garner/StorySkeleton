@@ -124,5 +124,96 @@ namespace UnitTests
 
             Assert.IsFalse(theRole.AreMinAndMaxMet());
         }
+
+        [TestMethod]
+        public void AddParticipantsRandomly_WhenMaxIsBelowMin_ResultIsFalse()
+        {
+            var theRole = new Role("r");
+            theRole.MaxCount = 1;
+            theRole.MinCount = 3;
+            var theList = new List<Character>();
+
+            var result = theRole.AddParticipantsRandomly(theList);
+
+            Assert.IsFalse(result);
+            Assert.IsTrue(theRole.Participants.Count <= 0);
+        }
+
+        [TestMethod]
+        public void AddParticipantsRandomly_WhenMaxIsZero_NoneAreAdded()
+        {
+            var theRole = new Role("r");
+            theRole.MaxCount = 0;
+            var theList = new List<Character>();
+
+            var result = theRole.AddParticipantsRandomly(theList);
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(theRole.Participants.Count <= 0);
+        }
+
+        [TestMethod]
+        public void AddParticipantsRandomly_WhenMaxIsNull_DefaultMaxApplies()
+        {
+            var defaultMax = Role.DEFAULT_ROLE_MAX_COUNT;
+            var givenMin = 3;
+            var theRole = new Role("r");
+            theRole.MinCount = givenMin;
+
+            var theList = new List<Character>(defaultMax * 2);
+            for (int i = 0; i < defaultMax * 2; i++)
+                theList.Add(new Character(i, "name" + i));
+
+            var result = theRole.AddParticipantsRandomly(theList);
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(theRole.Participants.Count >= givenMin);
+            Assert.IsTrue(theRole.Participants.Count <= defaultMax);
+        }
+
+        [TestMethod]
+        public void AddParticipantsRandomly_WhenMinIsNull_NoError()
+        {
+            var givenMax = 5;
+            var theRole = new Role("r");
+            theRole.MaxCount = givenMax;
+
+            Assert.IsNull(theRole.MinCount);
+
+            var theList = new List<Character>(givenMax * 2);
+            for (int i = 0; i < givenMax * 2; i++)
+                theList.Add(new Character(i, "name" + i));
+
+            var result = theRole.AddParticipantsRandomly(theList);
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(theRole.Participants.Count <= givenMax);
+        }
+
+        [TestMethod]
+        public void AddParticipantsRandomly_ResultIsWithinMinMaxRange()
+        {
+            var givenMax = 5;
+            var givenMin = 3;
+            var theRole = new Role("r");
+            theRole.MaxCount = givenMax;
+            theRole.MinCount = givenMin;
+
+            var theList = new List<Character>(givenMax * 2);
+            for (int i = 0; i < givenMax * 2; i++)
+                theList.Add(new Character(i, "name" + i));
+
+            var result = theRole.AddParticipantsRandomly(theList);
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(theRole.Participants.Count >= givenMin);
+            Assert.IsTrue(theRole.Participants.Count <= givenMax);
+        }
+
+        [TestMethod]
+        public void AddParticipants_RetestingAfterEach_IsSuccessful()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

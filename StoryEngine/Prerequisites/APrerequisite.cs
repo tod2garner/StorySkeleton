@@ -22,11 +22,11 @@ namespace StoryEngine
         //  character trait rule (e.g. baseSuspicion min/max)
         //      used for interactions with minor/un-named characters?
 
-        public abstract bool TryToFulfillFromScratch(SocietySnapshot currentCast, List<IPrerequisite> otherPrereqs, Random rng = null);
-
         public abstract bool IsMetByCurrentParticipants();
 
         public abstract bool WouldBeMetBySuggestedParticipant(Character candidate, string nameOfRole);
+
+        public abstract bool IsCharacterViableFirstCandidateForRole(Character candidate, string nameOfRole, SocietySnapshot currentCast);
 
         protected abstract bool AreRoleMinMaxCountsMet();
     }

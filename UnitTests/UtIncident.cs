@@ -82,7 +82,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsTrue(theIncident.TryToFulfillAllPrerequisites(currentCast));
+            Assert.IsTrue(theIncident.TryToPopulateIncident(currentCast));
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsTrue(theIncident.TryToFulfillAllPrerequisites(currentCast));
+            Assert.IsTrue(theIncident.TryToPopulateIncident(currentCast));
         }
 
         [TestMethod]
@@ -122,7 +122,7 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsFalse(theIncident.TryToFulfillAllPrerequisites(currentCast));
+            Assert.IsFalse(theIncident.TryToPopulateIncident(currentCast));
         }
 
         [TestMethod]
@@ -144,76 +144,9 @@ namespace UnitTests
                         c.CreateRelationshipWith(currentCast.AllCharacters[i]);
             }
 
-            Assert.IsFalse(theIncident.TryToFulfillAllPrerequisites(currentCast));
+            Assert.IsFalse(theIncident.TryToPopulateIncident(currentCast));
         }
-
-        [TestMethod]
-        public void AddParticipantsRandomly_WhenMaxIsZero_NoneAreAdded()
-        {
-            var theRole = new Role("r");
-            theRole.MaxCount = 0;
-            var theList = new List<Character>();
-
-            AIncident.AddParticipantsRandomly(theRole, theList);
-
-            Assert.IsTrue(theRole.Participants.Count <= 0);
-        }
-
-        [TestMethod]
-        public void AddParticipantsRandomly_WhenMaxIsNull_DefaultMaxApplies()
-        {
-            var defaultMax = Role.DEFAULT_ROLE_MAX_COUNT;
-            var givenMin = 3;
-            var theRole = new Role("r");
-            theRole.MinCount = givenMin;
-
-            var theList = new List<Character>(defaultMax * 2);
-            for (int i = 0; i < defaultMax * 2; i++)
-                theList.Add(new Character(i, "name" + i));
-
-            AIncident.AddParticipantsRandomly(theRole, theList);
-
-            Assert.IsTrue(theRole.Participants.Count >= givenMin);
-            Assert.IsTrue(theRole.Participants.Count <= defaultMax);
-        }
-
-        [TestMethod]
-        public void AddParticipantsRandomly_WhenMinIsNull_NoError()
-        {
-            var givenMax = 5;
-            var theRole = new Role("r");
-            theRole.MaxCount = givenMax;
-
-            Assert.IsNull(theRole.MinCount);
-
-            var theList = new List<Character>(givenMax * 2);
-            for (int i = 0; i < givenMax * 2; i++)
-                theList.Add(new Character(i, "name" + i));
-
-            AIncident.AddParticipantsRandomly(theRole, theList);
-
-            Assert.IsTrue(theRole.Participants.Count <= givenMax);
-        }
-
-        [TestMethod]
-        public void AddParticipantsRandomly_ResultIsWithinMinMaxRange()
-        {
-            var givenMax = 5;
-            var givenMin = 3;
-            var theRole = new Role("r");
-            theRole.MaxCount = givenMax;
-            theRole.MinCount = givenMin;
-
-            var theList = new List<Character>(givenMax * 2);
-            for (int i = 0; i < givenMax * 2; i++)
-                theList.Add(new Character(i, "name" + i));
-
-            AIncident.AddParticipantsRandomly(theRole, theList);
-
-            Assert.IsTrue(theRole.Participants.Count >= givenMin);
-            Assert.IsTrue(theRole.Participants.Count <= givenMax);
-        }
-
+        
         [TestMethod]
         public void RollDiceAndExecuteOneOutcome_IsSuccessful()
         {
@@ -221,7 +154,13 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void PopulateAllRolesRandomly_IsSuccessful()
+        public void PopulateAllRoles_Randomly_IsSuccessful()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void PopulateAllRoles_FollowingPrereqs_IsSuccessful()
         {
             throw new NotImplementedException();
         }

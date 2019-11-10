@@ -141,57 +141,6 @@ namespace UnitTests
             Assert.IsTrue(theRelation.Ethics > maxEthics.GetBenchmark_AtoB());
             Assert.IsFalse(maxEthics.IsMetByCurrentParticipants());
         }
-
-        [TestMethod]
-        public void TryToFulfillFromScratch_Succeeds()
-        {
-            var role1 = maxEthics.GetRoleA();
-            var role2 = maxEthics.GetRoleB();
-            role1.MinCount = 1;
-            role2.MinCount = 1;
-
-            var currentCast = new SocietySnapshot();
-
-            for (int i = 0; i < 5; i++)
-                currentCast.AllCharacters.Add(new Character(i, "name" + i));
-
-            foreach (Character c in currentCast.AllCharacters)
-            {
-                c.BaseMorality = Morality.Exploit;
-
-                for (int i = 0; i < 5; i++)
-                    if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
-            }
-
-            Assert.IsTrue(maxEthics.TryToFulfillFromScratch(currentCast, null));
-            Assert.IsTrue(role1.Participants.Count > 0);
-            Assert.IsTrue(role2.Participants.Count > 0);
-        }
-
-        [TestMethod]
-        public void TryToFulfillFromScratch_Fails()
-        {
-            var role1 = maxEthics.GetRoleA();
-            var role2 = maxEthics.GetRoleB();
-            role1.MinCount = 1;
-            role2.MinCount = 1;
-
-            var currentCast = new SocietySnapshot();
-
-            for (int i = 0; i < 5; i++)
-                currentCast.AllCharacters.Add(new Character(i, "name" + i));
-
-            foreach (Character c in currentCast.AllCharacters)
-            {
-                c.BaseMorality = Morality.Forgive;
-
-                for (int i = 0; i < 5; i++)
-                    if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
-            }
-
-            Assert.IsFalse(maxEthics.TryToFulfillFromScratch(currentCast, null));
-        }
+        
     }
 }

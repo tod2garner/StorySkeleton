@@ -198,54 +198,6 @@ namespace UnitTests
             Assert.IsTrue(theRelation2.Trust >= minMutualTrust.GetBenchmark());
             Assert.IsFalse(minMutualTrust.IsMetByCurrentParticipants());
         }
-
-        [TestMethod]
-        public void TryToFulfillFromScratch_Succeeds()
-        {
-            var givenMin = 3;
-            var theRole = minMutualTrust.GetRole();
-            theRole.MinCount = givenMin;
-
-            var currentCast = new SocietySnapshot();
-
-            for (int i = 0; i < 5; i++)
-                currentCast.AllCharacters.Add(new Character(i, "name" + i));
-
-            foreach (Character c in currentCast.AllCharacters)
-            {
-                c.BaseSuspicion = SuspicionScale.Relaxed;
-
-                for (int i = 0; i < 5; i++)
-                    if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
-            }
-
-            Assert.IsTrue(minMutualTrust.TryToFulfillFromScratch(currentCast, null));
-            Assert.IsTrue(theRole.Participants.Count >= givenMin);
-        }
-
-        [TestMethod]
-        public void TryToFulfillFromScratch_Fails()
-        {
-            var givenMin = 3;
-            var theRole = minMutualTrust.GetRole();
-            theRole.MinCount = givenMin;
-
-            var currentCast = new SocietySnapshot();
-
-            for (int i = 0; i < 5; i++)
-                currentCast.AllCharacters.Add(new Character(i, "name" + i));
-
-            foreach (Character c in currentCast.AllCharacters)
-            {
-                c.BaseSuspicion = SuspicionScale.Paranoid;
-
-                for (int i = 0; i < 5; i++)
-                    if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
-            }
-
-            Assert.IsFalse(minMutualTrust.TryToFulfillFromScratch(currentCast, null));
-        }
+        
     }
 }

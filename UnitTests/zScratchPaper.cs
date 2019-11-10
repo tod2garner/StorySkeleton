@@ -32,27 +32,27 @@ namespace UnitTests
             Random rng = new Random();
 
             //Event #1
-            var ableToFillRoles = accidentalOffense.TryToFulfillAllPrerequisites(currentCast);
+            var ableToFillRoles = accidentalOffense.TryToPopulateIncident(currentCast);
             Assert.IsTrue(ableToFillRoles);            
             thePlot.ExecuteIncidentAndStoreAfter(accidentalOffense, currentCast, rng);
             
             //Event #2
-            ableToFillRoles = socialAgression.TryToFulfillAllPrerequisites(currentCast);
+            ableToFillRoles = socialAgression.TryToPopulateIncident(currentCast);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast, rng);
             
             //Event #3
-            ableToFillRoles = socialCooperation.TryToFulfillAllPrerequisites(currentCast);
+            ableToFillRoles = socialCooperation.TryToPopulateIncident(currentCast);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast, rng);
 
             //Event #4
-            ableToFillRoles = socialAgression.TryToFulfillAllPrerequisites(currentCast);
+            ableToFillRoles = socialAgression.TryToPopulateIncident(currentCast);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast, rng);
 
             //Event #5
-            ableToFillRoles = socialCooperation.TryToFulfillAllPrerequisites(currentCast);
+            ableToFillRoles = socialCooperation.TryToPopulateIncident(currentCast);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast, rng);
             

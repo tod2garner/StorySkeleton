@@ -9,7 +9,7 @@ namespace StoryEngine
     public abstract class AIncident : IIncident
     {
         //#TODO Future: triggers, chance to trigger other incident(s)
-        
+
         //Future:
         //      Multi-stage events - recursive triggers, and option to force a final trigger (e.g. deception)
 
@@ -17,6 +17,7 @@ namespace StoryEngine
         {
             this.name = givenName;
             prerequisites = new List<IPrerequisite>();
+            allRoles = new List<Role>();
             allPossibleOutcomes = new List<PossibleResult>();
         }
 
@@ -31,59 +32,70 @@ namespace StoryEngine
 
         private List<PossibleResult> allPossibleOutcomes;
         public List<PossibleResult> AllPossibleOutcomes { get { return allPossibleOutcomes; } }
-        
-        public abstract void PopulateAllRolesRandomly(SocietySnapshot currentCast, Random rng = null);
 
-        public static void AddParticipantsRandomly(Role theRole, List<Character> theCandidates, Random rng = null)
+        private List<Role> allRoles;
+        public List<Role> AllParticipantRoles { get { return allRoles; } }
+
+        public void PopulateAllRoles_Randomly(SocietySnapshot currentCast, Random rng = null)
         {
             if (rng == null)
                 rng = new Random();
 
-            int min = theRole.MinCount.HasValue ? theRole.MinCount.Value : 0; //role can be left empty, assumed filled by unnamed minor characters
-            int max = theRole.MaxCount.HasValue ? theRole.MaxCount.Value : Role.DEFAULT_ROLE_MAX_COUNT;
-            max = System.Math.Min(max, theCandidates.Count);
+            var nonParticipants = currentCast.AllCharacters.ToList();//must copy list to avoid changes to original
 
-            if (min > max)
-                return;
-
-            int targetCount = rng.Next(min, max + 1);
-
-            for (int i = 0; i < targetCount; i++)
+            foreach (Role r in this.allRoles)
             {
-                if (theCandidates.Count == 0)
-                    break;
-
-                var nextChosen = theCandidates[rng.Next(0, theCandidates.Count)];
-                theRole.Participants.Add(nextChosen);
-                theCandidates.Remove(nextChosen);
+                r.AddParticipantsRandomly(nonParticipants, rng);
+                nonParticipants = nonParticipants.Where(n => false == r.Participants.Any(p => n.Id == p.Id)).ToList();
             }
         }
 
-        public static List<Character> TestCandidatesAgainstOtherPrereqs(List<Character> myCandidates, string suggestedRole, List<IPrerequisite> otherPrereqs)
+        public void PopulateAllRoles_FollowingPrereqs(SocietySnapshot currentCast, Random rng = null)
         {
-            var passedAllTests = new List<Character>(myCandidates.Count);
-            passedAllTests = myCandidates.Where(c => false == otherPrereqs.Any(p => false == p.WouldBeMetBySuggestedParticipant(c, suggestedRole))).ToList();
-            return passedAllTests;
-        }
+            if (rng == null)
+                rng = new Random();
 
-        public static void AddParticipantsRandomly_RetestingAfterEach(Role theRole, List<Character> theCandidates, List<IPrerequisite> otherPrereqs, Random rng = null)
-        {
-            throw new NotImplementedException();             
-        }
+            var nonParticipants = currentCast.AllCharacters.ToList();//must copy list to avoid changes to original
 
-        public bool TryToFulfillAllPrerequisites(SocietySnapshot currentCast, Random rng = null)
-        {
-            if(MyPrerequisites.Any() == false)
+            //One cycle through roles, adding one participant to each
+            var rolesOrderedByCountOfFirstCandidates = allRoles.OrderBy(r => r.FirstCandidateOptions(nonParticipants, MyPrerequisites, currentCast).Count);
+
+            //Start with whichever role is hardest to fill
+            var roleToStartWith = rolesOrderedByCountOfFirstCandidates.First();
+            var firstCandidates = roleToStartWith.FirstCandidateOptions(nonParticipants, MyPrerequisites, currentCast);
+            roleToStartWith.AddOneParticipantRandomly(firstCandidates, rng);
+            nonParticipants = nonParticipants.Where(n => false == roleToStartWith.Participants.Any(p => n.Id == p.Id)).ToList();
+
+            foreach (Role r in this.allRoles) //#TODO - fix later to allow roles with zero participants
             {
-                PopulateAllRolesRandomly(currentCast, rng);
+                if (r.RoleName == roleToStartWith.RoleName)
+                    continue;
+
+                var theCandidates = r.CandidatesThatPassPrereqs(nonParticipants, MyPrerequisites);
+                r.AddOneParticipantRandomly(theCandidates, rng);
+                nonParticipants = nonParticipants.Where(n => false == r.Participants.Any(p => n.Id == p.Id)).ToList();
+            }
+
+            //Cycle again, adding further participants
+            foreach (Role r in this.allRoles)
+            {
+                r.AddParticipantsRandomly_RetestingAfterEach(nonParticipants, MyPrerequisites, rng);
+                nonParticipants = nonParticipants.Where(n => false == r.Participants.Any(p => n.Id == p.Id)).ToList();
+            }
+        }
+
+        public bool TryToPopulateIncident(SocietySnapshot currentCast, Random rng = null)
+        {
+            if (MyPrerequisites.Any() == false)
+            {
+                PopulateAllRoles_Randomly(currentCast, rng);
                 return true;
             }
-
-            //#TODO - fix for multiple prerequisites, simultaneous
-            var primaryPrereq = MyPrerequisites.First(); //first in list always given priority - #TODO, change to most roles involved
-            var otherPrereqs = MyPrerequisites.Where(p => p != primaryPrereq).ToList();
-            var ableToFill = primaryPrereq.TryToFulfillFromScratch(currentCast, otherPrereqs, rng);
-
+            else
+            {
+                PopulateAllRoles_FollowingPrereqs(currentCast, rng);
+            }
+            
             var allAreFulfilled = !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
             return allAreFulfilled;
         }
@@ -102,8 +114,7 @@ namespace StoryEngine
 
         public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null)
         {
-            this.textSummary = new List<string>();
-            this.textSummary.Add(string.Format("INCIDENT: {0}", this.name));
+            InitializeTextSummary();
 
             if (rng == null)
                 rng = new Random();
@@ -119,6 +130,27 @@ namespace StoryEngine
                 }
 
                 diceRoll -= p.PercentChance;
+            }
+        }
+
+        public void InitializeTextSummary()
+        {
+            this.textSummary = new List<string>();
+            this.textSummary.Add(string.Format("INCIDENT: {0}", this.name));
+
+            foreach (Role r in AllParticipantRoles)
+            {
+                var roleParticipantSummary = string.Format("  {0}: ", r.RoleName);
+
+                if (r.Participants.Any() == false)
+                    roleParticipantSummary += "Unnamed minor character(s)";
+                else
+                {
+                    foreach (Character c in r.Participants)
+                        roleParticipantSummary += c.Name + ", ";
+                }
+
+                textSummary.Add(roleParticipantSummary);
             }
         }
     }
