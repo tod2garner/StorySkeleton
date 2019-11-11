@@ -19,7 +19,7 @@ namespace UnitTests
             int givenMagnitude = 3;
             var role1 = new Role("r1");
             var role2 = new Role("r2");
-            theOutcome = new Outcome_ChangeTrust(givenMagnitude, role1, role2);
+            theOutcome = new Outcome_ChangeTrust(givenMagnitude, role1, role2, "testOutcome");
 
             Assert.AreEqual(givenMagnitude, theOutcome.Magnitude);
             Assert.IsNotNull(theOutcome.BeingChanged);
@@ -94,5 +94,10 @@ namespace UnitTests
             Assert.AreNotEqual(trustBefore22, trustAfter22);
         }
 
+        [TestMethod]
+        public void DescribeOutcomeParticipants()
+        {
+            throw new NotImplementedException();        
+        }
     }
 }

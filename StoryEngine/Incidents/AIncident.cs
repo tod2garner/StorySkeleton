@@ -140,7 +140,7 @@ namespace StoryEngine
 
             foreach (Role r in AllParticipantRoles)
             {
-                var roleParticipantSummary = string.Format("  {0}: ", r.RoleName);
+                var roleParticipantSummary = string.Format("    {0}: ", r.RoleName);
 
                 if (r.Participants.Any() == false)
                     roleParticipantSummary += "Unnamed minor character(s)";

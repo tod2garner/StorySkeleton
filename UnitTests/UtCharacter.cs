@@ -265,5 +265,29 @@ namespace UnitTests
         {
             Assert.AreEqual(EthicsScale.Coexist, theCharacter.GetEthicsTowards(otherOne));
         }
+
+        [TestMethod]
+        public void DescribeTrustTowards_WhenUnknown()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void DescribeTrustTowards_Whenknown()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void DescribeEthicsTowards_WhenUnknown()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void DescribeEthicsTowards_Whenknown()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

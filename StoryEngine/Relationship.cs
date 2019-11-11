@@ -213,6 +213,33 @@ namespace StoryEngine
 
             return lower;
         }
+        
+        public string DescribeTrustDurability()
+        {
+            if(durabilityOfTrust == 0)
+                return string.Empty;
 
+            int? threshold = durabilityOfTrust > 0 ? GapToNextLevel(trust, true) : GapToNextLevel(trust, false);
+
+            if (threshold == null)
+                return string.Empty;
+
+            var percentDurability = (100 * durabilityOfTrust) / threshold.Value;
+            var nextLevel = durabilityOfTrust > 0 ? HigherLevel(trust) : LowerLevel(trust);
+
+            var summary = string.Format("{0}% of the way to [{1}]", durabilityOfTrust, nextLevel.ToString());
+            return summary;
+        }
+
+        public string DescribeEthicsDurability()
+        {
+            if (durabilityOfEthics == 0)
+                return string.Empty;
+
+            var next = durabilityOfEthics > 0 ? HigherLevel(ethics) : LowerLevel(ethics);
+
+            var summary = string.Format("{0}% of the way to [{1}]", durabilityOfEthics, next.ToString());
+            return summary;
+        }
     }
 }

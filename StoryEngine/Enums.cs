@@ -19,6 +19,31 @@ namespace StoryEngine
         Embrace = 3,         //friend
         Confide = 10,        //confidant
     }
+    
+    public static class EnumExtensions
+    {
+        public static string ToCustomString(this EthicsScale me)
+        {
+            switch (me)
+            {
+                case EthicsScale.Murder:
+                    return "would not hesitate to murder";
+                case EthicsScale.Beat:
+                    return "would not hesitate to beat";
+                case EthicsScale.Exploit:
+                    return "would not hesitate to exploit";
+                case EthicsScale.Coexist:
+                    return "would not bother";
+                case EthicsScale.Cooperate:
+                    return "would reliably cooperate with";
+                case EthicsScale.Embrace:
+                    return "would be a loyal friend to";
+                case EthicsScale.Confide:
+                default:
+                    return "would be a trusted confidant for";
+            }
+        }
+    }
 
     public enum SuspicionScale
     {

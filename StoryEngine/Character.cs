@@ -101,10 +101,7 @@ namespace StoryEngine
             var relation = this.AllRelations.First(r => r.OtherId == target.Id);
             relation.ChangeTrust(magnitude, this.BaseSuspicion, this.BaseMorality);
 
-            if (magnitude < 0)
-                textSummary += string.Format("{0} loses some trust in {1}.", this.Name, target.Name);
-            else
-                textSummary += string.Format("{0} gains more trust in {1}.", this.Name, target.Name);
+            textSummary += this.DescribeTrustTowards(target, true);
 
             return textSummary;
         }
@@ -182,6 +179,40 @@ namespace StoryEngine
             }
 
             return theEthics.Value;
+        }
+        
+        public string DescribeTrustTowards(Character other, bool IncludeDurability = false)
+        {
+            var theTrust = GetTrustTowardsId(other.Id);
+            if (false == theTrust.HasValue)
+                return string.Format("{0} has never met {1}");
+
+            var summary = string.Format("{0} expects {1} {2} him/her", this.Name, other.Name, theTrust.Value.ToCustomString());
+
+            if(IncludeDurability)
+            {
+                var relation = this.AllRelations.First(r => r.OtherId == other.Id);
+                summary += " - " + relation.DescribeTrustDurability();
+            }
+
+            return summary;
+        }
+
+        public string DescribeEthicsTowards(Character other, bool IncludeDurability = false)
+        {
+            var theEthics = GetEthicsTowardsId(other.Id);
+            if (false == theEthics.HasValue)
+                return string.Format("{0} has never met {1}");
+
+            var summary = string.Format("{0} {1} {2}", this.Name, theEthics.Value.ToCustomString(), other.Name);
+
+            if (IncludeDurability)
+            {
+                var relation = this.AllRelations.First(r => r.OtherId == other.Id);
+                summary += " - " + relation.DescribeEthicsDurability();
+            }
+
+            return summary;
         }
     }
 }

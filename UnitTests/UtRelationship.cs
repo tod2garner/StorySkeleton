@@ -196,5 +196,17 @@ namespace UnitTests
             Assert.AreEqual(EthicsScale.Murder, theRelationship.Trust);
             Assert.AreEqual(EthicsScale.Beat, theRelationship.Ethics);
         }
+
+        [TestMethod]
+        public void DescribeTrustDurability()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void DescribeEthicsDurability()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

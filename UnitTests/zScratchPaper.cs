@@ -78,10 +78,10 @@ namespace UnitTests
             accidentalOffense.AllParticipantRoles.Add(partyGivingOffense);
             accidentalOffense.AllParticipantRoles.Add(partyOffended);
 
-            Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyOffended, partyGivingOffense);
-            Outcome_ChangeTrust largeTrustLoss = new Outcome_ChangeTrust(-2, partyOffended, partyGivingOffense);
-            Outcome_ChangeTrust majorTrustLoss = new Outcome_ChangeTrust(-3, partyOffended, partyGivingOffense);
-            Outcome_ChangeTrust reverseTrustLoss = new Outcome_ChangeTrust(-1, partyGivingOffense, partyOffended);
+            Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyOffended, partyGivingOffense, "Small Trust Loss");
+            Outcome_ChangeTrust largeTrustLoss = new Outcome_ChangeTrust(-2, partyOffended, partyGivingOffense, "Large Trust Loss");
+            Outcome_ChangeTrust majorTrustLoss = new Outcome_ChangeTrust(-3, partyOffended, partyGivingOffense, "Major Trust Loss");
+            Outcome_ChangeTrust reverseTrustLoss = new Outcome_ChangeTrust(-1, partyGivingOffense, partyOffended, "Reciprocal Trust Loss");
 
             PossibleResult commonDecrease = new PossibleResult(70);
             commonDecrease.TheOutcomes.Add(smallTrustLoss);
@@ -123,13 +123,13 @@ namespace UnitTests
             socialAgression.MyPrerequisites.Add(prereq_DefenderMinTrust);
 
             //Add outcomes
-            Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyDefending, partyAttacking);
-            Outcome_ChangeTrust largeTrustLoss = new Outcome_ChangeTrust(-2, partyDefending, partyAttacking);
-            Outcome_ChangeTrust majorTrustLoss = new Outcome_ChangeTrust(-3, partyDefending, partyAttacking);
-            Outcome_ChangeTrust reverseTrustLoss = new Outcome_ChangeTrust(-1, partyAttacking, partyDefending);
-            Outcome_ChangeTrust defendersBonding_Small = new Outcome_ChangeTrust(1, partyDefending, partyDefending);
-            Outcome_ChangeTrust defendersBonding_Large = new Outcome_ChangeTrust(2, partyDefending, partyDefending);
-            Outcome_ChangeTrust defendersBonding_Major = new Outcome_ChangeTrust(3, partyDefending, partyDefending);
+            Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyDefending, partyAttacking, "Small Trust Loss");
+            Outcome_ChangeTrust largeTrustLoss = new Outcome_ChangeTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
+            Outcome_ChangeTrust majorTrustLoss = new Outcome_ChangeTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            Outcome_ChangeTrust reverseTrustLoss = new Outcome_ChangeTrust(-1, partyAttacking, partyDefending, "Reciprocal Trust Loss");
+            Outcome_ChangeTrust defendersBonding_Small = new Outcome_ChangeTrust(1, partyDefending, partyDefending, "Small Defender Bonding");
+            Outcome_ChangeTrust defendersBonding_Large = new Outcome_ChangeTrust(2, partyDefending, partyDefending, "Large Defender Bonding");
+            Outcome_ChangeTrust defendersBonding_Major = new Outcome_ChangeTrust(3, partyDefending, partyDefending, "Major Defender Bonding");
 
             PossibleResult commonDecrease = new PossibleResult(70);
             commonDecrease.TheOutcomes.Add(smallTrustLoss);
@@ -167,9 +167,9 @@ namespace UnitTests
             socialCooperation.MyPrerequisites.Add(prereq_CooperativesMinTrust);
 
             //Add outcomes
-            Outcome_ChangeTrust cooperativesBonding_Small = new Outcome_ChangeTrust(1, cooperatives, cooperatives);
-            Outcome_ChangeTrust cooperativesBonding_Large = new Outcome_ChangeTrust(2, cooperatives, cooperatives);
-            Outcome_ChangeTrust cooperativesBonding_Major = new Outcome_ChangeTrust(3, cooperatives, cooperatives);
+            Outcome_ChangeTrust cooperativesBonding_Small = new Outcome_ChangeTrust(1, cooperatives, cooperatives, "Small Bonding");
+            Outcome_ChangeTrust cooperativesBonding_Large = new Outcome_ChangeTrust(2, cooperatives, cooperatives, "Large Bonding");
+            Outcome_ChangeTrust cooperativesBonding_Major = new Outcome_ChangeTrust(3, cooperatives, cooperatives, "Major Bonding");
 
             PossibleResult commonBonding = new PossibleResult(70);
             commonBonding.TheOutcomes.Add(cooperativesBonding_Small);

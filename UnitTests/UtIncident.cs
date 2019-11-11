@@ -64,7 +64,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CanAllPrerequisitesBeMet_IsTrue()
+        public void TryToPopulateIncident_IsSuccessful()
         {
             Setup_Basic_Prerequisites();
             var currentCast = new SocietySnapshot();
@@ -86,7 +86,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CanAllPrerequisitesBeMet_WithNoPrerequisites_IsTrue()
+        public void TryToPopulateIncident_WithNoPrerequisites_IsSuccessful()
         {
             var currentCast = new SocietySnapshot();
 
@@ -104,7 +104,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CanAllPrerequisitesBeMet_IsFalse_SinglePrereqFails()
+        public void TryToPopulateIncident_SinglePrereqFails()
         {
             Setup_Basic_Prerequisites();
             var currentCast = new SocietySnapshot();
@@ -126,7 +126,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CanAllPrerequisitesBeMet_IsFalse_BothFail()
+        public void TryToPopulateIncident_BothPrereqsFail()
         {
             Setup_Basic_Prerequisites();
             var currentCast = new SocietySnapshot();
