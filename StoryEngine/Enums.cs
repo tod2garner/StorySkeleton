@@ -27,20 +27,20 @@ namespace StoryEngine
             switch (me)
             {
                 case EthicsScale.Murder:
-                    return "would not hesitate to murder";
+                    return "would not hesitate to [Murder]";
                 case EthicsScale.Beat:
-                    return "would not hesitate to beat";
+                    return "would not hesitate to [Beat]";
                 case EthicsScale.Exploit:
-                    return "would not hesitate to exploit";
+                    return "would not hesitate to [Exploit]";
                 case EthicsScale.Coexist:
                     return "would not bother";
                 case EthicsScale.Cooperate:
-                    return "would reliably cooperate with";
+                    return "would reliably [Cooperate] with";
                 case EthicsScale.Embrace:
-                    return "would be a loyal friend to";
+                    return "would be a loyal [Friend] to";
                 case EthicsScale.Confide:
                 default:
-                    return "would be a trusted confidant for";
+                    return "would be a trusted [Confidant] for";
             }
         }
     }

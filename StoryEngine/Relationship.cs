@@ -224,10 +224,10 @@ namespace StoryEngine
             if (threshold == null)
                 return string.Empty;
 
-            var percentDurability = (100 * durabilityOfTrust) / threshold.Value;
+            var percentDurability = System.Math.Abs((100 * durabilityOfTrust) / threshold.Value);
             var nextLevel = durabilityOfTrust > 0 ? HigherLevel(trust) : LowerLevel(trust);
 
-            var summary = string.Format("{0}% of the way to [{1}]", durabilityOfTrust, nextLevel.ToString());
+            var summary = string.Format("{0}% of the way to [{1}]", percentDurability, nextLevel.ToString());
             return summary;
         }
 
@@ -236,9 +236,16 @@ namespace StoryEngine
             if (durabilityOfEthics == 0)
                 return string.Empty;
 
-            var next = durabilityOfEthics > 0 ? HigherLevel(ethics) : LowerLevel(ethics);
+            int? threshold = durabilityOfEthics > 0 ? GapToNextLevel(trust, true) : GapToNextLevel(trust, false);
 
-            var summary = string.Format("{0}% of the way to [{1}]", durabilityOfEthics, next.ToString());
+            if (threshold == null)
+                return string.Empty;
+
+            var percentDurability = System.Math.Abs((100 * durabilityOfEthics) / threshold.Value);
+            var nextLevel = durabilityOfEthics > 0 ? HigherLevel(trust) : LowerLevel(ethics);
+
+
+            var summary = string.Format("{0}% of the way to [{1}]", percentDurability, nextLevel.ToString());
             return summary;
         }
     }

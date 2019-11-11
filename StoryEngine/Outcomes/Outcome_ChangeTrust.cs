@@ -31,9 +31,12 @@ namespace StoryEngine
         public override List<string> Execute()
         {
             var textSummary = new List<string>();
-            textSummary.Add(string.Format("OUTCOME: {0}", this.name));
-            textSummary.Add(DescribeOutcomeParticipants());
 
+            if (beingChanged.Participants.Any(a => towards.Participants.Any(b => a.Id != b.Id)))
+            {
+                textSummary.Add(string.Format("OUTCOME: {0}", this.name));
+                textSummary.Add(DescribeOutcomeParticipants());
+            }
 
             foreach (Character s in beingChanged.Participants)
             {
@@ -51,13 +54,13 @@ namespace StoryEngine
 
         public string DescribeOutcomeParticipants()
         {
-            string description = "";
+            string description = "  ";
 
             for(int i = 0; i < beingChanged.Participants.Count; i++)
             {
                 if (0 == beingChanged.Participants.Count - 1)
                     description += beingChanged.Participants[i].Name;
-                if (i != beingChanged.Participants.Count -1)
+                else if (i != beingChanged.Participants.Count -1)
                     description += beingChanged.Participants[i].Name + ", ";
                 else
                     description += "and " + beingChanged.Participants[i].Name;
@@ -73,7 +76,9 @@ namespace StoryEngine
             {
                 for (int i = 0; i < towards.Participants.Count; i++)
                 {
-                    if (i != towards.Participants.Count - 1)
+                    if (0 == towards.Participants.Count - 1)
+                        description += towards.Participants[i].Name;
+                    else if (i != towards.Participants.Count - 1)
                         description += towards.Participants[i].Name + ", ";
                     else
                         description += "and " + towards.Participants[i].Name;
