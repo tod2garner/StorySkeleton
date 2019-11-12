@@ -132,6 +132,15 @@ namespace StoryEngine
         {
             return value >= this.benchmarkEthics_AtoB;
         }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRoleA = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleAlpha.RoleName);
+            var matchingRoleB = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleBeta.RoleName);
+
+            var theCopy = new DirectionalEthics_Min(this.benchmarkEthics_AtoB, matchingRoleA, matchingRoleB);
+            return theCopy;
+        }
     }
 
     public class DirectionalEthics_Max : DirectionalEthics
@@ -142,6 +151,15 @@ namespace StoryEngine
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value <= this.benchmarkEthics_AtoB;
+        }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRoleA = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleAlpha.RoleName);
+            var matchingRoleB = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleBeta.RoleName);
+
+            var theCopy = new DirectionalEthics_Max(this.benchmarkEthics_AtoB, matchingRoleA, matchingRoleB);
+            return theCopy;
         }
     }
 
@@ -154,6 +172,15 @@ namespace StoryEngine
         {
             return value >= this.benchmarkTrust_AtoB;
         }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRoleA = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleAlpha.RoleName);
+            var matchingRoleB = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleBeta.RoleName);
+
+            var theCopy = new DirectionalTrust_Min(this.benchmarkTrust_AtoB, matchingRoleA, matchingRoleB);
+            return theCopy;
+        }
     }
 
     public class DirectionalTrust_Max : DirectionalTrust
@@ -164,6 +191,15 @@ namespace StoryEngine
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value <= this.benchmarkTrust_AtoB;
+        }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRoleA = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleAlpha.RoleName);
+            var matchingRoleB = replacementRoles.FirstOrDefault(r => r.RoleName == this.roleBeta.RoleName);
+
+            var theCopy = new DirectionalTrust_Max(this.benchmarkTrust_AtoB, matchingRoleA, matchingRoleB);
+            return theCopy;
         }
     }
 }

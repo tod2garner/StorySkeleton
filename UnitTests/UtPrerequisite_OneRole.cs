@@ -25,6 +25,12 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void Copy_OneRolePrereq()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
         public void PassesBenchmark_IsTrue() //givenValue >= min in prereq 
         {
             var givenValue = EthicsScale.Coexist;

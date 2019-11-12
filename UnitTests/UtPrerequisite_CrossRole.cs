@@ -27,6 +27,12 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void CopyCrossRolePrereq()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
         public void PassesBenchmark_IsTrue() //givenValue <= max in prereq 
         {
             var givenValue = EthicsScale.Exploit;

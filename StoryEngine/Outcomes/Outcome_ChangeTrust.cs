@@ -27,8 +27,17 @@ namespace StoryEngine
             towards = target;
             this.name = givenName;
         }
+        
+        public override IOutcome Copy(List<Role> replacementRoles)
+        {
+            var matchBeingChanged = replacementRoles.FirstOrDefault(r => r.RoleName == this.beingChanged.RoleName);
+            var matchTowards = replacementRoles.FirstOrDefault(r => r.RoleName == this.towards.RoleName);
 
-        public override List<string> Execute()
+            var theCopy = new Outcome_ChangeTrust(this.magnitude, matchBeingChanged, matchTowards, this.name);
+            return theCopy;
+        }
+
+        public override List<string> ExecuteAndGiveSummary()
         {
             var textSummary = new List<string>();
 

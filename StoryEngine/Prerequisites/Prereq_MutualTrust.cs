@@ -75,6 +75,13 @@ namespace StoryEngine
         {
             return value >= this.benchmarkTrust;
         }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRole = replacementRoles.FirstOrDefault(r => r.RoleName == this.role.RoleName);
+            var theCopy = new MutualTrust_Min(this.benchmarkTrust, matchingRole);
+            return theCopy;
+        }
     }
 
     /// <summary>
@@ -88,6 +95,13 @@ namespace StoryEngine
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value <= this.benchmarkTrust;
+        }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRole = replacementRoles.FirstOrDefault(r => r.RoleName == this.role.RoleName);
+            var theCopy = new MutualTrust_Max(this.benchmarkTrust, matchingRole);
+            return theCopy;
         }
     }
 
@@ -110,6 +124,13 @@ namespace StoryEngine
         {
             return value >= this.benchmarkTrust;
         }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRole = replacementRoles.FirstOrDefault(r => r.RoleName == this.role.RoleName);
+            var theCopy = new MutualEthics_Min(this.benchmarkTrust, matchingRole);
+            return theCopy;
+        }
     }
 
     public class MutualEthics_Max : MutualEthics
@@ -120,6 +141,13 @@ namespace StoryEngine
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value <= this.benchmarkTrust;
+        }
+
+        public override IPrerequisite Copy(List<Role> replacementRoles)
+        {
+            var matchingRole = replacementRoles.FirstOrDefault(r => r.RoleName == this.role.RoleName);
+            var theCopy = new MutualEthics_Max(this.benchmarkTrust, matchingRole);
+            return theCopy;
         }
     }
 }

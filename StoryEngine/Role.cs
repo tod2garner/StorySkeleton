@@ -46,6 +46,18 @@ namespace StoryEngine
             set { maxCount = value; }
         }
 
+        public Role Copy(bool CopyParticipants = false)
+        {
+            var theCopy = new Role(this.name);
+            theCopy.MinCount = this.minCount;
+            theCopy.maxCount = this.maxCount;
+
+            if (CopyParticipants && this.Participants.Any())
+                theCopy.Participants.AddRange(this.Participants);
+
+            return theCopy;
+        }
+
         public bool AreMinAndMaxMet()
         {
             if (this.MinCount.HasValue && this.Participants.Count < this.MinCount)

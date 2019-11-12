@@ -28,6 +28,8 @@ namespace StoryEngine
 
         public abstract bool IsCharacterViableFirstCandidateForRole(Character candidate, string nameOfRole, SocietySnapshot currentCast);
 
+        public abstract IPrerequisite Copy(List<Role> replacementRoles);
+
         protected abstract bool AreRoleMinMaxCountsMet();
     }
 }

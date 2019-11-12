@@ -12,6 +12,8 @@ namespace StoryEngine
         //  For list of participants, partial inclusion for one or both sides
         // Future: personalilty change outcomes
 
-        public abstract List<string> Execute();
+        public abstract List<string> ExecuteAndGiveSummary();
+
+        public abstract IOutcome Copy(List<Role> replacementRoles);
     }
 }

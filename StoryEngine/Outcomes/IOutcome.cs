@@ -8,6 +8,8 @@ namespace StoryEngine
 {
     public interface IOutcome
     {
-        List<string> Execute();
+        List<string> ExecuteAndGiveSummary();
+
+        IOutcome Copy(List<Role> replacementRoles);
     }
 }

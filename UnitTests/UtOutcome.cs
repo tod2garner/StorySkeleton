@@ -37,7 +37,7 @@ namespace UnitTests
             theOutcome.BeingChanged.Participants.Add(the1);
             theOutcome.Towards.Participants.Add(theOther);
 
-            theOutcome.Execute();
+            theOutcome.ExecuteAndGiveSummary();
 
             var trustAfter = the1.GetTrustTowardsId(theOther.Id);
             Assert.AreNotEqual(trustBefore, trustAfter);
@@ -55,7 +55,7 @@ namespace UnitTests
             theOutcome.BeingChanged.Participants.Add(the1);
             theOutcome.Towards.Participants.Add(theOther);
 
-            theOutcome.Execute();
+            theOutcome.ExecuteAndGiveSummary();
 
             var trustAfter = the1.GetTrustTowardsId(theOther.Id);
             Assert.AreNotEqual(trustBefore, trustAfter);
@@ -82,7 +82,7 @@ namespace UnitTests
             theOutcome.Towards.Participants.Add(theOther);
             theOutcome.Towards.Participants.Add(theOther2);
 
-            theOutcome.Execute();
+            theOutcome.ExecuteAndGiveSummary();
 
             var trustAfter11 = the1.GetTrustTowardsId(theOther.Id);
             var trustAfter12 = the1.GetTrustTowardsId(theOther2.Id);
@@ -92,6 +92,12 @@ namespace UnitTests
             Assert.AreNotEqual(trustBefore12, trustAfter12);
             Assert.AreNotEqual(trustBefore21, trustAfter21);
             Assert.AreNotEqual(trustBefore22, trustAfter22);
+        }
+
+        [TestMethod]
+        public void CopyOutcome()
+        {
+            throw new NotImplementedException();
         }
 
         [TestMethod]

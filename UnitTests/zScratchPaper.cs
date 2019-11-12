@@ -70,9 +70,10 @@ namespace UnitTests
 
         private IIncident createIncidentManually_AccidentalOffense()
         {
+            //Assign name
             var accidentalOffense = new Incident("Accidental Offense");
-            //create event from scratch - no prerequisites
-
+            
+            //Add roles
             var partyGivingOffense = new Role("partyGivingOffense");
             var partyOffended = new Role("partyOffended");
             partyGivingOffense.MinCount = 1;
@@ -81,6 +82,9 @@ namespace UnitTests
             accidentalOffense.AllParticipantRoles.Add(partyGivingOffense);
             accidentalOffense.AllParticipantRoles.Add(partyOffended);
 
+            //No prereqs
+
+            //Add outcomes
             Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyOffended, partyGivingOffense, "Small Trust Loss");
             Outcome_ChangeTrust largeTrustLoss = new Outcome_ChangeTrust(-2, partyOffended, partyGivingOffense, "Large Trust Loss");
             Outcome_ChangeTrust majorTrustLoss = new Outcome_ChangeTrust(-3, partyOffended, partyGivingOffense, "Major Trust Loss");

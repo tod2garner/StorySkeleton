@@ -25,6 +25,12 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void CopyRole()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
         public void AreMinAndMaxMet_NullLimits_ZeroParticipants_IsTrue()
         {
             Assert.IsTrue(theRole.AreMinAndMaxMet());

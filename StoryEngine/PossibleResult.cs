@@ -35,10 +35,20 @@ namespace StoryEngine
             var textSummary = new List<string>();
             foreach (var o in TheOutcomes)
             {
-                textSummary.AddRange(o.Execute());
+                textSummary.AddRange(o.ExecuteAndGiveSummary());
             }
 
             return textSummary;
+        }
+
+        public PossibleResult Copy(List<Role> replacementRoles)
+        {
+            var theCopy = new PossibleResult(this.percentChance);
+
+            foreach (IOutcome o in theOutcomes)
+                theCopy.theOutcomes.Add(o.Copy(replacementRoles));
+
+            return theCopy;
         }
     }
 }

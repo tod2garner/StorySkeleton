@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    public class IncidentLibrary
+    public class IncidentTemplateCollection
     {
-        public IncidentLibrary()
+        public IncidentTemplateCollection()
         {
             LoadFromFile();
         }
 
-        private List<IIncident> allIncidents;
+        private List<TemplateForIncident> allTemplates;
 
-        public List<IIncident> AllIncidents
+        public List<TemplateForIncident> AllIncidents
         {
-            get { return allIncidents; }
-            set { allIncidents = value; }
+            get { return allTemplates; }
+            set { allTemplates = value; }
         }
                        
 

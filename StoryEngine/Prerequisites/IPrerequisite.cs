@@ -13,5 +13,7 @@ namespace StoryEngine
         bool IsCharacterViableFirstCandidateForRole(Character candidate, string nameOfRole, SocietySnapshot currentCast);
 
         bool WouldBeMetBySuggestedParticipant(Character candidate, string nameOfRole);
+
+        IPrerequisite Copy(List<Role> replacementRoles);
     }
 }

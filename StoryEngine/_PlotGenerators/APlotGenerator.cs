@@ -22,9 +22,9 @@ namespace StoryEngine.PlotGenerators
 
         private Plot plotInProgress;
         private SocietySnapshot currentCast;
-        private IncidentLibrary possibleIncidents;
+        private IncidentTemplateCollection possibleIncidents;
 
-        public Plot GenerateNewPlot(IncidentLibrary givenPossibleIncidents)
+        public Plot GenerateNewPlot(IncidentTemplateCollection givenPossibleIncidents)
         {
             this.possibleIncidents = givenPossibleIncidents;
 

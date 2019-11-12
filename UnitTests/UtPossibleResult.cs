@@ -37,5 +37,11 @@ namespace UnitTests
             Assert.AreEqual(givenValue, theResult.PercentChance);
             Assert.IsNotNull(theResult.TheOutcomes);
         }
+
+        [TestMethod]
+        public void CopyPossibleResult()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
