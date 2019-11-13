@@ -30,13 +30,11 @@ namespace StoryEngine
 
             foreach(Role r in TheRoles)
                 theIncident.AllParticipantRoles.Add(r.Copy());
-
-            //Add prerequisite --- Must re-wire all roles to the new copies
-            foreach (IPrerequisite p in ThePrerequisites)
+                        
+            foreach (IPrerequisite p in ThePrerequisites)//Add prerequisite --- Must re-wire all roles to the new copies
                 theIncident.MyPrerequisites.Add(p.Copy(theIncident.AllParticipantRoles));
-
-            //Add outcomes --- Must re-wire all roles to the new copies
-            foreach (PossibleResult pr in ThePossibleResults)
+                        
+            foreach (PossibleResult pr in ThePossibleResults)//Add outcomes --- Must re-wire all roles to the new copies
                 theIncident.AllPossibleOutcomes.Add(pr.Copy(theIncident.AllParticipantRoles));
 
             return theIncident;

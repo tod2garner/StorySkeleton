@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    public class IncidentTemplateCollection
+    public class CollectionOfIncidentTemplates
     {
-        public IncidentTemplateCollection()
+        public CollectionOfIncidentTemplates()
         {
             LoadFromFile();
         }

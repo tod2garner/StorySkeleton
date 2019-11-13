@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Incidents\IncidentTemplateCollection.cs" />
+    <Compile Include="Incidents\CollectionOfIncidentTemplates.cs" />
     <Compile Include="Incidents\Incident.cs" />
+    <Compile Include="Incidents\LibraryOfIncidents.cs" />
     <Compile Include="Incidents\TemplateForIncident.cs" />
     <Compile Include="Outcomes\Outcome_ChangeTrust.cs" />
     <Compile Include="Role.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="SocietySnapshot.cs" />
     <Compile Include="_PlotGenerators\IPlotGenerator.cs" />
     <Compile Include="_PlotGenerators\APlotGenerator.cs" />
+    <Compile Include="_PlotGenerators\PlotGenerator_Default.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
