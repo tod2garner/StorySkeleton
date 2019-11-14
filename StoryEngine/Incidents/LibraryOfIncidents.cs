@@ -19,5 +19,23 @@ namespace StoryEngine
         /// </summary>
         public List<Tuple<int, CollectionOfIncidentTemplates>> AllCollections { get { return allCollections; } }
 
+
+        public CollectionOfIncidentTemplates ChooseRandomCollection(Random rng)
+        {
+            var totalPercentChanceOfCollections = this.AllCollections.Sum(t => t.Item1);
+
+            var diceRoll = rng.Next(0, totalPercentChanceOfCollections);
+            foreach (Tuple<int, CollectionOfIncidentTemplates> t in this.AllCollections)
+            {
+                if (diceRoll < t.Item1)
+                {
+                    return t.Item2;
+                }
+
+                diceRoll -= t.Item1;
+            }
+
+            return null;
+        }
     }
 }

@@ -19,17 +19,24 @@ namespace StoryEngine
         {
             get { return allTemplates; }
             set { allTemplates = value; }
-        }
-                       
+        }                       
 
-        private void LoadFromFile()
+        public void LoadFromFile()
         {
             throw new NotImplementedException(); //#TODO
         }
 
-        private void SaveToFile()
+        public void SaveToFile()
         {
             throw new NotImplementedException();//#TODO
+        }
+
+        public IIncident GetRandomIncident(Random rng)
+        {
+            //#TODO - add step to sort/exclude by rarity
+
+            var diceRoll = rng.Next(0, this.allTemplates.Count);
+            return this.allTemplates[diceRoll].CreateIncident();
         }
     }
 }

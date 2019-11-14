@@ -8,45 +8,31 @@ namespace StoryEngine.PlotGenerators
 {
     public class PlotGenerator_Default : APlotGenerator
     {
-        protected override void CreateSequenceOfEvents(int maxNumIncidents, int maxNumCharacters)
+        protected override void CreateSequenceOfEvents(int maxNumIncidents)
         {
             var rng = new Random();
 
             for (int i = 0; i < maxNumIncidents; i++)
             {
-                var nextIncident = this.GetNextEventRandomly(maxNumCharacters, rng);
+                var nextIncident = this.GetNextEventRandomly(rng);
+
+                if (nextIncident == null) //Incident prerequisites not met, try again
+                    continue;
+
                 plotInProgress.ExecuteIncidentAndStoreAfter(nextIncident, this.currentCast, rng);
             }
         }
 
-        protected override IIncident GetNextEventRandomly(int maxNumCharacters, Random rng)
+        protected IIncident GetNextEventRandomly(Random rng)
         {
-            //Which collection in library
-            var chosenCollection = ChooseCollection(rng);
+            var chosenCollection = this.possibleIncidents.ChooseRandomCollection(rng);
+            var chosenIncident = chosenCollection.GetRandomIncident(rng);
 
-            //Exclude events that fail prerequisites - including check vs. maxNumCharacters
-
-            //Choose randomly from remainder
-
-            throw new NotImplementedException();
-        }
-
-        protected CollectionOfIncidentTemplates ChooseCollection(Random rng)
-        {
-            var totalPercentChanceOfCollections = this.possibleIncidents.AllCollections.Sum(t => t.Item1);
-
-            var diceRoll = rng.Next(0, totalPercentChanceOfCollections);
-            foreach (Tuple<int, CollectionOfIncidentTemplates> t in this.possibleIncidents.AllCollections)
-            {
-                if (diceRoll < t.Item1)
-                {
-                    return t.Item2;
-                }
-
-                diceRoll -= t.Item1;
-            }
-
-            return null;
+            var popluatedSucessfully = chosenIncident.TryToPopulateIncident(this.currentCast, rng);
+            if (popluatedSucessfully == false)
+                return null;  //Exclude events that fail prerequisites - including check vs. maxNumCharacters
+            else
+                return chosenIncident;
         }
     }
 }

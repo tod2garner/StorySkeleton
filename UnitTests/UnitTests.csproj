@@ -43,8 +43,13 @@
   <ItemGroup>
     <Compile Include="Mocks\Mock_Prereqs.cs" />
     <Compile Include="UtCharacter.cs" />
+    <Compile Include="UtIncident_Collection.cs" />
+    <Compile Include="UtIncident_Library.cs" />
+    <Compile Include="UtPlot.cs" />
+    <Compile Include="UtIncident_Template.cs" />
     <Compile Include="UtIncident.cs" />
     <Compile Include="UtOutcome.cs" />
+    <Compile Include="UtPlotGenerator_Default.cs" />
     <Compile Include="UtPossibleResult.cs" />
     <Compile Include="UtPrerequisite_CrossRole.cs" />
     <Compile Include="UtPrerequisite_OneRole.cs" />

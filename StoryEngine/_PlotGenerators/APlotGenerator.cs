@@ -9,7 +9,7 @@ namespace StoryEngine.PlotGenerators
     public abstract class APlotGenerator : IPlotGenerator
     {
         public const int MAX_INCIDENT_COUNT = 100;
-        public const int MAX_CHARACTER_COUNT = 20;
+        public const int MAX_CHARACTER_COUNT = 20; //#TODO - not currently used
         protected const int DEFAULT_STARTING_CHARACTER_COUNT = 5;
 
         //Implement concrete classes:
@@ -29,7 +29,7 @@ namespace StoryEngine.PlotGenerators
             currentCast = GetStartingCast();
             plotInProgress = new Plot(currentCast);
 
-            CreateSequenceOfEvents(MAX_INCIDENT_COUNT, MAX_CHARACTER_COUNT);
+            CreateSequenceOfEvents(MAX_INCIDENT_COUNT);
 
             return plotInProgress;
         }
@@ -40,8 +40,6 @@ namespace StoryEngine.PlotGenerators
             return castFactory.CreateStartingCast(DEFAULT_STARTING_CHARACTER_COUNT);
         }
 
-        protected abstract void CreateSequenceOfEvents(int maxNumIncidents, int maxNumCharacters);
-
-        protected abstract IIncident GetNextEventRandomly(int maxNumCharacters, Random rng);
+        protected abstract void CreateSequenceOfEvents(int maxNumIncidents);        
     }
 }
