@@ -31,6 +31,12 @@ namespace StoryEngine
             this.baseSuspicion = SuspicionScale.Average;
         }
 
+        public Character()
+        {
+            allRelations = new List<Relationship>();
+            this.baseSuspicion = SuspicionScale.Average;
+        }
+
         private int id;
         public int Id { get { return id; } }
 

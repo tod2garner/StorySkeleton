@@ -9,7 +9,5 @@ namespace StoryEngine
     public interface IOutcome
     {
         List<string> ExecuteAndGiveSummary();
-
-        IOutcome Copy(List<Role> replacementRoles);
     }
 }

@@ -16,6 +16,7 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
+            theLibrary = new LibraryOfIncidents();
             throw new NotImplementedException();
         }        
 

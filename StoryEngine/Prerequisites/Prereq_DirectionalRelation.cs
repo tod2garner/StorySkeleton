@@ -14,6 +14,8 @@ namespace StoryEngine
             this.roleBeta = roleB;
         }
 
+        public Prereq_DirectionalRelation() { }//Parameterless constructor req'd for XML serialization
+
         public override bool IsMetByCurrentParticipants()
         {
             foreach (Character a in roleAlpha.Participants)
@@ -72,6 +74,9 @@ namespace StoryEngine
             benchmarkEthics_AtoB = ethics_AtoB;
         }
 
+        public DirectionalEthics() { }//Parameterless constructor req'd for XML serialization
+
+
         protected override int CountRelationsThatPassBenchmark(Character alpha)
         {
             return alpha.AllRelations.Count(r => PassesBenchmark(alpha.GetEthicsTowardsId(r.OtherId)));
@@ -102,6 +107,9 @@ namespace StoryEngine
             benchmarkTrust_AtoB = trust_AtoB;
         }
 
+        public DirectionalTrust() { }//Parameterless constructor req'd for XML serialization
+
+
         protected override int CountRelationsThatPassBenchmark(Character alpha)
         {
             return alpha.AllRelations.Where(r => PassesBenchmark(alpha.GetTrustTowardsId(r.OtherId))).Count();
@@ -128,6 +136,8 @@ namespace StoryEngine
         /// <param name="minimum_AtoB">Inclusive minimum ethics value</param>
         public DirectionalEthics_Min(EthicsScale minimum_AtoB, Role roleA, Role roleB) : base(minimum_AtoB, roleA, roleB) { }
 
+        public DirectionalEthics_Min() { }//Parameterless constructor req'd for XML serialization
+
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value >= this.benchmarkEthics_AtoB;
@@ -147,6 +157,8 @@ namespace StoryEngine
     {
         /// <param name="maximum_AtoB">Inclusive maximum ethics value</param>
         public DirectionalEthics_Max(EthicsScale maximum_AtoB, Role roleA, Role roleB) : base(maximum_AtoB, roleA, roleB) { }
+
+        public DirectionalEthics_Max() { }//Parameterless constructor req'd for XML serialization
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -168,6 +180,8 @@ namespace StoryEngine
         /// <param name="minimum_AtoB">Inclusive minimum trust value</param>
         public DirectionalTrust_Min(EthicsScale minimum_AtoB, Role roleA, Role roleB) : base(minimum_AtoB, roleA, roleB) { }
 
+        public DirectionalTrust_Min() { }//Parameterless constructor req'd for XML serialization
+
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value >= this.benchmarkTrust_AtoB;
@@ -187,6 +201,8 @@ namespace StoryEngine
     {
         /// <param name="maximum_AtoB">Inclusive maximum trust value</param>
         public DirectionalTrust_Max(EthicsScale maximum_AtoB, Role roleA, Role roleB) : base(maximum_AtoB, roleA, roleB) { }
+
+        public DirectionalTrust_Max() { }//Parameterless constructor req'd for XML serialization
 
         protected override bool PassesBenchmark(EthicsScale value)
         {

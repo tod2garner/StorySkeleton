@@ -16,6 +16,8 @@ namespace StoryEngine
             this.role = whichRole;
         }
 
+        public Prereq_MutualTrust() { }//Parameterless constructor req'd for XML serialization
+
         public override bool IsMetByCurrentParticipants()
         {
             foreach (Character a in role.Participants)
@@ -51,7 +53,7 @@ namespace StoryEngine
 
             return true;
         }
-        
+
         protected virtual bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
             var trustAtoB = a.GetTrustTowards(b);
@@ -70,6 +72,8 @@ namespace StoryEngine
     {
         /// <param name="minimum">Inclusive minimum trust value</param>
         public MutualTrust_Min(EthicsScale minimum, Role whichRole) : base(minimum, whichRole) { }
+
+        public MutualTrust_Min() { }//Parameterless constructor req'd for XML serialization
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -92,6 +96,8 @@ namespace StoryEngine
         /// <param name="maximum">Inclusive maximum trust value</param>
         public MutualTrust_Max(EthicsScale maximum, Role whichRole) : base(maximum, whichRole) { }
 
+        public MutualTrust_Max() { }//Parameterless constructor req'd for XML serialization
+
         protected override bool PassesBenchmark(EthicsScale value)
         {
             return value <= this.benchmarkTrust;
@@ -109,6 +115,8 @@ namespace StoryEngine
     {
         public MutualEthics(EthicsScale benchmark, Role whichRole) : base(benchmark, whichRole) { }
 
+        public MutualEthics() { }//Parameterless constructor req'd for XML serialization
+
         protected override bool HaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
             return PassesBenchmark(a.GetEthicsTowards(b)) && PassesBenchmark(b.GetEthicsTowards(a));
@@ -119,6 +127,8 @@ namespace StoryEngine
     {
         /// <param name="minimum">Inclusive minimum ethics value</param>
         public MutualEthics_Min(EthicsScale minimum, Role whichRole) : base(minimum, whichRole) { }
+
+        public MutualEthics_Min() { }//Parameterless constructor req'd for XML serialization
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -137,6 +147,8 @@ namespace StoryEngine
     {
         /// <param name="maximum">Inclusive maximum ethics value</param>
         public MutualEthics_Max(EthicsScale maximum, Role whichRole) : base(maximum, whichRole) { }
+
+        public MutualEthics_Max() { }//Parameterless constructor req'd for XML serialization
 
         protected override bool PassesBenchmark(EthicsScale value)
         {

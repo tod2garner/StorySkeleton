@@ -10,15 +10,15 @@ namespace StoryEngine
     {
         public CollectionOfIncidentTemplates()
         {
-            LoadFromFile();
+            theTemplates = new List<TemplateForIncident>();
         }
 
-        private List<TemplateForIncident> allTemplates;
+        private List<TemplateForIncident> theTemplates;
 
-        public List<TemplateForIncident> AllIncidents
+        public List<TemplateForIncident> TheTemplates
         {
-            get { return allTemplates; }
-            set { allTemplates = value; }
+            get { return theTemplates; }
+            set { theTemplates = value; }
         }                       
 
         public void LoadFromFile()
@@ -35,8 +35,8 @@ namespace StoryEngine
         {
             //#TODO - add step to sort/exclude by rarity
 
-            var diceRoll = rng.Next(0, this.allTemplates.Count);
-            return this.allTemplates[diceRoll].CreateIncident();
+            var diceRoll = rng.Next(0, this.theTemplates.Count);
+            return this.theTemplates[diceRoll].CreateIncident();
         }
     }
 }

@@ -6,21 +6,29 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    [Serializable]//#TODO - tag properties
+    [Serializable]
     public class TemplateForIncident
     {
         public string Name;
 
         public List<Role> TheRoles;
 
-        public List<IPrerequisite> ThePrerequisites;
+        public List<APrerequisite> ThePrerequisites;
 
         public List<PossibleResult> ThePossibleResults;
+
+        public TemplateForIncident(string theName)
+        {
+            Name = theName;
+            TheRoles = new List<Role>();
+            ThePrerequisites = new List<APrerequisite>();
+            ThePossibleResults = new List<PossibleResult>();
+        }
 
         public TemplateForIncident()
         {
             TheRoles = new List<Role>();
-            ThePrerequisites = new List<IPrerequisite>();
+            ThePrerequisites = new List<APrerequisite>();
             ThePossibleResults = new List<PossibleResult>();
         }
 

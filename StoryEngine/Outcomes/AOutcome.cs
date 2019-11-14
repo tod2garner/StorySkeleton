@@ -14,6 +14,6 @@ namespace StoryEngine
 
         public abstract List<string> ExecuteAndGiveSummary();
 
-        public abstract IOutcome Copy(List<Role> replacementRoles);
+        public abstract AOutcome Copy(List<Role> replacementRoles);
     }
 }

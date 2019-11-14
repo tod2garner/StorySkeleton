@@ -19,6 +19,11 @@ namespace StoryEngine
             myParticipants = new List<Character>();
         }
 
+        public Role()
+        {
+            myParticipants = new List<Character>();
+        }
+
         private List<Character> myParticipants;
         public List<Character> Participants { get { return myParticipants; } }
 

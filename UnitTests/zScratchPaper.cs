@@ -14,7 +14,27 @@ namespace UnitTests
     public class zScratchPaper
     {
         [TestMethod]
-        public void aaa__ScratchPaper()
+        public void aaa__aSaveTemplateToFile()
+        {
+            var t1 = createTemplateManually_AccidentalOffense();
+            var t2 = createTemplateManually_Agression_Social();
+            var t3 = createTemplateManually_Cooperation_Social();
+
+            var c1 = new CollectionOfIncidentTemplates();
+            c1.TheTemplates.Add(t1);
+            c1.TheTemplates.Add(t2);
+            c1.TheTemplates.Add(t3);
+
+            t1.SaveToXML("C:\\temp\\t1.xml");
+            t2.SaveToXML("C:\\temp\\t2.xml");
+            t3.SaveToXML("C:\\temp\\t3.xml");
+            c1.SaveToXML("C:\\temp\\c1.xml");
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void aaa__ScratchPaper_PlotFromScratch()
         {
             //Create a simple plot from scratch
 
@@ -66,21 +86,26 @@ namespace UnitTests
                 Debug.WriteLine(s);
 
             Assert.IsTrue(true);
-        }        
+        }
 
         private IIncident createIncidentManually_AccidentalOffense()
         {
+            return createTemplateManually_AccidentalOffense().CreateIncident();
+        }
+         
+        private TemplateForIncident createTemplateManually_AccidentalOffense()
+        {
             //Assign name
-            var accidentalOffense = new Incident("Accidental Offense");
+            var accidentalOffense = new TemplateForIncident("Accidental Offense");
             
             //Add roles
-            var partyGivingOffense = new Role("partyGivingOffense");
-            var partyOffended = new Role("partyOffended");
+            var partyGivingOffense = new Role("Party Giving Offense");
+            var partyOffended = new Role("Party Offended");
             partyGivingOffense.MinCount = 1;
             partyOffended.MinCount = 1;
 
-            accidentalOffense.AllParticipantRoles.Add(partyGivingOffense);
-            accidentalOffense.AllParticipantRoles.Add(partyOffended);
+            accidentalOffense.TheRoles.Add(partyGivingOffense);
+            accidentalOffense.TheRoles.Add(partyOffended);
 
             //No prereqs
 
@@ -100,16 +125,21 @@ namespace UnitTests
             rareDecrease.TheOutcomes.Add(majorTrustLoss);
             rareDecrease.TheOutcomes.Add(reverseTrustLoss);
 
-            accidentalOffense.AllPossibleOutcomes.Add(commonDecrease);
-            accidentalOffense.AllPossibleOutcomes.Add(unlikelyDecrease);
-            accidentalOffense.AllPossibleOutcomes.Add(rareDecrease);
+            accidentalOffense.ThePossibleResults.Add(commonDecrease);
+            accidentalOffense.ThePossibleResults.Add(unlikelyDecrease);
+            accidentalOffense.ThePossibleResults.Add(rareDecrease);
 
             return accidentalOffense;
         }
 
         private IIncident createIncidentManually_Agression_Social()
         {
-            var socialAgression = new Incident("Social Agression");
+            return createTemplateManually_Agression_Social().CreateIncident();
+        }
+
+        private TemplateForIncident createTemplateManually_Agression_Social()
+        {
+            var socialAgression = new TemplateForIncident("Social Agression");
             
             //Add roles
             var partyAttacking = new Role("partyAttacking");
@@ -117,17 +147,17 @@ namespace UnitTests
             partyAttacking.MinCount = 1;
             partyDefending.MinCount = 1;
 
-            socialAgression.AllParticipantRoles.Add(partyAttacking);
-            socialAgression.AllParticipantRoles.Add(partyDefending);
+            socialAgression.TheRoles.Add(partyAttacking);
+            socialAgression.TheRoles.Add(partyDefending);
 
             //Add prereqs
             DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, partyAttacking, partyDefending);
             MutualTrust_Min prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyAttacking);
             MutualTrust_Min prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyDefending);
 
-            socialAgression.MyPrerequisites.Add(prereqEthicsMax);
-            socialAgression.MyPrerequisites.Add(prereq_AttackerMinTrust);
-            socialAgression.MyPrerequisites.Add(prereq_DefenderMinTrust);
+            socialAgression.ThePrerequisites.Add(prereqEthicsMax);
+            socialAgression.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            socialAgression.ThePrerequisites.Add(prereq_DefenderMinTrust);
 
             //Add outcomes
             Outcome_ChangeTrust smallTrustLoss = new Outcome_ChangeTrust(-1, partyDefending, partyAttacking, "Small Trust Loss");
@@ -151,27 +181,32 @@ namespace UnitTests
             rareDecrease.TheOutcomes.Add(reverseTrustLoss);
             rareDecrease.TheOutcomes.Add(defendersBonding_Major);
 
-            socialAgression.AllPossibleOutcomes.Add(commonDecrease);
-            socialAgression.AllPossibleOutcomes.Add(unlikelyDecrease);
-            socialAgression.AllPossibleOutcomes.Add(rareDecrease);
+            socialAgression.ThePossibleResults.Add(commonDecrease);
+            socialAgression.ThePossibleResults.Add(unlikelyDecrease);
+            socialAgression.ThePossibleResults.Add(rareDecrease);
 
             return socialAgression;
         }
 
         private IIncident createIncidentManually_Cooperation_Social()
         {
-            var socialCooperation = new Incident("Social Cooperation");
+            return createTemplateManually_Cooperation_Social().CreateIncident();
+        }
+
+        private TemplateForIncident createTemplateManually_Cooperation_Social()
+        {
+            var socialCooperation = new TemplateForIncident("Social Cooperation");
             
             //Add roles
             var cooperatives = new Role("cooperatives");
             cooperatives.MinCount = 2;
 
-            socialCooperation.AllParticipantRoles.Add(cooperatives);
+            socialCooperation.TheRoles.Add(cooperatives);
 
             //Add prereqs
             MutualTrust_Min prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Exploit, cooperatives);
 
-            socialCooperation.MyPrerequisites.Add(prereq_CooperativesMinTrust);
+            socialCooperation.ThePrerequisites.Add(prereq_CooperativesMinTrust);
 
             //Add outcomes
             Outcome_ChangeTrust cooperativesBonding_Small = new Outcome_ChangeTrust(1, cooperatives, cooperatives, "Small Bonding");
@@ -187,9 +222,9 @@ namespace UnitTests
             PossibleResult rareBonding = new PossibleResult(10);
             rareBonding.TheOutcomes.Add(cooperativesBonding_Major);
 
-            socialCooperation.AllPossibleOutcomes.Add(commonBonding);
-            socialCooperation.AllPossibleOutcomes.Add(unlikelyBonding);
-            socialCooperation.AllPossibleOutcomes.Add(rareBonding);
+            socialCooperation.ThePossibleResults.Add(commonBonding);
+            socialCooperation.ThePossibleResults.Add(unlikelyBonding);
+            socialCooperation.ThePossibleResults.Add(rareBonding);
 
             return socialCooperation;
         }

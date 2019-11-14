@@ -19,6 +19,8 @@ namespace StoryEngine
             this.ethics = initialEthics;
         }
 
+        public Relationship() { }//Parameterless constructor req'd for XML serialization
+
         private int selfId;
         /// <summary>
         /// Id of person who's perspective this relationship is from

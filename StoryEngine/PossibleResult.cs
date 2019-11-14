@@ -15,11 +15,16 @@ namespace StoryEngine
                 throw new ArgumentOutOfRangeException();
 
             this.percentChance = thePercentChance;
-            this.theOutcomes = new List<IOutcome>();
+            this.theOutcomes = new List<AOutcome>();
         }
 
-        private List<IOutcome> theOutcomes;
-        public List<IOutcome> TheOutcomes { get { return theOutcomes; } }
+        public PossibleResult()
+        {
+            this.theOutcomes = new List<AOutcome>();
+        }
+
+        private List<AOutcome> theOutcomes;
+        public List<AOutcome> TheOutcomes { get { return theOutcomes; } }
 
         private int percentChance;
         /// <summary>
@@ -45,7 +50,7 @@ namespace StoryEngine
         {
             var theCopy = new PossibleResult(this.percentChance);
 
-            foreach (IOutcome o in theOutcomes)
+            foreach (AOutcome o in theOutcomes)
                 theCopy.theOutcomes.Add(o.Copy(replacementRoles));
 
             return theCopy;

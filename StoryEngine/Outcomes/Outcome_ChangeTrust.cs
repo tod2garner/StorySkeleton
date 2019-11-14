@@ -27,8 +27,10 @@ namespace StoryEngine
             towards = target;
             this.name = givenName;
         }
-        
-        public override IOutcome Copy(List<Role> replacementRoles)
+
+        public Outcome_ChangeTrust() { }//Parameterless constructor req'd for XML serialization
+
+        public override AOutcome Copy(List<Role> replacementRoles)
         {
             var matchBeingChanged = replacementRoles.FirstOrDefault(r => r.RoleName == this.beingChanged.RoleName);
             var matchTowards = replacementRoles.FirstOrDefault(r => r.RoleName == this.towards.RoleName);
@@ -65,11 +67,11 @@ namespace StoryEngine
         {
             string description = "  ";
 
-            for(int i = 0; i < beingChanged.Participants.Count; i++)
+            for (int i = 0; i < beingChanged.Participants.Count; i++)
             {
                 if (0 == beingChanged.Participants.Count - 1)
                     description += beingChanged.Participants[i].Name;
-                else if (i != beingChanged.Participants.Count -1)
+                else if (i != beingChanged.Participants.Count - 1)
                     description += beingChanged.Participants[i].Name + ", ";
                 else
                     description += "and " + beingChanged.Participants[i].Name;
@@ -77,7 +79,7 @@ namespace StoryEngine
 
             description += magnitude > 0 ? " gain some trust towards " : " lose some trust towards ";
 
-            if(beingChanged.RoleName == towards.RoleName)
+            if (beingChanged.RoleName == towards.RoleName)
             {
                 description += "each other";
             }

@@ -16,6 +16,7 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
+            thePlot = new Plot(null);
             throw new NotImplementedException();
         }
 
