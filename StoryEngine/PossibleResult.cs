@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace StoryEngine
 {
@@ -18,6 +19,9 @@ namespace StoryEngine
             this.theOutcomes = new List<AOutcome>();
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         public PossibleResult()
         {
             this.theOutcomes = new List<AOutcome>();

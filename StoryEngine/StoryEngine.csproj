@@ -59,7 +59,7 @@
     <Compile Include="Prerequisites\ARolePrerequisite.cs" />
     <Compile Include="Prerequisites\Prereq_DirectionalRelation.cs" />
     <Compile Include="Prerequisites\IPrerequisite.cs" />
-    <Compile Include="Prerequisites\Prereq_MutualTrust.cs" />
+    <Compile Include="Prerequisites\Prereq_MutualRelation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship.cs" />
     <Compile Include="SerializeXML.cs" />

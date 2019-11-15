@@ -28,7 +28,10 @@ namespace StoryEngine
             this.name = givenName;
         }
 
-        public Outcome_ChangeTrust() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public Outcome_ChangeTrust() { }
 
         public override AOutcome Copy(List<Role> replacementRoles)
         {

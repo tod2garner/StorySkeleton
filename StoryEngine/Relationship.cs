@@ -19,7 +19,10 @@ namespace StoryEngine
             this.ethics = initialEthics;
         }
 
-        public Relationship() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public Relationship() { }
 
         private int selfId;
         /// <summary>

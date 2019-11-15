@@ -31,6 +31,9 @@ namespace StoryEngine
             this.baseSuspicion = SuspicionScale.Average;
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         public Character()
         {
             allRelations = new List<Relationship>();

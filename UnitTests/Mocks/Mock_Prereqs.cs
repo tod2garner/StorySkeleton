@@ -13,7 +13,7 @@ namespace UnitTests.Mocks
 
         public bool PublicHaveMutualTrustThatPassesBenchmark(Character a, Character b)
         {
-            return this.HaveMutualTrustThatPassesBenchmark(a, b);
+            return this.HaveMutualRelationThatPassesBenchmark(a, b);
         }
 
         public bool PublicPassesBenchmark(EthicsScale value)

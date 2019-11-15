@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+
 
 namespace StoryEngine
 {
+    [XmlInclude(typeof(DirectionalEthics))]
+    [XmlInclude(typeof(DirectionalTrust))]
     public abstract class Prereq_DirectionalRelation : ACrossRolePrerequisite
     {
         public Prereq_DirectionalRelation(Role roleA, Role roleB)
@@ -14,7 +18,10 @@ namespace StoryEngine
             this.roleBeta = roleB;
         }
 
-        public Prereq_DirectionalRelation() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public Prereq_DirectionalRelation() { }
 
         public override bool IsMetByCurrentParticipants()
         {
@@ -65,6 +72,8 @@ namespace StoryEngine
         protected abstract bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b);
     }
 
+    [XmlInclude(typeof(DirectionalEthics_Min))]
+    [XmlInclude(typeof(DirectionalEthics_Max))]
     public abstract class DirectionalEthics : Prereq_DirectionalRelation
     {
         protected EthicsScale benchmarkEthics_AtoB;
@@ -74,7 +83,10 @@ namespace StoryEngine
             benchmarkEthics_AtoB = ethics_AtoB;
         }
 
-        public DirectionalEthics() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public DirectionalEthics() { }
 
 
         protected override int CountRelationsThatPassBenchmark(Character alpha)
@@ -98,6 +110,8 @@ namespace StoryEngine
         protected abstract bool PassesBenchmark(EthicsScale theValue);
     }
 
+    [XmlInclude(typeof(DirectionalTrust_Min))]
+    [XmlInclude(typeof(DirectionalTrust_Max))]
     public abstract class DirectionalTrust : Prereq_DirectionalRelation
     {
         protected EthicsScale benchmarkTrust_AtoB;
@@ -107,7 +121,10 @@ namespace StoryEngine
             benchmarkTrust_AtoB = trust_AtoB;
         }
 
-        public DirectionalTrust() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public DirectionalTrust() { }
 
 
         protected override int CountRelationsThatPassBenchmark(Character alpha)
@@ -136,7 +153,10 @@ namespace StoryEngine
         /// <param name="minimum_AtoB">Inclusive minimum ethics value</param>
         public DirectionalEthics_Min(EthicsScale minimum_AtoB, Role roleA, Role roleB) : base(minimum_AtoB, roleA, roleB) { }
 
-        public DirectionalEthics_Min() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public DirectionalEthics_Min() { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -158,7 +178,10 @@ namespace StoryEngine
         /// <param name="maximum_AtoB">Inclusive maximum ethics value</param>
         public DirectionalEthics_Max(EthicsScale maximum_AtoB, Role roleA, Role roleB) : base(maximum_AtoB, roleA, roleB) { }
 
-        public DirectionalEthics_Max() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public DirectionalEthics_Max() { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -180,7 +203,10 @@ namespace StoryEngine
         /// <param name="minimum_AtoB">Inclusive minimum trust value</param>
         public DirectionalTrust_Min(EthicsScale minimum_AtoB, Role roleA, Role roleB) : base(minimum_AtoB, roleA, roleB) { }
 
-        public DirectionalTrust_Min() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public DirectionalTrust_Min() { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
@@ -202,7 +228,10 @@ namespace StoryEngine
         /// <param name="maximum_AtoB">Inclusive maximum trust value</param>
         public DirectionalTrust_Max(EthicsScale maximum_AtoB, Role roleA, Role roleB) : base(maximum_AtoB, roleA, roleB) { }
 
-        public DirectionalTrust_Max() { }//Parameterless constructor req'd for XML serialization
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        public DirectionalTrust_Max() { }
 
         protected override bool PassesBenchmark(EthicsScale value)
         {

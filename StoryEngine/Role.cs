@@ -19,6 +19,9 @@ namespace StoryEngine
             myParticipants = new List<Character>();
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         public Role()
         {
             myParticipants = new List<Character>();
