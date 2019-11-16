@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Incidents\CollectionOfIncidentTemplates.cs" />
+    <Compile Include="Incidents\DefaultLibrary\CreateTemplateManually.cs" />
+    <Compile Include="Incidents\DefaultLibrary\DefaultLibraryGenerator.cs" />
     <Compile Include="Incidents\Incident.cs" />
     <Compile Include="Incidents\LibraryOfIncidents.cs" />
     <Compile Include="Incidents\TemplateForIncident.cs" />
