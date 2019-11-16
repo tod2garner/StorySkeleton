@@ -96,8 +96,17 @@ namespace UnitTests
 
         [TestMethod]
         public void CopyOutcome()
-        {
-            throw new NotImplementedException();
+        { 
+            var altRole1 = new Role("three");
+            var altRole2 = new Role("four");
+            var replacementList = new List<Role>(2) { altRole1, altRole2 };
+
+            var theCopy = theOutcome.Copy(replacementList) as Outcome_ChangeTrust;
+
+            Assert.AreEqual(theOutcome.OutcomeName, theCopy.OutcomeName);
+            Assert.AreEqual(theOutcome.Magnitude, theCopy.Magnitude);
+            Assert.AreNotEqual(theOutcome.BeingChanged, theCopy.BeingChanged);
+            Assert.AreNotEqual(theOutcome.Towards, theCopy.Towards);
         }
 
         [TestMethod]

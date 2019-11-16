@@ -67,7 +67,11 @@ namespace StoryEngine
             theCopy.maxCount = this.maxCount;
 
             if (CopyParticipants && this.Participants.Any())
-                theCopy.Participants.AddRange(this.Participants);
+            {
+                foreach (Character c in this.Participants)
+                    theCopy.Participants.Add(c.Copy());
+            }
+                
 
             return theCopy;
         }

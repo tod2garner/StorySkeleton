@@ -25,9 +25,37 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CopyRole()
+        public void CopyRole_NoParticipants()
         {
-            throw new NotImplementedException();
+            theRole.MinCount = 2;
+            theRole.MaxCount = 8;
+            theRole.Participants.Add(new Character(0, "one"));
+            theRole.Participants.Add(new Character(1, "two"));
+            var theCopy = theRole.Copy(false);
+
+            Assert.AreEqual(theRole.RoleName, theCopy.RoleName);
+            Assert.AreEqual(theRole.MinCount, theCopy.MinCount);
+            Assert.AreEqual(theRole.MaxCount, theCopy.MaxCount);
+            Assert.AreNotEqual(theRole.Participants.Count, theCopy.Participants.Count);
+        }
+
+        [TestMethod]
+        public void CopyRole_WithParticipants()
+        {
+            theRole.MinCount = 12;
+            theRole.MaxCount = null;
+            theRole.Participants.Add(new Character(0, "one"));
+            var theCopy = theRole.Copy(true);
+
+            Assert.AreEqual(theRole.RoleName, theCopy.RoleName);
+            Assert.AreEqual(theRole.MinCount, theCopy.MinCount);
+            Assert.AreEqual(theRole.MaxCount, theCopy.MaxCount);
+            Assert.AreEqual(theRole.Participants.Count, theCopy.Participants.Count);
+
+            //Participant - not same object, but same properties
+            Assert.AreEqual(theRole.Participants.First().Name, theCopy.Participants.First().Name);
+            Assert.AreEqual(theRole.Participants.First().Id, theCopy.Participants.First().Id);
+            Assert.AreNotEqual(theRole.Participants.First(), theCopy.Participants.First());
         }
 
         [TestMethod]

@@ -41,7 +41,27 @@ namespace UnitTests
         [TestMethod]
         public void CopyPossibleResult()
         {
-            throw new NotImplementedException();
+            int givenValue = 25;
+            var theResult = new PossibleResult(givenValue);
+            var myOutcome1 = new Outcome_ChangeTrust(1, new Role("one"), new Role("two"), "myOutcome1");
+            var myOutcome2 = new Outcome_ChangeTrust(1, new Role("two"), new Role("one"), "myOutcome2");
+            theResult.TheOutcomes.Add(myOutcome1);
+            theResult.TheOutcomes.Add(myOutcome2);
+
+            var altRole1 = new Role("three");
+            var altRole2 = new Role("four");
+            var replacementList = new List<Role>(2) { altRole1, altRole2 };
+
+            var theCopy = theResult.Copy(replacementList);
+
+            Assert.AreEqual(theResult.PercentChance, theCopy.PercentChance);
+            Assert.AreEqual(theResult.TheOutcomes.Count, theCopy.TheOutcomes.Count);
+
+            var copyOutcome1 = theCopy.TheOutcomes.First() as Outcome_ChangeTrust;
+            Assert.AreEqual(myOutcome1.OutcomeName, copyOutcome1.OutcomeName);
+            Assert.AreEqual(myOutcome1.Magnitude, copyOutcome1.Magnitude);
+            Assert.AreNotEqual(myOutcome1.BeingChanged, copyOutcome1.BeingChanged);
+            Assert.AreNotEqual(myOutcome1.Towards, copyOutcome1.Towards);
         }
     }
 }
