@@ -21,15 +21,25 @@ namespace UnitTests
             Role role2 = new Role("r2");
             maxEthics = new Mocks.Mock_Prereq_DirectionalEthics_Max(givenMax, role1, role2);
 
-            Assert.AreEqual(maxEthics.GetBenchmark_AtoB(), givenMax);
-            Assert.IsNotNull(maxEthics.GetRoleA());
-            Assert.IsNotNull(maxEthics.GetRoleB());
+            Assert.AreEqual(maxEthics.BenchmarkEthics_AtoB, givenMax);
+            Assert.IsNotNull(maxEthics.RoleAlpha);
+            Assert.IsNotNull(maxEthics.RoleBeta);
         }
 
         [TestMethod]
-        public void CopyCrossRolePrereq()
+        public void Copy_CrossRolePrereq()
         {
-            throw new NotImplementedException();
+            var altRole1 = new Role("r1");
+            var altRole2 = new Role("r2");
+            var replacementList = new List<Role>(2) { altRole1, altRole2 };
+
+            var theCopy = maxEthics.Copy(replacementList) as DirectionalEthics_Max;
+
+            Assert.AreEqual(maxEthics.BenchmarkEthics_AtoB, theCopy.BenchmarkEthics_AtoB);
+            Assert.AreNotEqual(maxEthics.RoleAlpha, theCopy.RoleAlpha);
+            Assert.AreEqual(altRole1, theCopy.RoleAlpha);
+            Assert.AreNotEqual(maxEthics.RoleBeta, theCopy.RoleBeta);
+            Assert.AreEqual(altRole2, theCopy.RoleBeta);
         }
 
         [TestMethod]
@@ -58,7 +68,7 @@ namespace UnitTests
             one.CreateRelationshipWith(two);
             var theRelation = one.AllRelations.First();
 
-            Assert.IsTrue(theRelation.Ethics <= maxEthics.GetBenchmark_AtoB());
+            Assert.IsTrue(theRelation.Ethics <= maxEthics.BenchmarkEthics_AtoB);
             Assert.IsTrue(maxEthics.PublicHasDirectionalRelationThatPassesBenchmark(one, two));
         }
 
@@ -80,21 +90,21 @@ namespace UnitTests
             one.CreateRelationshipWith(two);
             var theRelation = one.AllRelations.First();
 
-            Assert.IsTrue(theRelation.Ethics > maxEthics.GetBenchmark_AtoB());
+            Assert.IsTrue(theRelation.Ethics > maxEthics.BenchmarkEthics_AtoB);
             Assert.IsFalse(maxEthics.PublicHasDirectionalRelationThatPassesBenchmark(one, two));
         }
 
         [TestMethod]
         public void AreRoleMinMaxCountsMet_IsTrue()
         {
-            var theRole1 = maxEthics.GetRoleA();
+            var theRole1 = maxEthics.RoleAlpha;
             theRole1.MaxCount = 4;
             theRole1.MinCount = 2;
             theRole1.Participants.Add(new Character(1, "c1"));
             theRole1.Participants.Add(new Character(2, "c2"));
             theRole1.Participants.Add(new Character(3, "c3"));
 
-            var theRole2 = maxEthics.GetRoleB();
+            var theRole2 = maxEthics.RoleBeta;
             theRole2.MaxCount = 1;
             theRole2.MinCount = 1;
             theRole2.Participants.Add(new Character(4, "c4"));
@@ -105,7 +115,7 @@ namespace UnitTests
         [TestMethod]
         public void AreRoleMinMaxCountsMet_IsFalse()
         {
-            var theRole1 = maxEthics.GetRoleA();
+            var theRole1 = maxEthics.RoleAlpha;
             theRole1.MaxCount = 1;
             theRole1.MinCount = 3;
 
@@ -117,8 +127,8 @@ namespace UnitTests
         {
             var one = new Character(1, "one");
             var two = new Character(2, "two");
-            var theRole1 = maxEthics.GetRoleA();
-            var theRole2 = maxEthics.GetRoleB();
+            var theRole1 = maxEthics.RoleAlpha;
+            var theRole2 = maxEthics.RoleBeta;
             theRole1.Participants.Add(one);
             theRole2.Participants.Add(two);
 
@@ -126,7 +136,7 @@ namespace UnitTests
             one.CreateRelationshipWith(two);
             var theRelation = one.AllRelations.First();
 
-            Assert.IsTrue(theRelation.Ethics <= maxEthics.GetBenchmark_AtoB());
+            Assert.IsTrue(theRelation.Ethics <= maxEthics.BenchmarkEthics_AtoB);
             Assert.IsTrue(maxEthics.IsMetByCurrentParticipants());
         }
 
@@ -135,8 +145,8 @@ namespace UnitTests
         {
             var one = new Character(1, "one");
             var two = new Character(2, "two");
-            var theRole1 = maxEthics.GetRoleA();
-            var theRole2 = maxEthics.GetRoleB();
+            var theRole1 = maxEthics.RoleAlpha;
+            var theRole2 = maxEthics.RoleBeta;
             theRole1.Participants.Add(one);
             theRole2.Participants.Add(two);
 
@@ -144,9 +154,9 @@ namespace UnitTests
             one.CreateRelationshipWith(two);
             var theRelation = one.AllRelations.First();
 
-            Assert.IsTrue(theRelation.Ethics > maxEthics.GetBenchmark_AtoB());
+            Assert.IsTrue(theRelation.Ethics > maxEthics.BenchmarkEthics_AtoB);
             Assert.IsFalse(maxEthics.IsMetByCurrentParticipants());
         }
-        
+
     }
 }

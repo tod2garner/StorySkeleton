@@ -80,6 +80,7 @@ namespace StoryEngine
     {
         [DataMember]
         protected EthicsScale benchmarkEthics_AtoB;
+        public EthicsScale BenchmarkEthics_AtoB { get { return benchmarkEthics_AtoB; } }
 
         public DirectionalEthics(EthicsScale ethics_AtoB, Role roleA, Role roleB) : base(roleA, roleB)
         {
@@ -120,6 +121,7 @@ namespace StoryEngine
     {
         [DataMember]
         protected EthicsScale benchmarkTrust_AtoB;
+        public EthicsScale BenchmarkTrust_AtoB { get { return benchmarkTrust_AtoB; } }
 
         public DirectionalTrust(EthicsScale trust_AtoB, Role roleA, Role roleB) : base(roleA, roleB)
         {

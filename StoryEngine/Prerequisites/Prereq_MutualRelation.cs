@@ -70,6 +70,7 @@ namespace StoryEngine
     {
         [DataMember]
         protected EthicsScale benchmarkTrust;
+        public EthicsScale BenchmarkTrust { get { return benchmarkTrust; } }
 
         public MutualTrust(EthicsScale benchmark, Role whichRole) : base(whichRole)
         {
@@ -149,6 +150,7 @@ namespace StoryEngine
     {
         [DataMember]
         protected EthicsScale benchmarkEthics;
+        public EthicsScale BenchmarkEthics { get { return benchmarkEthics; } }
 
         public MutualEthics(EthicsScale benchmark, Role whichRole) : base(whichRole)
         {

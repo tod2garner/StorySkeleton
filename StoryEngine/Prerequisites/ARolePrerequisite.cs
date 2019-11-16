@@ -16,6 +16,7 @@ namespace StoryEngine
     {
         [DataMember]
         protected Role role;
+        public Role Role { get { return role; } }
 
         protected override bool AreRoleMinMaxCountsMet()
         {

@@ -25,16 +25,6 @@ namespace UnitTests.Mocks
         {
             return this.AreRoleMinMaxCountsMet();
         }
-
-        public Role GetRole()
-        {
-            return this.role;
-        }
-
-        public EthicsScale GetBenchmark()
-        {
-            return this.benchmarkTrust;
-        }
     }
 
     public class Mock_Prereq_DirectionalEthics_Max : DirectionalEthics_Max
@@ -54,21 +44,6 @@ namespace UnitTests.Mocks
         public bool PublicAreRoleMinMaxCountsMet()
         {
             return this.AreRoleMinMaxCountsMet();
-        }
-
-        public Role GetRoleA()
-        {
-            return this.roleAlpha;
-        }
-
-        public Role GetRoleB()
-        {
-            return this.roleBeta;
-        }
-
-        public EthicsScale GetBenchmark_AtoB()
-        {
-            return this.benchmarkEthics_AtoB;
         }
     }
 
