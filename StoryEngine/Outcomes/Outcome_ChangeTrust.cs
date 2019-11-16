@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
+    [DataContract]
     public class Outcome_ChangeTrust : AOutcome
     {
+        [DataMember]
         private string name;
         public string OutcomeName { get { return name; } }
 
+        [DataMember]
         private int magnitude;
         public int Magnitude { get { return magnitude; } }
 
+        [DataMember]
         private Role beingChanged;
         public Role BeingChanged { get { return beingChanged; } }
 
+        [DataMember]
         private Role towards;
         public Role Towards { get { return towards; } }
 

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StoryEngine.SocietyGenerators;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
+    [DataContract]
     public class Character
     {
         private static IRelationshipGenerator relationshipGenerator;
@@ -40,15 +42,19 @@ namespace StoryEngine
             this.baseSuspicion = SuspicionScale.Average;
         }
 
+        [DataMember]
         private int id;
         public int Id { get { return id; } }
 
+        [DataMember]
         private string name;
         public string Name { get { return name; } }
 
+        [DataMember]
         private List<Relationship> allRelations;
         public List<Relationship> AllRelations { get { return allRelations; } }
 
+        [DataMember]
         private SuspicionScale baseSuspicion;
         /// <summary>
         /// Impacts how quick/slow a character is to gain trust in a relationship
@@ -59,6 +65,7 @@ namespace StoryEngine
             set { baseSuspicion = value; }
         }
 
+        [DataMember]
         private Morality baseMorality;
         /// <summary>
         /// Impacts how quick/slow a character is to change treatment of others, or ethics.

@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
-    [Serializable]
+    [DataContract]
     public class TemplateForIncident
     {
+        [DataMember]
         public string Name;
 
+        [DataMember]
         public List<Role> TheRoles;
 
+        [DataMember]
         public List<APrerequisite> ThePrerequisites;
 
+        [DataMember]
         public List<PossibleResult> ThePossibleResults;
 
         public TemplateForIncident(string theName)
@@ -25,6 +30,9 @@ namespace StoryEngine
             ThePossibleResults = new List<PossibleResult>();
         }
 
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
         public TemplateForIncident()
         {
             TheRoles = new List<Role>();

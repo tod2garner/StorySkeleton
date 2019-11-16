@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
-    //Must tag XmlInclude all derived classes for XML serialization to work
-    [XmlInclude(typeof(Outcome_ChangeTrust))]
+    //Must tag KnownType for all derived classes for XML serialization to work
+    [KnownType(typeof(Outcome_ChangeTrust))]
+    [DataContract]
     public abstract class AOutcome : IOutcome
     {
         //#TODO

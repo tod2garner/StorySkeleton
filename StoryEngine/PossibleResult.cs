@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
+    [DataContract]
     public class PossibleResult
     {
         public PossibleResult(int thePercentChance)
@@ -27,9 +28,11 @@ namespace StoryEngine
             this.theOutcomes = new List<AOutcome>();
         }
 
+        [DataMember]
         private List<AOutcome> theOutcomes;
         public List<AOutcome> TheOutcomes { get { return theOutcomes; } }
 
+        [DataMember]
         private int percentChance;
         /// <summary>
         /// Between 1 and 100

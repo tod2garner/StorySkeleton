@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 
 namespace StoryEngine
 {
-    [XmlInclude(typeof(DirectionalEthics))]
-    [XmlInclude(typeof(DirectionalTrust))]
+    [KnownType(typeof(DirectionalEthics))]
+    [KnownType(typeof(DirectionalTrust))]
+    [DataContract]
     public abstract class Prereq_DirectionalRelation : ACrossRolePrerequisite
     {
         public Prereq_DirectionalRelation(Role roleA, Role roleB)
@@ -72,10 +73,12 @@ namespace StoryEngine
         protected abstract bool HasDirectionalRelationThatPassesBenchmark(Character a, Character b);
     }
 
-    [XmlInclude(typeof(DirectionalEthics_Min))]
-    [XmlInclude(typeof(DirectionalEthics_Max))]
+    [KnownType(typeof(DirectionalEthics_Min))]
+    [KnownType(typeof(DirectionalEthics_Max))]
+    [DataContract]
     public abstract class DirectionalEthics : Prereq_DirectionalRelation
     {
+        [DataMember]
         protected EthicsScale benchmarkEthics_AtoB;
 
         public DirectionalEthics(EthicsScale ethics_AtoB, Role roleA, Role roleB) : base(roleA, roleB)
@@ -110,10 +113,12 @@ namespace StoryEngine
         protected abstract bool PassesBenchmark(EthicsScale theValue);
     }
 
-    [XmlInclude(typeof(DirectionalTrust_Min))]
-    [XmlInclude(typeof(DirectionalTrust_Max))]
+    [KnownType(typeof(DirectionalTrust_Min))]
+    [KnownType(typeof(DirectionalTrust_Max))]
+    [DataContract]
     public abstract class DirectionalTrust : Prereq_DirectionalRelation
     {
+        [DataMember]
         protected EthicsScale benchmarkTrust_AtoB;
 
         public DirectionalTrust(EthicsScale trust_AtoB, Role roleA, Role roleB) : base(roleA, roleB)

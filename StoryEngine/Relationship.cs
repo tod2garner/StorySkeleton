@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
+    [DataContract]
     public class Relationship
     {
         //#TODO - move const to config file later?
@@ -24,18 +26,21 @@ namespace StoryEngine
         /// </summary>
         public Relationship() { }
 
+        [DataMember]
         private int selfId;
         /// <summary>
         /// Id of person who's perspective this relationship is from
         /// </summary>
         public int SelfId { get { return selfId; } }
 
+        [DataMember]
         private int otherId;
         /// <summary>
         /// Id of other person in relationship
         /// </summary>
         public int OtherId { get { return otherId; } }
 
+        [DataMember]
         private EthicsScale trust;
         /// <summary>
         /// I expect they would be willing to ___ me (help/cheat/murder...)
@@ -46,6 +51,7 @@ namespace StoryEngine
             set { trust = value; }
         }
 
+        [DataMember]
         private EthicsScale ethics;
         /// <summary>
         /// I would be willing to ___ them (confide in/help/cheat...)
@@ -55,13 +61,15 @@ namespace StoryEngine
             get { return ethics; }
             set { ethics = value; }
         }
-        
+
+        [DataMember]
         private int durabilityOfTrust;
         /// <summary>
         /// If positive, progress towards next higher trust level. If negative, progress towards next lowest level.
         /// </summary>
         public int DurabilityOfTrust { get { return durabilityOfTrust; } }
 
+        [DataMember]
         private int durabilityOfEthics;
         /// <summary>
         /// If positive, progress towards next higher ethics level. If negative, progress towards next lowest level.

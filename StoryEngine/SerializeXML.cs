@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Xml;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
@@ -14,20 +15,21 @@ namespace StoryEngine
             if (value == null)
                 throw new ArgumentNullException("Null object cannot be serialized");
 
-            using (var writer = new System.IO.StreamWriter(FileName))
+            var settings = new XmlWriterSettings() { Indent = true };
+            using (var writer = XmlWriter.Create(FileName, settings))
             {
-                var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(writer, value);
+                var serializer = new DataContractSerializer(typeof(T));
+                serializer.WriteObject(writer, value);
                 writer.Flush();
             }
         }
 
         public static T LoadFromXML<T>(string FileName) where T : class
         {
-            using (var stream = System.IO.File.OpenRead(FileName))
+            using (var stream = XmlReader.Create(FileName))
             {
-                var serializer = new XmlSerializer(typeof(T));
-                return serializer.Deserialize(stream) as T;
+                var serializer = new DataContractSerializer(typeof(T));
+                return serializer.ReadObject(stream) as T;
             }
         }
 

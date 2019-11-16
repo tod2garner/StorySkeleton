@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
     /// <summary>
     /// Restriction relative to two roles
     /// </summary>
-    [XmlInclude(typeof(Prereq_DirectionalRelation))]
+    [KnownType(typeof(Prereq_DirectionalRelation))]//Must tag KnownType for all derived classes for XML serialization to work
+    [DataContract]
     public abstract class ACrossRolePrerequisite : APrerequisite
     {
+        [DataMember]
         protected Role roleAlpha;
+
+        [DataMember]
         protected Role roleBeta;
 
         protected override bool AreRoleMinMaxCountsMet()

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
+    [DataContract]
     /// <summary>
     /// Group of characters playing the same role within a specific incident.
     /// </summary>
@@ -27,15 +29,18 @@ namespace StoryEngine
             myParticipants = new List<Character>();
         }
 
+        [DataMember]
         private List<Character> myParticipants;
         public List<Character> Participants { get { return myParticipants; } }
 
+        [DataMember]
         private string name;
         /// <summary>
         /// Used to coordinate between multiple prerequisites simultaneously when trying to populate an event
         /// </summary>
         public string RoleName { get { return name; } }
 
+        [DataMember]
         private int? minCount;
         /// <summary>
         /// Minimum character count required.
@@ -47,6 +52,7 @@ namespace StoryEngine
             set { minCount = value; }
         }
 
+        [DataMember]
         private int? maxCount;
         public int? MaxCount
         {

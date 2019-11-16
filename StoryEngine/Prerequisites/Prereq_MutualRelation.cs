@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
-    [XmlInclude(typeof(MutualTrust))]
-    [XmlInclude(typeof(MutualEthics))]
+    [KnownType(typeof(MutualTrust))]
+    [KnownType(typeof(MutualEthics))]
+    [DataContract]
     public abstract class Prereq_MutualRelation : ARolePrerequisite
     {
-        protected EthicsScale benchmarkTrust;
-
-        public Prereq_MutualRelation(EthicsScale benchmark, Role whichRole)
+        public Prereq_MutualRelation(Role whichRole)
         {
-            benchmarkTrust = benchmark;
             this.role = whichRole;
         }
 
@@ -65,11 +63,18 @@ namespace StoryEngine
         protected abstract bool PassesBenchmark(EthicsScale value);
     }
 
-    [XmlInclude(typeof(MutualTrust_Min))]
-    [XmlInclude(typeof(MutualTrust_Max))]
+    [KnownType(typeof(MutualTrust_Min))]
+    [KnownType(typeof(MutualTrust_Max))]
+    [DataContract]
     public abstract class MutualTrust : Prereq_MutualRelation
     {
-        public MutualTrust(EthicsScale benchmark, Role whichRole) : base(benchmark, whichRole) { }
+        [DataMember]
+        protected EthicsScale benchmarkTrust;
+
+        public MutualTrust(EthicsScale benchmark, Role whichRole) : base(whichRole)
+        {
+            benchmarkTrust = benchmark;
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization
@@ -137,11 +142,18 @@ namespace StoryEngine
         }
     }
     
-    [XmlInclude(typeof(MutualEthics_Min))]
-    [XmlInclude(typeof(MutualEthics_Max))]
+    [KnownType(typeof(MutualEthics_Min))]
+    [KnownType(typeof(MutualEthics_Max))]
+    [DataContract]
     public abstract class MutualEthics : Prereq_MutualRelation
     {
-        public MutualEthics(EthicsScale benchmark, Role whichRole) : base(benchmark, whichRole) { }
+        [DataMember]
+        protected EthicsScale benchmarkEthics;
+
+        public MutualEthics(EthicsScale benchmark, Role whichRole) : base(whichRole)
+        {
+            benchmarkEthics = benchmark;
+        }
 
         /// <summary>
         /// Parameterless constructor for serialization
@@ -166,13 +178,13 @@ namespace StoryEngine
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
-            return value >= this.benchmarkTrust;
+            return value >= this.benchmarkEthics;
         }
 
         public override IPrerequisite Copy(List<Role> replacementRoles)
         {
             var matchingRole = replacementRoles.FirstOrDefault(r => r.RoleName == this.role.RoleName);
-            var theCopy = new MutualEthics_Min(this.benchmarkTrust, matchingRole);
+            var theCopy = new MutualEthics_Min(this.benchmarkEthics, matchingRole);
             return theCopy;
         }
     }
@@ -189,13 +201,13 @@ namespace StoryEngine
 
         protected override bool PassesBenchmark(EthicsScale value)
         {
-            return value <= this.benchmarkTrust;
+            return value <= this.benchmarkEthics;
         }
 
         public override IPrerequisite Copy(List<Role> replacementRoles)
         {
             var matchingRole = replacementRoles.FirstOrDefault(r => r.RoleName == this.role.RoleName);
-            var theCopy = new MutualEthics_Max(this.benchmarkTrust, matchingRole);
+            var theCopy = new MutualEthics_Max(this.benchmarkEthics, matchingRole);
             return theCopy;
         }
     }
