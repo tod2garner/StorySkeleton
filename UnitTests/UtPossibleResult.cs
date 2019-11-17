@@ -43,8 +43,8 @@ namespace UnitTests
         {
             int givenValue = 25;
             var theResult = new PossibleResult(givenValue);
-            var myOutcome1 = new Outcome_ChangeTrust(1, new Role("one"), new Role("two"), "myOutcome1");
-            var myOutcome2 = new Outcome_ChangeTrust(1, new Role("two"), new Role("one"), "myOutcome2");
+            var myOutcome1 = new ChangeInTrust(1, new Role("one"), new Role("two"), "myOutcome1");
+            var myOutcome2 = new ChangeInTrust(1, new Role("two"), new Role("one"), "myOutcome2");
             theResult.TheOutcomes.Add(myOutcome1);
             theResult.TheOutcomes.Add(myOutcome2);
 
@@ -57,7 +57,7 @@ namespace UnitTests
             Assert.AreEqual(theResult.PercentChance, theCopy.PercentChance);
             Assert.AreEqual(theResult.TheOutcomes.Count, theCopy.TheOutcomes.Count);
 
-            var copyOutcome1 = theCopy.TheOutcomes.First() as Outcome_ChangeTrust;
+            var copyOutcome1 = theCopy.TheOutcomes.First() as ChangeInTrust;
             Assert.AreEqual(myOutcome1.OutcomeName, copyOutcome1.OutcomeName);
             Assert.AreEqual(myOutcome1.Magnitude, copyOutcome1.Magnitude);
             Assert.AreNotEqual(myOutcome1.BeingChanged, copyOutcome1.BeingChanged);

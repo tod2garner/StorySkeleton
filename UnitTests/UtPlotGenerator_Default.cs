@@ -17,7 +17,7 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            theGenerator = new PlotGenerator_Default();
+            theGenerator = new PlotGenerator_Default();           
         }
 
         [TestMethod]

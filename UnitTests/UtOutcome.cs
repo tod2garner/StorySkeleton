@@ -11,7 +11,7 @@ namespace UnitTests
     [TestClass]
     public class UtOutcome
     {
-        Outcome_ChangeTrust theOutcome;
+        ChangeInTrust theOutcome;
 
         [TestInitialize]
         public void TestInitialize()
@@ -19,7 +19,7 @@ namespace UnitTests
             int givenMagnitude = 3;
             var role1 = new Role("r1");
             var role2 = new Role("r2");
-            theOutcome = new Outcome_ChangeTrust(givenMagnitude, role1, role2, "testOutcome");
+            theOutcome = new ChangeInTrust(givenMagnitude, role1, role2, "testOutcome");
 
             Assert.AreEqual(givenMagnitude, theOutcome.Magnitude);
             Assert.IsNotNull(theOutcome.BeingChanged);
@@ -101,7 +101,7 @@ namespace UnitTests
             var altRole2 = new Role("four");
             var replacementList = new List<Role>(2) { altRole1, altRole2 };
 
-            var theCopy = theOutcome.Copy(replacementList) as Outcome_ChangeTrust;
+            var theCopy = theOutcome.Copy(replacementList) as ChangeInTrust;
 
             Assert.AreEqual(theOutcome.OutcomeName, theCopy.OutcomeName);
             Assert.AreEqual(theOutcome.Magnitude, theCopy.Magnitude);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StoryEngine;
 using StoryEngine.SocietyGenerators;
+using StoryEngine.PlotGenerators;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -70,26 +71,49 @@ namespace UnitTests
 
             //Display narrative
             var theTextNarrative = thePlot.CompileTextNarrative();
-            foreach(string s in theTextNarrative)
+            foreach (string s in theTextNarrative)
                 Debug.WriteLine(s);
 
             Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void aaa_GenerateNewRandomPlot()
+        {
+            var theGenerator = new PlotGenerator_Default();
+            var theLibrary = StoryEngine.Incidents.DefaultLibrary.DefaultLibraryGenerator.LoadDefaultLibraryFromFile();
+
+            var thePlot = theGenerator.GenerateNewPlot(theLibrary);
+
+
+            //Print narrative
+            var theTextNarrative = thePlot.CompileTextNarrative();
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\\temp\\RandomPlot.txt"))
+            {
+                foreach (string line in theTextNarrative)
+                    file.WriteLine(line);
+            }
+
+            Assert.IsTrue(true);
+
+            throw new NotImplementedException();
         }
 
         private IIncident createIncidentManually_AccidentalOffense()
         {
             return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.AccidentalOffense().CreateIncident();
         }
-         
+
         private IIncident createIncidentManually_Agression_Social()
         {
             return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Agression_Social().CreateIncident();
         }
-        
+
         private IIncident createIncidentManually_Cooperation_Social()
         {
             return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Cooperation_Social().CreateIncident();
         }
-        
+
     }
 }

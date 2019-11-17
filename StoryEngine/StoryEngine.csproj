@@ -41,17 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Enums_Characters.cs" />
     <Compile Include="Incidents\CollectionOfIncidentTemplates.cs" />
     <Compile Include="Incidents\DefaultLibrary\CreateTemplateManually.cs" />
     <Compile Include="Incidents\DefaultLibrary\DefaultLibraryGenerator.cs" />
     <Compile Include="Incidents\Incident.cs" />
     <Compile Include="Incidents\LibraryOfIncidents.cs" />
     <Compile Include="Incidents\TemplateForIncident.cs" />
-    <Compile Include="Outcomes\Outcome_ChangeTrust.cs" />
+    <Compile Include="Outcomes\ChangeInTrust.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="PossibleResult.cs" />
     <Compile Include="Character.cs" />
-    <Compile Include="Enums_Relationships.cs" />
+    <Compile Include="Enums\Enums_Relationships.cs" />
     <Compile Include="Incidents\AIncident.cs" />
     <Compile Include="Incidents\IIncident.cs" />
     <Compile Include="Outcomes\IOutcome.cs" />

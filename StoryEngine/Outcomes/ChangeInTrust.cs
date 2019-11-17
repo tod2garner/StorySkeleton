@@ -8,12 +8,8 @@ using System.Runtime.Serialization;
 namespace StoryEngine
 {
     [DataContract]
-    public class Outcome_ChangeTrust : AOutcome
+    public class ChangeInTrust : AOutcome
     {
-        [DataMember]
-        private string name;
-        public string OutcomeName { get { return name; } }
-
         [DataMember]
         private int magnitude;
         public int Magnitude { get { return magnitude; } }
@@ -26,7 +22,7 @@ namespace StoryEngine
         private Role towards;
         public Role Towards { get { return towards; } }
 
-        public Outcome_ChangeTrust(int magnitudeOfTrustChange, Role change, Role target, String givenName)
+        public ChangeInTrust(int magnitudeOfTrustChange, Role change, Role target, String givenName)
         {
             magnitude = magnitudeOfTrustChange;
             beingChanged = change;
@@ -37,14 +33,14 @@ namespace StoryEngine
         /// <summary>
         /// Parameterless constructor for serialization
         /// </summary>
-        public Outcome_ChangeTrust() { }
+        public ChangeInTrust() { }
 
         public override AOutcome Copy(List<Role> replacementRoles)
         {
             var matchBeingChanged = replacementRoles.FirstOrDefault(r => r.RoleName == this.beingChanged.RoleName);
             var matchTowards = replacementRoles.FirstOrDefault(r => r.RoleName == this.towards.RoleName);
 
-            var theCopy = new Outcome_ChangeTrust(this.magnitude, matchBeingChanged, matchTowards, this.name);
+            var theCopy = new ChangeInTrust(this.magnitude, matchBeingChanged, matchTowards, this.name);
             return theCopy;
         }
 
