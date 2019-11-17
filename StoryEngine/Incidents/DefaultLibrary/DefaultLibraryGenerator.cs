@@ -33,10 +33,14 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Betrayal_Social());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Conversation_Personal());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Cooperation_Social());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Cooperation_Utilitarian());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Deception());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Rejection_Emotional());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
+
+            //#TODO - break into separate collection
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Travel());
 
             defaultCollection.SaveToXML(SAVE_FILE_PATH + "collection1.xml");
         }

@@ -13,7 +13,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
         Future - NewCharacter?
         Future - RemoveCharacter (death, permanent relocation, etc)
         
-
         Accidental humiliation
         Internal struggle
         
@@ -22,8 +21,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         Epiphany / self-discovery
         Compete for favor - competitors, person they are trying to impress
 
-            3+ roles
-            
+            3+ roles            
        Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
        
 
@@ -69,9 +67,9 @@ namespace StoryEngine.Incidents.DefaultLibrary
             argument.TheRoles.Add(conversants);
 
             //Prereqs
-            MutualTrust_Min prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Exploit, conversants);
+            MutualTrust_Min prereq_ConversantMinTrust = new MutualTrust_Min(EthicsScale.Exploit, conversants);
 
-            argument.ThePrerequisites.Add(prereq_CooperativesMinTrust);
+            argument.ThePrerequisites.Add(prereq_ConversantMinTrust);
 
             //Outcomes
             var distrust_Small = new ChangeInTrust(-1, conversants, conversants, "Small Distrust");
@@ -89,6 +87,31 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return argument;
         }
         
+        public static TemplateForIncident Cooperation_Utilitarian()
+        {
+            var utilitarianCooperation = new TemplateForIncident("Utilitarian Cooperation");
+
+            //Roles
+            var cooperatives = new Role("Cooperatives") { MinCount = 2, MaxCount = null };
+
+            utilitarianCooperation.TheRoles.Add(cooperatives);
+
+            //Prereqs
+            var prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Exploit, cooperatives);
+
+            utilitarianCooperation.ThePrerequisites.Add(prereq_CooperativesMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, cooperatives, cooperatives, "Small Bonding");
+
+            var commonBonding = new PossibleResult(100);
+            commonBonding.TheOutcomes.Add(bonding_Small);
+
+            utilitarianCooperation.ThePossibleResults.Add(commonBonding);
+
+            return utilitarianCooperation;
+        }
+
         public static TemplateForIncident Cooperation_Social()
         {
             var socialCooperation = new TemplateForIncident("Social Cooperation");
@@ -99,7 +122,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             socialCooperation.TheRoles.Add(cooperatives);
 
             //Prereqs
-            var prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Exploit, cooperatives);
+            var prereq_CooperativesMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, cooperatives);
 
             socialCooperation.ThePrerequisites.Add(prereq_CooperativesMinTrust);
 
@@ -451,7 +474,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         #region Generic
         /*
-       Travel
        Interruption of routine task
        Self improvement - practice / study / research
        Coached improvement - training / school
@@ -465,9 +487,39 @@ namespace StoryEngine.Incidents.DefaultLibrary
        Social gathering
        Windfall, find/win item of value
        Organized Competition
-       
-         
          */
+
+        public static TemplateForIncident Travel()
+        {
+            var travel = new TemplateForIncident("Travel");
+
+            //Roles
+            var travelers = new Role("Travelers") { MinCount = 1, MaxCount = null };
+
+            travel.TheRoles.Add(travelers);
+
+            //Prereqs
+            MutualTrust_Min prereq_ConversantMinTrust = new MutualTrust_Min(EthicsScale.Coexist, travelers);
+
+            travel.ThePrerequisites.Add(prereq_ConversantMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, travelers, travelers, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, travelers, travelers, "Small Distrust");
+
+            var common = new PossibleResult(80);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(20);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            travel.ThePossibleResults.Add(common);
+            travel.ThePossibleResults.Add(unlikely);
+
+            return travel;
+        }
+
+
         #endregion
 
         #region Action
