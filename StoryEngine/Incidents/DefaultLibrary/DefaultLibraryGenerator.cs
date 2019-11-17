@@ -40,6 +40,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
 
             //#TODO - break into separate collection
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Training());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Travel());
 
             defaultCollection.SaveToXML(SAVE_FILE_PATH + "collection1.xml");

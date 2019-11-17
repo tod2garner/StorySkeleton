@@ -287,7 +287,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add prereqs
             var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Coexist, partyAttacking, partyDefending);
-            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, partyAttacking, partyDefending);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, partyDefending, partyAttacking);
             var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Exploit, partyAttacking);
 
             socialRejection.ThePrerequisites.Add(prereq_AttackerEthicsMax);
@@ -328,7 +328,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add prereqs
             var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Embrace, partyAttacking, partyDefending);
-            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Embrace, partyAttacking, partyDefending);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Embrace, partyDefending, partyAttacking);
             var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
             emotionalRejection.ThePrerequisites.Add(prereq_AttackerEthicsMax);
@@ -369,7 +369,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add prereqs
             var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, partyAttacking, partyDefending);
-            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, partyAttacking, partyDefending);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, partyDefending, partyAttacking);
             var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
             socialBetrayal.ThePrerequisites.Add(prereq_AttackerEthicsMax);
@@ -405,7 +405,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add prereqs
             var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Cooperate, partyAttacking, partyDefending);
-            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Embrace, partyAttacking, partyDefending);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Embrace, partyDefending, partyAttacking);
             var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
             emotionalBetrayal.ThePrerequisites.Add(prereq_AttackerEthicsMax);
@@ -476,7 +476,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
         /*
        Interruption of routine task
        Self improvement - practice / study / research
-       Coached improvement - training / school
        Send Message
        Message lost in transit, never received
        Receive message - New rumor / word of remote incident
@@ -507,18 +506,89 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var bonding_Small = new ChangeInTrust(1, travelers, travelers, "Small Bonding");
             var distrust_Small = new ChangeInTrust(-1, travelers, travelers, "Small Distrust");
 
-            var common = new PossibleResult(80);
+            var noChange = new PossibleResult(40);//no outcomes
+
+            var common = new PossibleResult(40);
             common.TheOutcomes.Add(bonding_Small);
 
             var unlikely = new PossibleResult(20);
             unlikely.TheOutcomes.Add(distrust_Small);
 
+            travel.ThePossibleResults.Add(noChange);
             travel.ThePossibleResults.Add(common);
             travel.ThePossibleResults.Add(unlikely);
 
             return travel;
         }
 
+        public static TemplateForIncident Training()
+        {
+            var training = new TemplateForIncident("Training");
+
+            //Roles
+            var trainer = new Role("Trainer") { MinCount = 1, MaxCount = 1 };
+            var students = new Role("Student(s)") { MinCount = 1, MaxCount = null };
+
+            training.TheRoles.Add(trainer);
+            training.TheRoles.Add(students);
+
+            //Prereqs
+            var prereq_TrainerEthicsMin = new DirectionalEthics_Min(EthicsScale.Cooperate, trainer, students);
+            var prereq_StudentTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, students, trainer);
+            
+            training.ThePrerequisites.Add(prereq_TrainerEthicsMin);
+            training.ThePrerequisites.Add(prereq_StudentTrustMin);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, students, trainer, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, students, trainer, "Small Distrust");
+            
+            var noChange = new PossibleResult(40);//no outcomes
+
+            var common = new PossibleResult(40);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(20);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            travel.ThePossibleResults.Add(noChange);
+            travel.ThePossibleResults.Add(common);
+            travel.ThePossibleResults.Add(unlikely);
+
+            return training;
+        }
+        public static TemplateForIncident SelfImprovement()
+        {
+            var selfImprovement = new TemplateForIncident("Self Improvement");
+
+            //Roles
+            var participants = new Role("Participants") { MinCount = 1, MaxCount = null };
+
+            selfImprovement.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_ParticipantMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            selfImprovement.ThePrerequisites.Add(prereq_ParticipantMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+            var noChange = new PossibleResult(60);//no outcomes
+
+            var common = new PossibleResult(30);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(10);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            selfImprovement.ThePossibleResults.Add(noChange);
+            selfImprovement.ThePossibleResults.Add(common);
+            selfImprovement.ThePossibleResults.Add(unlikely);
+
+            return selfImprovement;
+        }
 
         #endregion
 
