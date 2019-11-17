@@ -13,7 +13,7 @@ namespace StoryEngine
     /// </summary>
     public class Role
     {
-        public const int DEFAULT_ROLE_MAX_COUNT = 4; //#TODO - move to config file?
+        public const int DEFAULT_ROLE_MAX_COUNT = 3; //#TODO - move to config file?
 
         public Role(string roleName)
         {

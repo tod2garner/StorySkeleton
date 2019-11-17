@@ -19,9 +19,9 @@ namespace StoryEngine.SocietyGenerators
                     initialTrust = EthicsScale.Cooperate;
                     break;
                 case SuspicionScale.Relaxed:
+                case SuspicionScale.Average:
                     initialTrust = EthicsScale.Coexist;
                     break;
-                case SuspicionScale.Average:
                 case SuspicionScale.Guarded:
                     initialTrust = EthicsScale.Exploit;
                     break;

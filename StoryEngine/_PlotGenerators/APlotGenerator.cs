@@ -22,14 +22,16 @@ namespace StoryEngine.PlotGenerators
         protected SocietySnapshot currentCast;
         protected LibraryOfIncidents possibleIncidents;
 
-        public Plot GenerateNewPlot(LibraryOfIncidents givenPossibleIncidents)
+        public Plot GenerateNewPlot(LibraryOfIncidents givenPossibleIncidents, SocietySnapshot startingCast = null, int? maxIncidentCount = null)
         {
             this.possibleIncidents = givenPossibleIncidents;
 
-            currentCast = GetStartingCast();
+            currentCast = startingCast != null ? startingCast : GetStartingCast();
+            int maxIncidents = maxIncidentCount != null ? maxIncidentCount.Value : MAX_INCIDENT_COUNT;
+
             plotInProgress = new Plot(currentCast);
 
-            CreateSequenceOfEvents(MAX_INCIDENT_COUNT);
+            CreateSequenceOfEvents(maxIncidents);
 
             return plotInProgress;
         }

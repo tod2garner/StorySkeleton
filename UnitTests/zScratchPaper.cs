@@ -83,7 +83,7 @@ namespace UnitTests
             var theGenerator = new PlotGenerator_Default();
             var theLibrary = StoryEngine.Incidents.DefaultLibrary.DefaultLibraryGenerator.LoadDefaultLibraryFromFile();
 
-            var thePlot = theGenerator.GenerateNewPlot(theLibrary);
+            var thePlot = theGenerator.GenerateNewPlot(theLibrary, null, 20);
 
 
             //Print narrative

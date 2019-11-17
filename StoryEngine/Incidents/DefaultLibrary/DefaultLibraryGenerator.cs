@@ -44,6 +44,12 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Training());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Travel());
 
+            //#TODO - break into separate collection
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Lost());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.NaturalDisaster());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Disease());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Weather_Challenging());
+
             defaultCollection.SaveToXML(SAVE_FILE_PATH + "collection1.xml");
         }
 

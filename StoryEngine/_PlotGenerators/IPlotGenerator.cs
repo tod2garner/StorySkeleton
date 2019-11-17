@@ -8,6 +8,6 @@ namespace StoryEngine.PlotGenerators
 {
     public interface IPlotGenerator
     {
-        Plot GenerateNewPlot(LibraryOfIncidents givenPossibleIncidents);
+        Plot GenerateNewPlot(LibraryOfIncidents givenPossibleIncidents, SocietySnapshot startingCast = null, int? maxIncidentCount = null);
     }
 }

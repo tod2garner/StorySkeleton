@@ -32,7 +32,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var conversation = new TemplateForIncident("Personal Conversation");
 
             //Roles
-            var conversants = new Role("Conversants") { MinCount = 2, MaxCount = 4 };
+            var conversants = new Role("Conversants") { MinCount = 2, MaxCount = 3 };
 
             conversation.TheRoles.Add(conversants);
 
@@ -50,7 +50,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             var unlikelyBonding = new PossibleResult(20);
             unlikelyBonding.TheOutcomes.Add(bonding_Large);
-            
+
             conversation.ThePossibleResults.Add(commonBonding);
             conversation.ThePossibleResults.Add(unlikelyBonding);
 
@@ -62,7 +62,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var argument = new TemplateForIncident("Personal Argument");
 
             //Roles
-            var conversants = new Role("Conversants") { MinCount = 2, MaxCount = 4 };
+            var conversants = new Role("Conversants") { MinCount = 2, MaxCount = 3 };
 
             argument.TheRoles.Add(conversants);
 
@@ -86,7 +86,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return argument;
         }
-        
+
         public static TemplateForIncident Cooperation_Utilitarian()
         {
             var utilitarianCooperation = new TemplateForIncident("Utilitarian Cooperation");
@@ -146,7 +146,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return socialCooperation;
         }
-                
+
         public static TemplateForIncident Agression_Social()
         {
             var socialAgression = new TemplateForIncident("Social Agression");
@@ -198,7 +198,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         public static TemplateForIncident Deception()//#TODO - add triggers, make success/fail rate based on duration of lie
         {
-            var socialAgression = new TemplateForIncident("Deception"); 
+            var socialAgression = new TemplateForIncident("Deception");
 
             //Add roles
             var partyAttacking = new Role("Party Deceiving") { MinCount = 1, MaxCount = null };
@@ -234,7 +234,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return socialAgression;
         }
-        
+
         public static TemplateForIncident SacrificeForOther()
         {
             var sacrificeForOther = new TemplateForIncident("Sacrifice for Other(s)");
@@ -298,7 +298,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var smallTrustLoss = new ChangeInTrust(-1, partyDefending, partyAttacking, "Small Trust Loss");
             var largeTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
             var majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
-            
+
             var common = new PossibleResult(70);
             common.TheOutcomes.Add(smallTrustLoss);
 
@@ -385,7 +385,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             var unlikely = new PossibleResult(40);
             unlikely.TheOutcomes.Add(majorTrustLoss);
-            
+
             socialBetrayal.ThePossibleResults.Add(common);
             socialBetrayal.ThePossibleResults.Add(unlikely);
 
@@ -431,7 +431,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return emotionalBetrayal;
         }
-        
+
         public static TemplateForIncident AccidentalOffense()
         {
             //Assign name
@@ -475,7 +475,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #region Generic
         /*
        Interruption of routine task
-       Self improvement - practice / study / research
        Send Message
        Message lost in transit, never received
        Receive message - New rumor / word of remote incident
@@ -498,9 +497,9 @@ namespace StoryEngine.Incidents.DefaultLibrary
             travel.TheRoles.Add(travelers);
 
             //Prereqs
-            MutualTrust_Min prereq_ConversantMinTrust = new MutualTrust_Min(EthicsScale.Coexist, travelers);
+            MutualTrust_Min prereq_TravelerMinTrust = new MutualTrust_Min(EthicsScale.Coexist, travelers);
 
-            travel.ThePrerequisites.Add(prereq_ConversantMinTrust);
+            travel.ThePrerequisites.Add(prereq_TravelerMinTrust);
 
             //Outcomes
             var bonding_Small = new ChangeInTrust(1, travelers, travelers, "Small Bonding");
@@ -535,14 +534,14 @@ namespace StoryEngine.Incidents.DefaultLibrary
             //Prereqs
             var prereq_TrainerEthicsMin = new DirectionalEthics_Min(EthicsScale.Cooperate, trainer, students);
             var prereq_StudentTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, students, trainer);
-            
+
             training.ThePrerequisites.Add(prereq_TrainerEthicsMin);
             training.ThePrerequisites.Add(prereq_StudentTrustMin);
 
             //Outcomes
             var bonding_Small = new ChangeInTrust(1, students, trainer, "Small Bonding");
             var distrust_Small = new ChangeInTrust(-1, students, trainer, "Small Distrust");
-            
+
             var noChange = new PossibleResult(40);//no outcomes
 
             var common = new PossibleResult(40);
@@ -551,13 +550,14 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var unlikely = new PossibleResult(20);
             unlikely.TheOutcomes.Add(distrust_Small);
 
-            travel.ThePossibleResults.Add(noChange);
-            travel.ThePossibleResults.Add(common);
-            travel.ThePossibleResults.Add(unlikely);
+            training.ThePossibleResults.Add(noChange);
+            training.ThePossibleResults.Add(common);
+            training.ThePossibleResults.Add(unlikely);
 
             return training;
         }
-        public static TemplateForIncident SelfImprovement()
+
+        public static TemplateForIncident SelfImprovement() //Practice, study, research
         {
             var selfImprovement = new TemplateForIncident("Self Improvement");
 
@@ -625,12 +625,147 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #region ConflictWithNature
         /*
        Weather - delay/discomfort
-       Lost
        Survival - search for food, water, shelter
-       Natural disaster
-       Disease / illness
        Encounter wild animal - in wild or loose in populated area
        */
+
+        public static TemplateForIncident Lost()
+        {
+            var lost = new TemplateForIncident("Lost");
+
+            //Roles
+            var travelers = new Role("Travelers") { MinCount = 1, MaxCount = null };
+
+            lost.TheRoles.Add(travelers);
+
+            //Prereqs
+            MutualTrust_Min prereq_TravelerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, travelers);
+
+            lost.ThePrerequisites.Add(prereq_TravelerMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, travelers, travelers, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, travelers, travelers, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, travelers, travelers, "Small Distrust");
+            
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(25);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            var rare = new PossibleResult(15);
+            rare.TheOutcomes.Add(bonding_Large);
+            
+
+            lost.ThePossibleResults.Add(common);
+            lost.ThePossibleResults.Add(unlikely);
+            lost.ThePossibleResults.Add(rare);
+
+            return lost;
+        }
+
+        public static TemplateForIncident Disease()
+        {
+            var disease = new TemplateForIncident("Disease");
+
+            //Roles
+            var patients = new Role("Patients") { MinCount = 1, MaxCount = 5 };
+
+            disease.TheRoles.Add(patients);
+
+            //No Prereqs            
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, patients, patients, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, patients, patients, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, patients, patients, "Small Distrust");
+            
+
+            var common = new PossibleResult(50);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(bonding_Large);
+
+            var rare = new PossibleResult(20);
+            rare.TheOutcomes.Add(distrust_Small);
+            
+            disease.ThePossibleResults.Add(common);
+            disease.ThePossibleResults.Add(unlikely);
+            disease.ThePossibleResults.Add(rare);
+
+            return disease;
+        }
+
+        public static TemplateForIncident NaturalDisaster()
+        {
+            var naturalDisaster = new TemplateForIncident("Natural Disaster");
+
+            //Roles
+            var survivors = new Role("Survivors") { MinCount = 1, MaxCount = 5 };
+
+            naturalDisaster.TheRoles.Add(survivors);
+
+            //No Prereqs            
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, survivors, survivors, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, survivors, survivors, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, survivors, survivors, "Small Distrust");
+            
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Large);
+
+            var unlikely = new PossibleResult(25);
+            unlikely.TheOutcomes.Add(bonding_Small);
+
+            var rare = new PossibleResult(15);
+            rare.TheOutcomes.Add(distrust_Small);
+            
+            naturalDisaster.ThePossibleResults.Add(common);
+            naturalDisaster.ThePossibleResults.Add(unlikely);
+            naturalDisaster.ThePossibleResults.Add(rare);
+
+            return naturalDisaster;
+        }
+
+        public static TemplateForIncident Weather_Challenging()
+        {
+            var badWeather = new TemplateForIncident("Challenging Weather");
+
+            //Roles
+            var travelers = new Role("Travelers") { MinCount = 1, MaxCount = null };
+
+            badWeather.TheRoles.Add(travelers);
+
+            //Prereqs
+            MutualTrust_Min prereq_TravelerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, travelers);
+
+            badWeather.ThePrerequisites.Add(prereq_TravelerMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, travelers, travelers, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, travelers, travelers, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, travelers, travelers, "Small Distrust");
+            
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(20);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            var rare = new PossibleResult(15);
+            rare.TheOutcomes.Add(bonding_Large);
+            
+            badWeather.ThePossibleResults.Add(common);
+            badWeather.ThePossibleResults.Add(unlikely);
+            badWeather.ThePossibleResults.Add(rare);
+
+            return badWeather;
+        }
+
         #endregion
 
         /*
