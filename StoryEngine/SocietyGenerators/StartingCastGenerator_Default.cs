@@ -35,7 +35,7 @@ namespace StoryEngine.SocietyGenerators
 
         protected void CreateStartingRelationships(SocietySnapshot s, Random rng = null)
         {
-            Character.RelationshipGenerator = new RelationshipGenerator_Default();
+            Character.RelationshipGenerator = new RelationshipGenerator_RandomTrust();
 
             if(rng == null)
                 rng = new Random();
@@ -69,6 +69,9 @@ namespace StoryEngine.SocietyGenerators
                     }
                 }
             }
+
+            //During plot generation, when characters meet each other, use base suspicion & morality to create starting relation
+            Character.RelationshipGenerator = new RelationshipGenerator_Default();
         }
     }
 }

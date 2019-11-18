@@ -300,13 +300,13 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
 
             var common = new PossibleResult(70);
-            common.TheOutcomes.Add(smallTrustLoss);
+            common.TheOutcomes.Add(largeTrustLoss);
 
             var unlikely = new PossibleResult(20);
-            unlikely.TheOutcomes.Add(largeTrustLoss);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
 
             var rare = new PossibleResult(10);
-            rare.TheOutcomes.Add(majorTrustLoss);
+            rare.TheOutcomes.Add(smallTrustLoss);
 
             socialRejection.ThePossibleResults.Add(common);
             socialRejection.ThePossibleResults.Add(unlikely);
@@ -341,13 +341,13 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
 
             var common = new PossibleResult(70);
-            common.TheOutcomes.Add(smallTrustLoss);
+            common.TheOutcomes.Add(largeTrustLoss);
 
             var unlikely = new PossibleResult(20);
-            unlikely.TheOutcomes.Add(largeTrustLoss);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
 
             var rare = new PossibleResult(10);
-            rare.TheOutcomes.Add(majorTrustLoss);
+            rare.TheOutcomes.Add(smallTrustLoss);
 
             emotionalRejection.ThePossibleResults.Add(common);
             emotionalRejection.ThePossibleResults.Add(unlikely);
@@ -414,8 +414,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add outcomes
             var largeTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
-            var majorTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Major Trust Loss");
-            var massiveTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Massive Trust Loss");
+            var majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            var massiveTrustLoss = new ChangeInTrust(-4, partyDefending, partyAttacking, "Massive Trust Loss");
 
             var common = new PossibleResult(50);
             common.TheOutcomes.Add(largeTrustLoss);
@@ -504,16 +504,14 @@ namespace StoryEngine.Incidents.DefaultLibrary
             //Outcomes
             var bonding_Small = new ChangeInTrust(1, travelers, travelers, "Small Bonding");
             var distrust_Small = new ChangeInTrust(-1, travelers, travelers, "Small Distrust");
+            
 
-            var noChange = new PossibleResult(40);//no outcomes
-
-            var common = new PossibleResult(40);
+            var common = new PossibleResult(70);
             common.TheOutcomes.Add(bonding_Small);
 
-            var unlikely = new PossibleResult(20);
+            var unlikely = new PossibleResult(30);
             unlikely.TheOutcomes.Add(distrust_Small);
-
-            travel.ThePossibleResults.Add(noChange);
+            
             travel.ThePossibleResults.Add(common);
             travel.ThePossibleResults.Add(unlikely);
 
@@ -539,18 +537,20 @@ namespace StoryEngine.Incidents.DefaultLibrary
             training.ThePrerequisites.Add(prereq_StudentTrustMin);
 
             //Outcomes
-            var bonding_Small = new ChangeInTrust(1, students, trainer, "Small Bonding");
-            var distrust_Small = new ChangeInTrust(-1, students, trainer, "Small Distrust");
+            var bonding_Small_Peers = new ChangeInTrust(1, students, students, "Small Bonding");
+            var bonding_Small_Trainer = new ChangeInTrust(1, students, trainer, "Small Bonding");
+            var distrust_Small_Trainer = new ChangeInTrust(-1, students, trainer, "Small Distrust");
 
-            var noChange = new PossibleResult(40);//no outcomes
+            var common = new PossibleResult(50);
+            common.TheOutcomes.Add(bonding_Small_Peers);
 
-            var common = new PossibleResult(40);
-            common.TheOutcomes.Add(bonding_Small);
+            var unlikely = new PossibleResult(30);
+            common.TheOutcomes.Add(bonding_Small_Trainer);
+            common.TheOutcomes.Add(bonding_Small_Peers);
 
-            var unlikely = new PossibleResult(20);
-            unlikely.TheOutcomes.Add(distrust_Small);
-
-            training.ThePossibleResults.Add(noChange);
+            var rare = new PossibleResult(20);
+            unlikely.TheOutcomes.Add(distrust_Small_Trainer);
+            
             training.ThePossibleResults.Add(common);
             training.ThePossibleResults.Add(unlikely);
 
@@ -574,16 +574,13 @@ namespace StoryEngine.Incidents.DefaultLibrary
             //Outcomes
             var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
             var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
-
-            var noChange = new PossibleResult(60);//no outcomes
-
-            var common = new PossibleResult(30);
+            
+            var common = new PossibleResult(70);
             common.TheOutcomes.Add(bonding_Small);
 
-            var unlikely = new PossibleResult(10);
+            var unlikely = new PossibleResult(30);
             unlikely.TheOutcomes.Add(distrust_Small);
-
-            selfImprovement.ThePossibleResults.Add(noChange);
+            
             selfImprovement.ThePossibleResults.Add(common);
             selfImprovement.ThePossibleResults.Add(unlikely);
 
@@ -623,12 +620,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #endregion
 
         #region ConflictWithNature
-        /*
-       Weather - delay/discomfort
-       Survival - search for food, water, shelter
-       Encounter wild animal - in wild or loose in populated area
-       */
-
+        
         public static TemplateForIncident Lost()
         {
             var lost = new TemplateForIncident("Lost");
@@ -764,6 +756,78 @@ namespace StoryEngine.Incidents.DefaultLibrary
             badWeather.ThePossibleResults.Add(rare);
 
             return badWeather;
+        }
+
+        public static TemplateForIncident WildAnimal()
+        {
+            var wildAnimal = new TemplateForIncident("Wild Animal");
+
+            //Roles
+            var group = new Role("Group") { MinCount = 1, MaxCount = null };
+
+            wildAnimal.TheRoles.Add(group);
+
+            //Prereqs
+            MutualTrust_Min prereq_GroupMinTrust = new MutualTrust_Min(EthicsScale.Beat, group);
+
+            wildAnimal.ThePrerequisites.Add(prereq_GroupMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, group, group, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, group, group, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, group, group, "Small Distrust");
+
+
+            var common = new PossibleResult(50);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(bonding_Large);
+
+            var rare = new PossibleResult(20);
+            rare.TheOutcomes.Add(distrust_Small);
+
+            wildAnimal.ThePossibleResults.Add(common);
+            wildAnimal.ThePossibleResults.Add(unlikely);
+            wildAnimal.ThePossibleResults.Add(rare);
+
+            return wildAnimal;
+        }
+
+        public static TemplateForIncident Survival()//food, water, shelter
+        {
+            var survival = new TemplateForIncident("Lost");
+
+            //Roles
+            var survivors = new Role("Survivors") { MinCount = 1, MaxCount = null };
+
+            survival.TheRoles.Add(survivors);
+
+            //Prereqs
+            MutualTrust_Min prereq_TravelerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, survivors);
+
+            survival.ThePrerequisites.Add(prereq_TravelerMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, survivors, survivors, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, survivors, survivors, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, survivors, survivors, "Small Distrust");
+
+            var common = new PossibleResult(50);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            var rare = new PossibleResult(20);
+            rare.TheOutcomes.Add(bonding_Large);
+
+
+            survival.ThePossibleResults.Add(common);
+            survival.ThePossibleResults.Add(unlikely);
+            survival.ThePossibleResults.Add(rare);
+
+            return survival;
         }
 
         #endregion

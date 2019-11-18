@@ -73,6 +73,7 @@
     <Compile Include="SocietyGenerators\RandomCharacterGenerator_Default.cs" />
     <Compile Include="SocietyGenerators\RandomNameSelector.cs" />
     <Compile Include="SocietyGenerators\RelationshipGenerator_Default.cs" />
+    <Compile Include="SocietyGenerators\RelationshipGenerator_RandomTrust.cs" />
     <Compile Include="SocietyGenerators\StartingCastGenerator_Default.cs" />
     <Compile Include="SocietySnapshot.cs" />
     <Compile Include="_PlotGenerators\IPlotGenerator.cs" />
