@@ -42,10 +42,15 @@ namespace StoryEngine
 
         public List<string> CompileTextNarrative()
         {
-            var textNarrative = new List<string>(this.TheIncidents.Count);
+            var textNarrative = new List<string>();
+
+            textNarrative.AddRange(this.startingCast.GetTextSummary());
+            textNarrative.Add(string.Empty);
+
             foreach(IIncident x in this.TheIncidents)
             {
                 textNarrative.AddRange(x.GetTextSummary());
+                textNarrative.Add(string.Empty);
             }
 
             return textNarrative;

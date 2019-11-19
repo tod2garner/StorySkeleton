@@ -33,7 +33,7 @@ namespace StoryEngine
                 case EthicsScale.Exploit:
                     return "would not hesitate to [Exploit]";
                 case EthicsScale.Coexist:
-                    return "would not bother";
+                    return "would reasonably [Coexist] with";
                 case EthicsScale.Cooperate:
                     return "would reliably [Cooperate] with";
                 case EthicsScale.Embrace:
@@ -42,6 +42,68 @@ namespace StoryEngine
                 default:
                     return "would be a trusted [Confidant] for";
             }
+        }
+
+        public static EthicsScale HigherLevel(this EthicsScale me)
+        {
+            EthicsScale higher;
+            switch (me)
+            {
+                case EthicsScale.Murder:
+                    higher = EthicsScale.Beat;
+                    break;
+                case EthicsScale.Beat:
+                    higher = EthicsScale.Exploit;
+                    break;
+                case EthicsScale.Exploit:
+                    higher = EthicsScale.Coexist;
+                    break;
+                case EthicsScale.Coexist:
+                    higher = EthicsScale.Cooperate;
+                    break;
+                case EthicsScale.Cooperate:
+                    higher = EthicsScale.Embrace;
+                    break;
+                case EthicsScale.Embrace:
+                    higher = EthicsScale.Confide;
+                    break;
+                default:
+                    higher = me;
+                    break;
+            }
+
+            return higher;
+        }
+
+        public static EthicsScale LowerLevel(this EthicsScale me)
+        {
+            EthicsScale lower;
+            switch (me)
+            {
+                case EthicsScale.Murder:
+                    lower = me;
+                    break;
+                case EthicsScale.Beat:
+                    lower = EthicsScale.Murder;
+                    break;
+                case EthicsScale.Exploit:
+                    lower = EthicsScale.Beat;
+                    break;
+                case EthicsScale.Coexist:
+                    lower = EthicsScale.Exploit;
+                    break;
+                case EthicsScale.Cooperate:
+                    lower = EthicsScale.Coexist;
+                    break;
+                case EthicsScale.Embrace:
+                    lower = EthicsScale.Cooperate;
+                    break;
+                default:
+                    lower = EthicsScale.Embrace;
+                    break;
+            }
+
+            return lower;
         }
     }
 }

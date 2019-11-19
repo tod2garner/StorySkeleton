@@ -8,20 +8,15 @@ namespace StoryEngine.SocietyGenerators
 {
     public class RelationshipGenerator_RandomTrust : IRelationshipGenerator
     {
-        public Relationship CreateRelationship(Character self, Character other)
-        {
-            return CreateRelationship(self, other, null);
-        }
-
         public Relationship CreateRelationship(Character self, Character other, Random rng = null)
         {
             if (other.IsAcquaintedWith(self.Id))
-                return MirrorTrustFromOther(self, other);
+                return MirrorTrustFromOther(self, other, rng);
             else
-                return NewRandomTrustRelation(self.Id, other.Id, rng);
+                return NewRandomTrustRelation(self, other, rng);
         }
 
-        protected Relationship NewRandomTrustRelation(int selfId, int otherId, Random rng = null)
+        protected Relationship NewRandomTrustRelation(Character self, Character other, Random rng = null)
         {
             EthicsScale initialTrust;
 
@@ -64,21 +59,47 @@ namespace StoryEngine.SocietyGenerators
                     break;
             }
 
-            var intialEthics = initialTrust;
-
-            var r = new Relationship(selfId, otherId, initialTrust, intialEthics);
-
-            return r;
-        }
-
-        protected Relationship MirrorTrustFromOther(Character self, Character other)
-        {
-            var initialTrust = other.GetTrustTowards(self);
-            var intialEthics = initialTrust;
+            EthicsScale intialEthics = GetProbableEthics(self.BaseMorality, initialTrust, rng);
 
             var r = new Relationship(self.Id, other.Id, initialTrust, intialEthics);
 
             return r;
+        }
+
+        protected Relationship MirrorTrustFromOther(Character self, Character other, Random rng)
+        {
+            EthicsScale initialTrust;
+            var otherTrust = other.GetTrustTowards(self);
+
+            bool coinflip = rng.Next(0, 2) == 0;
+
+            if (self.BaseSuspicion < other.BaseSuspicion)
+                initialTrust = coinflip ? otherTrust.HigherLevel() : otherTrust;
+            else if (self.BaseSuspicion > other.BaseSuspicion)
+                initialTrust = coinflip ? otherTrust.LowerLevel() : otherTrust;
+            else
+                initialTrust = otherTrust;
+
+            EthicsScale intialEthics = GetProbableEthics(self.BaseMorality, initialTrust, rng);
+
+            var r = new Relationship(self.Id, other.Id, initialTrust, intialEthics);
+
+            return r;
+        }
+
+        protected EthicsScale GetProbableEthics(Morality theMorality, EthicsScale theTrust, Random rng)
+        {
+            EthicsScale theEthics;
+            bool coinflip = rng.Next(0, 2) == 0;
+
+            if (theMorality == Morality.Forgive)
+                theEthics = coinflip ? theTrust.HigherLevel() : theTrust;
+            else if (theMorality == Morality.Exploit)
+                theEthics = coinflip ? theTrust.LowerLevel() : theTrust;
+            else //Reciprocate
+                theEthics = theTrust;
+
+            return theEthics;
         }
     }
 }

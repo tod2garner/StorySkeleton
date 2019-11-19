@@ -26,10 +26,11 @@ namespace UnitTests
         public void aaa__ScratchPaper_PlotFromScratch()
         {
             //Create a simple plot from scratch
+            Random rng = new Random();
 
             int characterCount = 15;
             StartingCastGenerator_Default characterFactory = new StartingCastGenerator_Default();
-            SocietySnapshot currentCast = characterFactory.CreateStartingCast(characterCount);
+            SocietySnapshot currentCast = characterFactory.CreateStartingCast(characterCount, rng);
             Plot thePlot = new Plot(currentCast);
 
             //Prepare psuedo "event library"            
@@ -39,8 +40,6 @@ namespace UnitTests
             //NOTE - must create NEW instace of event for each use (or create a way to reset participants)
 
             //Create sequence of events
-            Random rng = new Random();
-
             //Event #1
             var ableToFillRoles = accidentalOffense.TryToPopulateIncident(currentCast);
             Assert.IsTrue(ableToFillRoles);

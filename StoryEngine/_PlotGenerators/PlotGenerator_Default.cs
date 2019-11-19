@@ -8,9 +8,8 @@ namespace StoryEngine.PlotGenerators
 {
     public class PlotGenerator_Default : APlotGenerator
     {
-        protected override void CreateSequenceOfEvents(int maxNumIncidents)
+        protected override void CreateSequenceOfEvents(int maxNumIncidents, Random rng)
         {
-            var rng = new Random();
 
             for (int i = 0; i < maxNumIncidents; i++)
             {

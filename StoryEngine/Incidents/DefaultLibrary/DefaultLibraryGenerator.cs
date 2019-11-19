@@ -49,7 +49,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.NaturalDisaster());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Disease());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Weather_Challenging());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.WildAnimal());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.DangerousAnimal());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Survival());
 
             defaultCollection.SaveToXML(SAVE_FILE_PATH + "collection1.xml");

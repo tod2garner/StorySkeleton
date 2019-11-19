@@ -8,17 +8,15 @@ namespace StoryEngine.SocietyGenerators
 {
     public class StartingCastGenerator_Default : IStartingCastGenerator
     {
-        private const int MAX_RELATIONSHIP_COUNT = 10;
-        private const int PERCENT_CHANCE_FOR_ONEWAY_RELATIONSHIP = 5;
+        private const int MAX_RELATIONSHIP_COUNT = 5;
+        private const int PERCENT_CHANCE_FOR_ONEWAY_RELATIONSHIP = 10;
 
-        public SocietySnapshot CreateStartingCast(int characterCount)
+        public SocietySnapshot CreateStartingCast(int characterCount, Random rng)
         {
             if (characterCount < 1)
                 throw new ArgumentOutOfRangeException();
 
             var s = new SocietySnapshot();
-            
-            Random rng = new Random();
 
             RandomNameSelector nameFactory = new RandomNameSelector();
             List<string> allNames = nameFactory.SelectRandomNamesFromDefaultNameList(characterCount, rng);
@@ -37,7 +35,7 @@ namespace StoryEngine.SocietyGenerators
         {
             Character.RelationshipGenerator = new RelationshipGenerator_RandomTrust();
 
-            if(rng == null)
+            if (rng == null)
                 rng = new Random();
 
             //Each character given min of 1 relationship, diminishing odds for each additional relationship
@@ -54,19 +52,22 @@ namespace StoryEngine.SocietyGenerators
                     if (unrelated.Any() == false)
                         break;
 
-                    if (rng.Next(0, 100) < percentChance)
+                    var diceRoll = rng.Next(0, 100);
+                    if (diceRoll < percentChance)
                     {
                         var other = unrelated[rng.Next(0, unrelated.Count)];
-                        c.CreateRelationshipWith(other);
+                        c.CreateRelationshipWith(other, rng);
 
                         if (other.IsAcquaintedWith(c.Id) == false)
                         {
                             //Most relationships are two way 
                             //  rare for one person to trust another when other doesn't even know them
                             if (rng.Next(0, 100) < PERCENT_CHANCE_FOR_ONEWAY_RELATIONSHIP)
-                                other.CreateRelationshipWith(c);
+                                other.CreateRelationshipWith(c, rng);
                         }
                     }
+                    else
+                        break;
                 }
             }
 

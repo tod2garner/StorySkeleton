@@ -8,6 +8,6 @@ namespace StoryEngine.SocietyGenerators
 {
     public interface IStartingCastGenerator
     {
-        SocietySnapshot CreateStartingCast(int characterCount);
+        SocietySnapshot CreateStartingCast(int characterCount, Random rng);
     }
 }

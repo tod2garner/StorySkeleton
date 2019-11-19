@@ -30,5 +30,37 @@ namespace StoryEngine
 
             return theCopy;
         }
+
+        public List<string> GetTextSummary()
+        {
+            var theSummary = new List<string>();
+            theSummary.Add("CHARACTERS:");            
+
+            foreach(Character c in AllCharacters)
+            {
+                theSummary.AddRange(c.DescribeSelf());
+            }
+
+
+            theSummary.Add(String.Empty);
+            theSummary.Add("RELATIONSHIPS:");
+            for (int i = 0; i < AllCharacters.Count; i++)
+            {
+                var c1 = AllCharacters[i];
+
+                for (int j = 0; j < AllCharacters.Count; j++)
+                {
+                    if (j == i)
+                        continue;
+
+                    var c2 = AllCharacters[j];
+                    theSummary.Add(c1.DescribeTrustTowards(c2));
+                    theSummary.Add(c1.DescribeEthicsTowards(c2));
+                    theSummary.Add(String.Empty);
+                }
+            }
+            
+            return theSummary;
+        }
     }
 }

@@ -135,13 +135,13 @@ namespace StoryEngine
 
             if (movingUpwards && durability >= threshold)
             {
-                level = HigherLevel(level);
+                level = level.HigherLevel();
                 durability -= threshold.Value;
                 UpdateLevelFromDurability(ref level, ref durability);
             }                
             else if (!movingUpwards && durability <= threshold)
             {
-                level = LowerLevel(level);
+                level = level.LowerLevel();
                 durability -= threshold.Value;
                 UpdateLevelFromDurability(ref level, ref durability);
             }                
@@ -151,9 +151,9 @@ namespace StoryEngine
         {
             int next = 0;
             if (movingUpwards)
-                next = (int)HigherLevel(currentLevel);
+                next = (int)currentLevel.HigherLevel();
             else
-                next = (int)LowerLevel(currentLevel);
+                next = (int)currentLevel.LowerLevel();
 
             int current = (int)currentLevel;
 
@@ -164,98 +164,29 @@ namespace StoryEngine
 
             return gap;
         }
-
-        private EthicsScale HigherLevel(EthicsScale current)
-        {
-            EthicsScale higher;
-            switch (current)
-            {
-                case EthicsScale.Murder:
-                    higher = EthicsScale.Beat;
-                    break;
-                case EthicsScale.Beat:
-                    higher = EthicsScale.Exploit;
-                    break;
-                case EthicsScale.Exploit:
-                    higher = EthicsScale.Coexist;
-                    break;
-                case EthicsScale.Coexist:
-                    higher = EthicsScale.Cooperate;
-                    break;
-                case EthicsScale.Cooperate:
-                    higher = EthicsScale.Embrace;
-                    break;
-                case EthicsScale.Embrace:
-                    higher = EthicsScale.Confide;
-                    break;
-                default:
-                    higher = current;
-                    break;
-            }
-
-            return higher;
-        }
-
-        private EthicsScale LowerLevel(EthicsScale current)
-        {
-            EthicsScale lower;
-            switch (current)
-            {
-                case EthicsScale.Murder:
-                    lower = current;
-                    break;
-                case EthicsScale.Beat:
-                    lower = EthicsScale.Murder;
-                    break;
-                case EthicsScale.Exploit:
-                    lower = EthicsScale.Beat;
-                    break;
-                case EthicsScale.Coexist:
-                    lower = EthicsScale.Exploit;
-                    break;
-                case EthicsScale.Cooperate:
-                    lower = EthicsScale.Coexist;
-                    break;
-                case EthicsScale.Embrace:
-                    lower = EthicsScale.Cooperate;
-                    break;
-                default:
-                    lower = EthicsScale.Embrace;
-                    break;
-            }
-
-            return lower;
-        }
         
         public string DescribeTrustDurability()
         {
-            if(durabilityOfTrust == 0)
-                return string.Empty;
-
-            int? threshold = durabilityOfTrust > 0 ? GapToNextLevel(trust, true) : GapToNextLevel(trust, false);
-
-            if (threshold == null)
-                return string.Empty;
-
-            var percentDurability = System.Math.Abs((100 * durabilityOfTrust) / threshold.Value);
-            var nextLevel = durabilityOfTrust > 0 ? HigherLevel(trust) : LowerLevel(trust);
-
-            var summary = string.Format("{0}% of the way to [{1}]", percentDurability, nextLevel.ToString());
-            return summary;
+            return DescribeDurability(trust, durabilityOfTrust);
         }
 
         public string DescribeEthicsDurability()
         {
-            if (durabilityOfEthics == 0)
+            return DescribeDurability(ethics, durabilityOfEthics);
+        }
+
+        protected string DescribeDurability(EthicsScale trustOrEthics, int durability)
+        {
+            if (durability == 0)
                 return string.Empty;
 
-            int? threshold = durabilityOfEthics > 0 ? GapToNextLevel(trust, true) : GapToNextLevel(trust, false);
+            int? threshold = durability > 0 ? GapToNextLevel(trustOrEthics, true) : GapToNextLevel(trustOrEthics, false);
 
             if (threshold == null)
                 return string.Empty;
 
-            var percentDurability = System.Math.Abs((100 * durabilityOfEthics) / threshold.Value);
-            var nextLevel = durabilityOfEthics > 0 ? HigherLevel(trust) : LowerLevel(ethics);
+            var percentDurability = System.Math.Abs((100 * durability) / threshold.Value);
+            var nextLevel = durability > 0 ? trustOrEthics.HigherLevel() : trustOrEthics.LowerLevel();
 
 
             var summary = string.Format("{0}% of the way to [{1}]", percentDurability, nextLevel.ToString());

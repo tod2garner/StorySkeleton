@@ -89,7 +89,7 @@ namespace StoryEngine
             return theCopy;
         }
 
-        public void CreateRelationshipWith(Character target)
+        public void CreateRelationshipWith(Character target, Random rng = null)
         {
             if (target.Id == this.Id)
                 throw new ArgumentException("Cannot create relationship with self");
@@ -97,7 +97,7 @@ namespace StoryEngine
             if (this.AllRelations.Any(r => r.OtherId == target.Id))
                 throw new ArgumentException("Relationship with target already exists");
 
-            var newRelation = RelationshipGenerator.CreateRelationship(this, target);
+            var newRelation = RelationshipGenerator.CreateRelationship(this, target, rng);
             this.AllRelations.Add(newRelation);
         }
 
@@ -196,12 +196,23 @@ namespace StoryEngine
 
             return theEthics.Value;
         }
+
+        public List<string> DescribeSelf()
+        {
+            var summary = new List<string>();
+
+            summary.Add(this.Name);
+            summary.Add(string.Format("  Base Morality:  {0}", this.BaseMorality.ToString()));
+            summary.Add(string.Format("  Base Suspicion: {0}", this.BaseSuspicion.ToString()));
+
+            return summary;
+        }
         
         public string DescribeTrustTowards(Character other, bool IncludeDurability = false)
         {
             var theTrust = GetTrustTowardsId(other.Id);
             if (false == theTrust.HasValue)
-                return string.Format("{0} has never met {1}");
+                return string.Format("{0} has never met {1}", this.Name, other.Name);
 
             var summary = string.Format("{0} expects {1} {2} him/her", this.Name, other.Name, theTrust.Value.ToCustomString());
 
@@ -218,7 +229,7 @@ namespace StoryEngine
         {
             var theEthics = GetEthicsTowardsId(other.Id);
             if (false == theEthics.HasValue)
-                return string.Format("{0} has never met {1}");
+                return string.Format("{0} has never met {1}", this.Name, other.Name);
 
             var summary = string.Format("{0} {1} {2}", this.Name, theEthics.Value.ToCustomString(), other.Name);
 
