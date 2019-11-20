@@ -40,8 +40,7 @@ namespace StoryEngine
             {
                 theSummary.AddRange(c.DescribeSelf());
             }
-
-
+            
             theSummary.Add(String.Empty);
             theSummary.Add("RELATIONSHIPS:");
             for (int i = 0; i < AllCharacters.Count; i++)

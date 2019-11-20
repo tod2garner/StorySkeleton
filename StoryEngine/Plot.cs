@@ -13,7 +13,7 @@ namespace StoryEngine
     {
         public Plot(SocietySnapshot givenStartingCast)
         {
-            startingCast = givenStartingCast;
+            startingCast = givenStartingCast.Copy();
             theIncidents = new List<IIncident>();
             theCastOverTime = new List<SocietySnapshot>();
         }
