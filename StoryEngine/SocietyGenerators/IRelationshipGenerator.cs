@@ -8,6 +8,6 @@ namespace StoryEngine.SocietyGenerators
 {
     public interface IRelationshipGenerator
     {
-        Relationship CreateRelationship(Character self, Character other, Random rng = null);
+        Relationship CreateRelationship(Character self, Character other, Random rng);
     }
 }

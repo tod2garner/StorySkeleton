@@ -44,7 +44,7 @@ namespace UnitTests
             var givenValue = EthicsScale.Coexist;
             Assert.IsTrue(minMutualTrust.PublicPassesBenchmark(givenValue));
 
-            givenValue = EthicsScale.Embrace;
+            givenValue = EthicsScale.Befriend;
             Assert.IsTrue(minMutualTrust.PublicPassesBenchmark(givenValue));
         }
 
@@ -63,9 +63,9 @@ namespace UnitTests
             var two = new Character(2, "two");
             two.BaseSuspicion = SuspicionScale.Relaxed;
 
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation1 = one.AllRelations.First();
-            two.CreateRelationshipWith(one);
+            two.CreateRelationshipWith(one, null);
             var theRelation2 = two.AllRelations.First();
 
             Assert.IsTrue(theRelation1.Trust >= minMutualTrust.BenchmarkTrust);
@@ -81,9 +81,9 @@ namespace UnitTests
             var two = new Character(2, "two");
             two.BaseSuspicion = SuspicionScale.Paranoid;
 
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation1 = one.AllRelations.First();
-            two.CreateRelationshipWith(one);
+            two.CreateRelationshipWith(one, null);
             var theRelation2 = two.AllRelations.First();
 
             Assert.IsTrue(theRelation1.Trust < minMutualTrust.BenchmarkTrust);
@@ -108,9 +108,9 @@ namespace UnitTests
             var two = new Character(2, "two");
             two.BaseSuspicion = SuspicionScale.Paranoid;
 
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation1 = one.AllRelations.First();
-            two.CreateRelationshipWith(one);
+            two.CreateRelationshipWith(one, null);
             var theRelation2 = two.AllRelations.First();
 
             Assert.IsTrue(theRelation1.Trust >= minMutualTrust.BenchmarkTrust);
@@ -182,8 +182,8 @@ namespace UnitTests
 
             one.BaseSuspicion = SuspicionScale.Relaxed;
             two.BaseSuspicion = SuspicionScale.Relaxed;
-            one.CreateRelationshipWith(two);
-            two.CreateRelationshipWith(one);
+            one.CreateRelationshipWith(two, null);
+            two.CreateRelationshipWith(one, null);
             var theRelation1 = one.AllRelations.First();
             var theRelation2 = two.AllRelations.First();
 
@@ -203,8 +203,8 @@ namespace UnitTests
 
             one.BaseSuspicion = SuspicionScale.Paranoid;
             two.BaseSuspicion = SuspicionScale.Relaxed;
-            one.CreateRelationshipWith(two);
-            two.CreateRelationshipWith(one);
+            one.CreateRelationshipWith(two, null);
+            two.CreateRelationshipWith(one, null);
             var theRelation1 = one.AllRelations.First();
             var theRelation2 = two.AllRelations.First();
 

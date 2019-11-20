@@ -15,10 +15,10 @@ namespace StoryEngine.Incidents.DefaultLibrary
         
         Accidental humiliation
         Internal struggle
-        
-        Agreement/Promise/contract - offered / accepted / broken
         Impulsive emotional decision
         Epiphany / self-discovery
+        
+        Agreement/Promise/contract - offered / accepted / broken
         Compete for favor - competitors, person they are trying to impress
 
             3+ roles            
@@ -208,7 +208,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             socialAgression.TheRoles.Add(partyDefending);
 
             //Add prereqs
-            DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Embrace, partyAttacking, partyDefending);
+            DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Befriend, partyAttacking, partyDefending);
             MutualTrust_Min prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
             socialAgression.ThePrerequisites.Add(prereqEthicsMax);
@@ -327,8 +327,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             emotionalRejection.TheRoles.Add(partyDefending);
 
             //Add prereqs
-            var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Embrace, partyAttacking, partyDefending);
-            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Embrace, partyDefending, partyAttacking);
+            var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Befriend, partyAttacking, partyDefending);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Befriend, partyDefending, partyAttacking);
             var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
             emotionalRejection.ThePrerequisites.Add(prereq_AttackerEthicsMax);
@@ -405,7 +405,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add prereqs
             var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Cooperate, partyAttacking, partyDefending);
-            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Embrace, partyDefending, partyAttacking);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Befriend, partyDefending, partyAttacking);
             var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
             emotionalBetrayal.ThePrerequisites.Add(prereq_AttackerEthicsMax);
@@ -474,15 +474,11 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         #region Generic
         /*
-       Interruption of routine task
-       Send Message
-       Message lost in transit, never received
-       Receive message - New rumor / word of remote incident
-       Build/acquire tool
-       Equipment failure
-       Accidental injury
-       Rest, recover, heal
-       Social gathering
+       Don't use? -- Interruption of routine task
+       Don't use? -- Send Message
+                   
+       Industrial disaster
+       
        Windfall, find/win item of value
        Organized Competition
          */
@@ -557,7 +553,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return training;
         }
 
-        public static TemplateForIncident SelfImprovement() //Practice, study, research
+        public static TemplateForIncident SelfImprovement() //Practice, study, pondering, research
         {
             var selfImprovement = new TemplateForIncident("Self Improvement");
 
@@ -586,6 +582,230 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return selfImprovement;
         }
+
+        public static TemplateForIncident SocialGathering()
+        {
+            var socialGathering = new TemplateForIncident("Social Gathering");
+
+            //Roles
+            var participants = new Role("Attendee(s)") { MinCount = 1, MaxCount = null };
+
+            socialGathering.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Coexist, participants);
+
+            socialGathering.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(70);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            socialGathering.ThePossibleResults.Add(common);
+            socialGathering.ThePossibleResults.Add(unlikely);
+
+            return socialGathering;
+        }
+
+        public static TemplateForIncident Message_Received() //new rumor, word of remote event
+        {
+            var receiveMessage = new TemplateForIncident("Receive Message");
+
+            //Roles
+            var participants = new Role("Party Receiving") { MinCount = 1, MaxCount = null };
+
+            receiveMessage.TheRoles.Add(participants);
+
+            //Prereqs
+            MutualTrust_Min prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Coexist, participants);
+
+            receiveMessage.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            receiveMessage.ThePossibleResults.Add(common);
+            receiveMessage.ThePossibleResults.Add(unlikely);
+
+            return receiveMessage;
+        }
+
+        public static TemplateForIncident Message_Lost()
+        {
+            var lostMessage = new TemplateForIncident("Message Lost & Never Delivered");
+
+            //Roles
+            var senders = new Role("Sender(s)") { MinCount = 1, MaxCount = null };
+            var getters = new Role("Receiver(s)") { MinCount = 1, MaxCount = null };
+
+            lostMessage.TheRoles.Add(senders);
+            lostMessage.TheRoles.Add(getters);
+
+            //Prereqs
+            var prereq_MutualMinTrust_Senders = new MutualTrust_Min(EthicsScale.Cooperate, senders);
+            var prereq_MinEthicsTowardsOthers = new DirectionalEthics_Min(EthicsScale.Cooperate, senders, getters);
+            var prereq_MutualMinTrust_Getters = new MutualTrust_Min(EthicsScale.Coexist, getters);
+
+            lostMessage.ThePrerequisites.Add(prereq_MutualMinTrust_Senders);
+            lostMessage.ThePrerequisites.Add(prereq_MinEthicsTowardsOthers);
+            lostMessage.ThePrerequisites.Add(prereq_MutualMinTrust_Getters);
+
+            //Outcomes
+            var distrust_Small = new ChangeInTrust(-1, getters, senders, "Small Distrust");
+            var distrust_Large = new ChangeInTrust(-2, getters, senders, "Large Distrust");
+
+
+            var common = new PossibleResult(30);
+            common.TheOutcomes.Add(distrust_Small);
+
+            var unlikely = new PossibleResult(20);
+            unlikely.TheOutcomes.Add(distrust_Large);
+
+            lostMessage.ThePossibleResults.Add(common);
+            lostMessage.ThePossibleResults.Add(unlikely);
+
+            return lostMessage;
+        }
+
+        public static TemplateForIncident AcquireTool() //build or craft, find abandoned, purchase
+        {
+            var acquireTool = new TemplateForIncident("Acquire Tool or Equipment");
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
+
+            acquireTool.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            acquireTool.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            acquireTool.ThePossibleResults.Add(common);
+            acquireTool.ThePossibleResults.Add(unlikely);
+
+            return acquireTool;
+        }
+
+        public static TemplateForIncident EquipmentFailure()
+        {
+            var equipmentFailure = new TemplateForIncident("Equipment Failure");
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
+
+            equipmentFailure.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            equipmentFailure.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            equipmentFailure.ThePossibleResults.Add(common);
+            equipmentFailure.ThePossibleResults.Add(unlikely);
+
+            return equipmentFailure;
+        }
+
+        public static TemplateForIncident Injury_Accidental()
+        {
+            var accidentalInjury = new TemplateForIncident("Accidental Injury");
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = 2 };
+
+            accidentalInjury.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            accidentalInjury.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(70);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            accidentalInjury.ThePossibleResults.Add(common);
+            accidentalInjury.ThePossibleResults.Add(unlikely);
+
+            return accidentalInjury;
+        }
+
+        public static TemplateForIncident RestAndRecover()
+        {
+            var restAndRecover = new TemplateForIncident("Rest And Recover");
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
+
+            restAndRecover.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            restAndRecover.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(70);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            restAndRecover.ThePossibleResults.Add(common);
+            restAndRecover.ThePossibleResults.Add(unlikely);
+
+            return restAndRecover;
+        }
+
 
         #endregion
 

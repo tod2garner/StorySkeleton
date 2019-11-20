@@ -87,7 +87,7 @@ namespace StoryEngine
             return true;
         }
 
-        public bool AddOneParticipantRandomly(List<Character> theCandidates, Random rng = null)
+        public bool AddOneParticipantRandomly(List<Character> theCandidates, Random rng)
         {
             if (rng == null)
                 rng = new Random();
@@ -102,17 +102,17 @@ namespace StoryEngine
             return true;
         }
 
-        public bool AddParticipantsRandomly(List<Character> theCandidates, Random rng = null)
+        public bool AddParticipantsRandomly(List<Character> theCandidates, Random rng)
         {
-            return AddParticipants_OptionalRetest(theCandidates, null, rng);
+            return AddParticipants_OptionalRetest(theCandidates, rng, null);
         }
 
-        public bool AddParticipantsRandomly_RetestingAfterEach(List<Character> theCandidates, List<IPrerequisite> thePrereqs, Random rng = null)
+        public bool AddParticipantsRandomly_RetestingAfterEach(List<Character> theCandidates, List<IPrerequisite> thePrereqs, Random rng)
         {
-            return AddParticipants_OptionalRetest(theCandidates, thePrereqs, rng);
+            return AddParticipants_OptionalRetest(theCandidates, rng, thePrereqs);
         }
 
-        private bool AddParticipants_OptionalRetest(List<Character> theCandidates, List<IPrerequisite> thePrereqs = null, Random rng = null)
+        private bool AddParticipants_OptionalRetest(List<Character> theCandidates, Random rng, List<IPrerequisite> thePrereqs = null)
         {
             if (rng == null)
                 rng = new Random();

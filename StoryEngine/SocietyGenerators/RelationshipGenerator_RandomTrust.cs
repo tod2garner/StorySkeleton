@@ -8,7 +8,7 @@ namespace StoryEngine.SocietyGenerators
 {
     public class RelationshipGenerator_RandomTrust : IRelationshipGenerator
     {
-        public Relationship CreateRelationship(Character self, Character other, Random rng = null)
+        public Relationship CreateRelationship(Character self, Character other, Random rng)
         {
             if (other.IsAcquaintedWith(self.Id))
                 return MirrorTrustFromOther(self, other, rng);
@@ -16,7 +16,7 @@ namespace StoryEngine.SocietyGenerators
                 return NewRandomTrustRelation(self, other, rng);
         }
 
-        protected Relationship NewRandomTrustRelation(Character self, Character other, Random rng = null)
+        protected Relationship NewRandomTrustRelation(Character self, Character other, Random rng)
         {
             EthicsScale initialTrust;
 
@@ -32,7 +32,7 @@ namespace StoryEngine.SocietyGenerators
                     break;
                 case 1:
                 case 2:
-                    initialTrust = EthicsScale.Embrace;
+                    initialTrust = EthicsScale.Befriend;
                     break;
                 case 3:
                 case 4:

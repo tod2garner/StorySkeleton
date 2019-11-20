@@ -49,7 +49,7 @@ namespace UnitTests
         {
             var the1 = new Character(1, "the1");
             var theOther = new Character(2, "theOther");
-            the1.CreateRelationshipWith(theOther);
+            the1.CreateRelationshipWith(theOther, null);
             var trustBefore = the1.GetTrustTowardsId(theOther.Id);
 
             theOutcome.BeingChanged.Participants.Add(the1);
@@ -68,10 +68,10 @@ namespace UnitTests
             var the2 = new Character(2, "the2");
             var theOther = new Character(3, "theOther");
             var theOther2 = new Character(4, "theOther2");
-            the1.CreateRelationshipWith(theOther);
-            the1.CreateRelationshipWith(theOther2);
-            the2.CreateRelationshipWith(theOther);
-            the2.CreateRelationshipWith(theOther2);
+            the1.CreateRelationshipWith(theOther, null);
+            the1.CreateRelationshipWith(theOther2, null);
+            the2.CreateRelationshipWith(theOther, null);
+            the2.CreateRelationshipWith(theOther2, null);
             var trustBefore11 = the1.GetTrustTowardsId(theOther.Id);
             var trustBefore12 = the1.GetTrustTowardsId(theOther2.Id);
             var trustBefore21 = the2.GetTrustTowardsId(theOther.Id);

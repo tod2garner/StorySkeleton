@@ -31,12 +31,9 @@ namespace StoryEngine.SocietyGenerators
             return s;
         }
 
-        protected void CreateStartingRelationships(SocietySnapshot s, Random rng = null)
+        protected void CreateStartingRelationships(SocietySnapshot s, Random rng)
         {
             Character.RelationshipGenerator = new RelationshipGenerator_RandomTrust();
-
-            if (rng == null)
-                rng = new Random();
 
             //Each character given min of 1 relationship, diminishing odds for each additional relationship
             foreach (Character c in s.AllCharacters)

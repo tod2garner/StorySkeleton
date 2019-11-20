@@ -8,9 +8,9 @@ namespace StoryEngine
 {
     public interface IIncident
     {        
-        bool TryToPopulateIncident(SocietySnapshot currentCast, Random rng = null);
+        bool TryToPopulateIncident(SocietySnapshot currentCast, Random rng);
         int GetTotalOutcomePercentChance();
-        void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null);
+        void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng);
         List<string> GetTextSummary();
     }
 }

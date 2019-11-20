@@ -41,29 +41,29 @@ namespace UnitTests
 
             //Create sequence of events
             //Event #1
-            var ableToFillRoles = accidentalOffense.TryToPopulateIncident(currentCast);
+            var ableToFillRoles = accidentalOffense.TryToPopulateIncident(currentCast, rng);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(accidentalOffense, currentCast, rng);
 
             //Event #2
-            ableToFillRoles = socialAgression.TryToPopulateIncident(currentCast);
+            ableToFillRoles = socialAgression.TryToPopulateIncident(currentCast, rng);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast, rng);
 
             //Event #3
-            ableToFillRoles = socialCooperation.TryToPopulateIncident(currentCast);
+            ableToFillRoles = socialCooperation.TryToPopulateIncident(currentCast, rng);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast, rng);
 
             //Event #4
             socialAgression = createIncidentManually_Agression_Social();
-            ableToFillRoles = socialAgression.TryToPopulateIncident(currentCast);
+            ableToFillRoles = socialAgression.TryToPopulateIncident(currentCast, rng);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialAgression, currentCast, rng);
 
             //Event #5
             socialCooperation = createIncidentManually_Cooperation_Social();
-            ableToFillRoles = socialCooperation.TryToPopulateIncident(currentCast);
+            ableToFillRoles = socialCooperation.TryToPopulateIncident(currentCast, rng);
             Assert.IsTrue(ableToFillRoles);
             thePlot.ExecuteIncidentAndStoreAfter(socialCooperation, currentCast, rng);
 

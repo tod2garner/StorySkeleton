@@ -33,7 +33,7 @@ namespace StoryEngine
         public List<SocietySnapshot> TheCastOverTime { get { return theCastOverTime; } }
         
 
-        public void ExecuteIncidentAndStoreAfter(IIncident oneIncident, SocietySnapshot currentCast, Random rng = null)
+        public void ExecuteIncidentAndStoreAfter(IIncident oneIncident, SocietySnapshot currentCast, Random rng)
         {
             oneIncident.RollDiceAndExecuteOneOutcome(currentCast, rng);
             this.TheIncidents.Add(oneIncident);

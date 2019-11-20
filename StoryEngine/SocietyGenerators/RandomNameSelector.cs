@@ -17,7 +17,7 @@ namespace StoryEngine.SocietyGenerators
             PopulateDefaultList_MaleNames();
         }
 
-        public List<string> SelectRandomNamesFromDefaultNameList(int howMany, Random rng = null)
+        public List<string> SelectRandomNamesFromDefaultNameList(int howMany, Random rng)
         {
             if (howMany < 1)
                 throw new ArgumentOutOfRangeException();
@@ -40,7 +40,7 @@ namespace StoryEngine.SocietyGenerators
             return finalChosen;
         }
 
-        public List<string> SelectRandomNames(int howMany, List<string> listToChooseFrom, Random rng = null)
+        public List<string> SelectRandomNames(int howMany, List<string> listToChooseFrom, Random rng)
         {
             if (howMany < 1 || howMany > listToChooseFrom.Count)
                 throw new ArgumentOutOfRangeException();
@@ -56,7 +56,7 @@ namespace StoryEngine.SocietyGenerators
             return theChosen;
         }
 
-        public string SelectRandomName(List<string> listToChooseFrom, Random rng = null)
+        public string SelectRandomName(List<string> listToChooseFrom, Random rng)
         {
             string theName = string.Empty;
 

@@ -89,7 +89,7 @@ namespace StoryEngine
             return theCopy;
         }
 
-        public void CreateRelationshipWith(Character target, Random rng = null)
+        public void CreateRelationshipWith(Character target, Random rng)
         {
             if (target.Id == this.Id)
                 throw new ArgumentException("Cannot create relationship with self");
@@ -110,7 +110,7 @@ namespace StoryEngine
 
             if (this.IsAcquaintedWith(target.Id) == false)
             {
-                CreateRelationshipWith(target);
+                CreateRelationshipWith(target, null);
                 textSummary += string.Format("{0} meets {1} for the first time. ", this.Name, target.Name);
             }
 
@@ -163,7 +163,7 @@ namespace StoryEngine
             else
             {
                 //strangers, check potential relation if they met
-                var futureRelation = Character.RelationshipGenerator.CreateRelationship(this, other);
+                var futureRelation = Character.RelationshipGenerator.CreateRelationship(this, other, null);
                 theTrust = futureRelation.Trust;
             }
 
@@ -190,7 +190,7 @@ namespace StoryEngine
             else
             {
                 //strangers, check potential relation if they met
-                var futureRelation = Character.RelationshipGenerator.CreateRelationship(this, other);
+                var futureRelation = Character.RelationshipGenerator.CreateRelationship(this, other, null);
                 theEthics = futureRelation.Ethics;
             }
 

@@ -79,10 +79,10 @@ namespace UnitTests
 
                 for (int i = 0; i < 10; i++)
                     if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
+                        c.CreateRelationshipWith(currentCast.AllCharacters[i], null);
             }
 
-            Assert.IsTrue(theIncident.TryToPopulateIncident(currentCast));
+            Assert.IsTrue(theIncident.TryToPopulateIncident(currentCast, null));
         }
 
         [TestMethod]
@@ -97,10 +97,10 @@ namespace UnitTests
             {
                 for (int i = 0; i < 10; i++)
                     if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
+                        c.CreateRelationshipWith(currentCast.AllCharacters[i], null);
             }
 
-            Assert.IsTrue(theIncident.TryToPopulateIncident(currentCast));
+            Assert.IsTrue(theIncident.TryToPopulateIncident(currentCast, null));
         }
 
         [TestMethod]
@@ -119,10 +119,10 @@ namespace UnitTests
 
                 for (int i = 0; i < 10; i++)
                     if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
+                        c.CreateRelationshipWith(currentCast.AllCharacters[i], null);
             }
 
-            Assert.IsFalse(theIncident.TryToPopulateIncident(currentCast));
+            Assert.IsFalse(theIncident.TryToPopulateIncident(currentCast, null));
         }
 
         [TestMethod]
@@ -141,10 +141,10 @@ namespace UnitTests
 
                 for (int i = 0; i < 10; i++)
                     if (c.Id != i)
-                        c.CreateRelationshipWith(currentCast.AllCharacters[i]);
+                        c.CreateRelationshipWith(currentCast.AllCharacters[i], null);
             }
 
-            Assert.IsFalse(theIncident.TryToPopulateIncident(currentCast));
+            Assert.IsFalse(theIncident.TryToPopulateIncident(currentCast, null));
         }
         
         [TestMethod]

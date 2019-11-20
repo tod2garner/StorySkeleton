@@ -117,7 +117,7 @@ namespace UnitTests
             Assert.AreEqual(100, theRelationship.DurabilityOfTrust);
             Assert.AreEqual(525, theRelationship.DurabilityOfEthics);
             Assert.AreEqual(EthicsScale.Confide, theRelationship.Trust);
-            Assert.AreEqual(EthicsScale.Embrace, theRelationship.Ethics);
+            Assert.AreEqual(EthicsScale.Befriend, theRelationship.Ethics);
         }
         
         [TestMethod]

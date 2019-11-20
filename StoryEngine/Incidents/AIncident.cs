@@ -36,7 +36,7 @@ namespace StoryEngine
         private List<Role> allRoles;
         public List<Role> AllParticipantRoles { get { return allRoles; } }
 
-        public void PopulateAllRoles_Randomly(SocietySnapshot currentCast, Random rng = null)
+        public void PopulateAllRoles_Randomly(SocietySnapshot currentCast, Random rng)
         {
             if (rng == null)
                 rng = new Random();
@@ -50,7 +50,7 @@ namespace StoryEngine
             }
         }
 
-        public void PopulateAllRoles_FollowingPrereqs(SocietySnapshot currentCast, Random rng = null)
+        public void PopulateAllRoles_FollowingPrereqs(SocietySnapshot currentCast, Random rng)
         {
             if (rng == null)
                 rng = new Random();
@@ -84,7 +84,7 @@ namespace StoryEngine
             }
         }
 
-        public bool TryToPopulateIncident(SocietySnapshot currentCast, Random rng = null)
+        public bool TryToPopulateIncident(SocietySnapshot currentCast, Random rng)
         {
             if (MyPrerequisites.Any() == false)
             {
@@ -112,7 +112,7 @@ namespace StoryEngine
             return totalOutcomePercent;
         }
 
-        public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng = null)
+        public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng)
         {
             InitializeTextSummary();
 

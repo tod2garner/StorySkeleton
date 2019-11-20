@@ -43,6 +43,13 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Training());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Travel());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.SocialGathering());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Message_Received());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Message_Lost());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.AcquireTool());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.EquipmentFailure());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Injury_Accidental());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.RestAndRecover());
 
             //#TODO - break into separate collection
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Lost());

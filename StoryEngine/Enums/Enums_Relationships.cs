@@ -16,7 +16,7 @@ namespace StoryEngine
         Exploit = -1,        //tool
         Coexist = 0,         //peer
         Cooperate = 1,       //teammate
-        Embrace = 3,         //friend
+        Befriend = 3,         //friend
         Confide = 10,        //confidant
     }
     
@@ -36,7 +36,7 @@ namespace StoryEngine
                     return "would reasonably [Coexist] with";
                 case EthicsScale.Cooperate:
                     return "would reliably [Cooperate] with";
-                case EthicsScale.Embrace:
+                case EthicsScale.Befriend:
                     return "would be a loyal [Friend] to";
                 case EthicsScale.Confide:
                 default:
@@ -62,9 +62,9 @@ namespace StoryEngine
                     higher = EthicsScale.Cooperate;
                     break;
                 case EthicsScale.Cooperate:
-                    higher = EthicsScale.Embrace;
+                    higher = EthicsScale.Befriend;
                     break;
-                case EthicsScale.Embrace:
+                case EthicsScale.Befriend:
                     higher = EthicsScale.Confide;
                     break;
                 default:
@@ -95,11 +95,11 @@ namespace StoryEngine
                 case EthicsScale.Cooperate:
                     lower = EthicsScale.Coexist;
                     break;
-                case EthicsScale.Embrace:
+                case EthicsScale.Befriend:
                     lower = EthicsScale.Cooperate;
                     break;
                 default:
-                    lower = EthicsScale.Embrace;
+                    lower = EthicsScale.Befriend;
                     break;
             }
 

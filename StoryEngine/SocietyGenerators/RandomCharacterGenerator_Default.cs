@@ -14,7 +14,7 @@ namespace StoryEngine.SocietyGenerators
         }
         
 
-        public Character CreateCharacter(int id, string name, Random rng = null)
+        public Character CreateCharacter(int id, string name, Random rng)
         {
             var c = new Character(id, name);
 

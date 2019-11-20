@@ -55,7 +55,7 @@ namespace UnitTests
         [TestMethod]
         public void PassesBenchmark_IsFalse() //givenValue not <= max in prereq 
         {
-            var givenValue = EthicsScale.Embrace;
+            var givenValue = EthicsScale.Befriend;
             Assert.IsFalse(maxEthics.PublicPassesBenchmark(givenValue));
         }
 
@@ -65,7 +65,7 @@ namespace UnitTests
             var one = new Character(1, "one");
             one.BaseMorality = Morality.Exploit;
             var two = new Character(2, "two");
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation = one.AllRelations.First();
 
             Assert.IsTrue(theRelation.Ethics <= maxEthics.BenchmarkEthics_AtoB);
@@ -87,7 +87,7 @@ namespace UnitTests
             var one = new Character(1, "one");
             one.BaseMorality = Morality.Forgive;
             var two = new Character(2, "two");
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation = one.AllRelations.First();
 
             Assert.IsTrue(theRelation.Ethics > maxEthics.BenchmarkEthics_AtoB);
@@ -133,7 +133,7 @@ namespace UnitTests
             theRole2.Participants.Add(two);
 
             one.BaseMorality = Morality.Exploit;
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation = one.AllRelations.First();
 
             Assert.IsTrue(theRelation.Ethics <= maxEthics.BenchmarkEthics_AtoB);
@@ -151,7 +151,7 @@ namespace UnitTests
             theRole2.Participants.Add(two);
 
             one.BaseMorality = Morality.Forgive;
-            one.CreateRelationshipWith(two);
+            one.CreateRelationshipWith(two, null);
             var theRelation = one.AllRelations.First();
 
             Assert.IsTrue(theRelation.Ethics > maxEthics.BenchmarkEthics_AtoB);

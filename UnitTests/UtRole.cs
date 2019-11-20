@@ -167,7 +167,7 @@ namespace UnitTests
             theRole.MinCount = 3;
             var theList = new List<Character>();
 
-            var result = theRole.AddParticipantsRandomly(theList);
+            var result = theRole.AddParticipantsRandomly(theList, null);
 
             Assert.IsFalse(result);
             Assert.IsTrue(theRole.Participants.Count <= 0);
@@ -180,7 +180,7 @@ namespace UnitTests
             theRole.MaxCount = 0;
             var theList = new List<Character>();
 
-            var result = theRole.AddParticipantsRandomly(theList);
+            var result = theRole.AddParticipantsRandomly(theList, null);
 
             Assert.IsTrue(result);
             Assert.IsTrue(theRole.Participants.Count <= 0);
@@ -198,7 +198,7 @@ namespace UnitTests
             for (int i = 0; i < defaultMax * 2; i++)
                 theList.Add(new Character(i, "name" + i));
 
-            var result = theRole.AddParticipantsRandomly(theList);
+            var result = theRole.AddParticipantsRandomly(theList, null);
 
             Assert.IsTrue(result);
             Assert.IsTrue(theRole.Participants.Count >= givenMin);
@@ -218,7 +218,7 @@ namespace UnitTests
             for (int i = 0; i < givenMax * 2; i++)
                 theList.Add(new Character(i, "name" + i));
 
-            var result = theRole.AddParticipantsRandomly(theList);
+            var result = theRole.AddParticipantsRandomly(theList, null);
 
             Assert.IsTrue(result);
             Assert.IsTrue(theRole.Participants.Count <= givenMax);
@@ -237,7 +237,7 @@ namespace UnitTests
             for (int i = 0; i < givenMax * 2; i++)
                 theList.Add(new Character(i, "name" + i));
 
-            var result = theRole.AddParticipantsRandomly(theList);
+            var result = theRole.AddParticipantsRandomly(theList, null);
 
             Assert.IsTrue(result);
             Assert.IsTrue(theRole.Participants.Count >= givenMin);

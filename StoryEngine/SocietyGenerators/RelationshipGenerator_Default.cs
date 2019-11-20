@@ -8,7 +8,7 @@ namespace StoryEngine.SocietyGenerators
 {
     public class RelationshipGenerator_Default : IRelationshipGenerator
     {
-        public Relationship CreateRelationship(Character self, Character other, Random rng = null)
+        public Relationship CreateRelationship(Character self, Character other, Random rng)
         {
             EthicsScale initialTrust;
             EthicsScale intialEthics;
@@ -21,7 +21,7 @@ namespace StoryEngine.SocietyGenerators
             switch (self.BaseSuspicion)
             {
                 case SuspicionScale.Naive:
-                    initialTrust = goodFirstImpression ? EthicsScale.Embrace : EthicsScale.Cooperate;
+                    initialTrust = goodFirstImpression ? EthicsScale.Befriend : EthicsScale.Cooperate;
                     break;
                 case SuspicionScale.Relaxed:
                     initialTrust = goodFirstImpression ? EthicsScale.Cooperate : EthicsScale.Coexist;
