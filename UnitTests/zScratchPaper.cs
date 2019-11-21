@@ -101,17 +101,17 @@ namespace UnitTests
 
         private IIncident createIncidentManually_AccidentalOffense()
         {
-            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.AccidentalOffense().CreateIncident();
+            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.AccidentalOffense().CreateIncident(null);
         }
 
         private IIncident createIncidentManually_Agression_Social()
         {
-            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Agression_Social().CreateIncident();
+            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Agression_Social().CreateIncident(null);
         }
 
         private IIncident createIncidentManually_Cooperation_Social()
         {
-            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Cooperation_Social().CreateIncident();
+            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Cooperation_Social().CreateIncident(null);
         }
 
     }

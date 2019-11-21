@@ -36,7 +36,7 @@ namespace StoryEngine
             //#TODO - add step to sort/exclude by rarity
 
             var diceRoll = rng.Next(0, this.theTemplates.Count);
-            return this.theTemplates[diceRoll].CreateIncident();
+            return this.theTemplates[diceRoll].CreateIncident(rng);
         }
     }
 }

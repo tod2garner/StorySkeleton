@@ -20,7 +20,7 @@ namespace StoryEngine
         Confide = 10,        //confidant
     }
     
-    public static class EnumExtensions
+    public static class RelationEnumExtensions
     {
         public static string ToCustomString(this EthicsScale me)
         {

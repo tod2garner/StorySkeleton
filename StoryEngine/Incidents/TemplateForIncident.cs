@@ -12,6 +12,12 @@ namespace StoryEngine
     {
         [DataMember]
         public string Name;
+        
+        [DataMember]
+        public EnergyVariation TheEnergyVariation;
+
+        [DataMember]
+        public StressVariation TheStressVariation;
 
         [DataMember]
         public List<Role> TheRoles;
@@ -40,9 +46,13 @@ namespace StoryEngine
             ThePossibleResults = new List<PossibleResult>();
         }
 
-        public IIncident CreateIncident()
+        public IIncident CreateIncident(Random rng)
         {
             var theIncident = new Incident(Name);
+
+            theIncident.TheEnergyVariation = this.TheEnergyVariation;
+            theIncident.TheStressVariation = this.TheStressVariation;
+            theIncident.SetToneRandomly(rng);
 
             foreach(Role r in TheRoles)
                 theIncident.AllParticipantRoles.Add(r.Copy());

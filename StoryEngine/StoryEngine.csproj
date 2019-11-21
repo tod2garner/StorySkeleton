@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\Enums_Characters.cs" />
+    <Compile Include="Enums\Enums_Incidents.cs" />
     <Compile Include="Incidents\CollectionOfIncidentTemplates.cs" />
     <Compile Include="Incidents\DefaultLibrary\CreateTemplateManually.cs" />
     <Compile Include="Incidents\DefaultLibrary\DefaultLibraryGenerator.cs" />

@@ -133,7 +133,7 @@ namespace StoryEngine
             }
         }
 
-        public void InitializeTextSummary()
+        public virtual void InitializeTextSummary()
         {
             this.textSummary = new List<string>();
             this.textSummary.Add(string.Format("INCIDENT: {0}", this.name));
