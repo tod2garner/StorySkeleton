@@ -25,7 +25,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         {
             var defaultCollection = new CollectionOfIncidentTemplates(100);
 
-            //#TODO - fix emotional tone for each - energy & stress variations
+            //#TODO - align emotional tone with outcomes?
 
             defaultCollection.TheTemplates.Add(CreateTemplateManually.AccidentalOffense());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Agression_Social());

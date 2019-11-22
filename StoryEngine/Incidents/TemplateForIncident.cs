@@ -14,10 +14,10 @@ namespace StoryEngine
         public string Name;
         
         [DataMember]
-        public EnergyVariation TheEnergyVariation;
+        public EnergyLevel IsHighEnergy;
 
         [DataMember]
-        public StressVariation TheStressVariation;
+        public Pleasantness IsPleasant;
 
         [DataMember]
         public List<Role> TheRoles;
@@ -50,8 +50,8 @@ namespace StoryEngine
         {
             var theIncident = new Incident(Name);
 
-            theIncident.TheEnergyVariation = this.TheEnergyVariation;
-            theIncident.TheStressVariation = this.TheStressVariation;
+            theIncident.TheEnergyVariation = this.IsHighEnergy;
+            theIncident.TheStressVariation = this.IsPleasant;
             theIncident.SetToneRandomly(rng);
 
             foreach(Role r in TheRoles)

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
-    public enum EnergyVariation
+    public enum EnergyLevel
     {
         EitherLowOrHigh = 0,    //Example - social gathering, travel
         AlwaysHighEnergy = 1,   //Example - attack, betrayal
         AlwaysLowEnergy = -1    //Example - rest
     }
 
-    public enum StressVariation
+    public enum Pleasantness
     {
         EitherPleasantOrNot = 0,    //Example - social gathering, travel
         AlwaysPleasant = 1,         //Example - windfall
@@ -32,8 +32,8 @@ namespace StoryEngine
 
         Curiousity, //intrigue                  Purple
         Excitement, //surprise, anticipation    Yellow_Pale
-        Confidence, //determined, hopeful       Orange
         Joy,        //cheer, humor              Yellow_Bright
+        Confidence, //determined, hopeful       Orange
 
         Shock,      //disgust, horror           Brown 
         Anger,      //resentment, disdain       Red
@@ -41,19 +41,19 @@ namespace StoryEngine
     }
     public static class IncidentEnumExtensions
     {
-        public static List<Tone> GetPossibleTones(EnergyVariation energy, StressVariation stress)
+        public static List<Tone> GetPossibleTones(EnergyLevel energy, Pleasantness stress)
         {
             var possibleTones = new List<Tone>();
 
-            if(energy != EnergyVariation.AlwaysHighEnergy)
+            if(energy != EnergyLevel.AlwaysHighEnergy)
             {
-                if (stress != StressVariation.NeverPleasant)
+                if (stress != Pleasantness.NeverPleasant)
                 {
                     possibleTones.Add(Tone.Calm);
                     possibleTones.Add(Tone.Empathy);
                 }
 
-                if (stress != StressVariation.AlwaysPleasant)
+                if (stress != Pleasantness.AlwaysPleasant)
                 {
                     possibleTones.Add(Tone.Sadness);
                     possibleTones.Add(Tone.Shame);
@@ -62,17 +62,17 @@ namespace StoryEngine
                 }
             }
 
-            if (energy != EnergyVariation.AlwaysLowEnergy)
+            if (energy != EnergyLevel.AlwaysLowEnergy)
             {
-                if (stress != StressVariation.NeverPleasant)
+                if (stress != Pleasantness.NeverPleasant)
                 {
                     possibleTones.Add(Tone.Curiousity);
                     possibleTones.Add(Tone.Excitement);
-                    possibleTones.Add(Tone.Confidence);
                     possibleTones.Add(Tone.Joy);
+                    possibleTones.Add(Tone.Confidence);
                 }
 
-                if (stress != StressVariation.AlwaysPleasant)
+                if (stress != Pleasantness.AlwaysPleasant)
                 {
                     possibleTones.Add(Tone.Shock);
                     possibleTones.Add(Tone.Anger);

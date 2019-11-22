@@ -21,6 +21,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
         Agreement/Promise/contract - offered / accepted / broken
         Compete for favor - competitors, person they are trying to impress
 
+            //Other conversations - interrogation, negotiation
+
             3+ roles            
        Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
        
@@ -60,6 +62,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Argument_Personal()
         {
             var argument = new TemplateForIncident("Personal Argument");
+            argument.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var conversants = new Role("Conversants") { MinCount = 2, MaxCount = 3 };
@@ -115,6 +118,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Cooperation_Social()
         {
             var socialCooperation = new TemplateForIncident("Social Cooperation");
+            socialCooperation.IsPleasant = Pleasantness.AlwaysPleasant;
 
             //Roles
             var cooperatives = new Role("Cooperatives") { MinCount = 2, MaxCount = null };
@@ -150,6 +154,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Agression_Social()
         {
             var socialAgression = new TemplateForIncident("Social Agression");
+            socialAgression.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyAttacking = new Role("Party Attacking") { MinCount = 1, MaxCount = null };
@@ -277,6 +282,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Rejection_Social()
         {
             var socialRejection = new TemplateForIncident("Social Rejection");
+            socialRejection.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyAttacking = new Role("Party Rejecting") { MinCount = 1, MaxCount = null };
@@ -318,6 +324,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Rejection_Emotional()
         {
             var emotionalRejection = new TemplateForIncident("Emotional Rejection");
+            emotionalRejection.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyAttacking = new Role("Party Rejecting") { MinCount = 1, MaxCount = null };
@@ -359,6 +366,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Betrayal_Social()//#TODO - make magnitude based on how strong trust was
         {
             var socialBetrayal = new TemplateForIncident("Social Betrayal");
+            socialBetrayal.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyAttacking = new Role("Party Betraying") { MinCount = 1, MaxCount = null };
@@ -395,6 +403,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Betrayal_Emotional()//#TODO - make magnitude based on how strong trust was
         {
             var emotionalBetrayal = new TemplateForIncident("Emotional Betrayal");
+            emotionalBetrayal.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyAttacking = new Role("Party Betraying") { MinCount = 1, MaxCount = null };
@@ -436,6 +445,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         {
             //Assign name
             var accidentalOffense = new TemplateForIncident("Accidental Offense");
+            accidentalOffense.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyGivingOffense = new Role("Party Giving Offense") { MinCount = 1, MaxCount = null };
@@ -478,9 +488,12 @@ namespace StoryEngine.Incidents.DefaultLibrary
        Don't use? -- Send Message
                    
        Industrial disaster
+               
        
        Windfall, find/win item of value
        Organized Competition
+
+            --Specific social gathering, or distinct? entertainment, games, performances
          */
 
         public static TemplateForIncident Travel()
@@ -648,6 +661,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Message_Lost()
         {
             var lostMessage = new TemplateForIncident("Message Lost & Never Delivered");
+            lostMessage.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var senders = new Role("Sender(s)") { MinCount = 1, MaxCount = null };
@@ -716,6 +730,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident EquipmentFailure()
         {
             var equipmentFailure = new TemplateForIncident("Equipment Failure");
+            equipmentFailure.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
@@ -747,6 +762,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Injury_Accidental()
         {
             var accidentalInjury = new TemplateForIncident("Accidental Injury");
+            accidentalInjury.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var participants = new Role("Involved") { MinCount = 1, MaxCount = 2 };
@@ -880,6 +896,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Disease()
         {
             var disease = new TemplateForIncident("Disease");
+            disease.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var patients = new Role("Patients") { MinCount = 1, MaxCount = 4 };
@@ -913,6 +930,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident NaturalDisaster()
         {
             var naturalDisaster = new TemplateForIncident("Natural Disaster");
+            naturalDisaster.IsPleasant = Pleasantness.NeverPleasant;
+            naturalDisaster.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
             //Roles
             var survivors = new Role("Survivors") { MinCount = 1, MaxCount = 5 };
@@ -945,6 +964,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Weather_Challenging()
         {
             var badWeather = new TemplateForIncident("Challenging Weather");
+            badWeather.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var travelers = new Role("Travelers") { MinCount = 1, MaxCount = null };
@@ -981,6 +1001,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident DangerousAnimal()
         {
             var dangerousAnimal = new TemplateForIncident("Dangerous Animal");
+            dangerousAnimal.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+            dangerousAnimal.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var group = new Role("Group") { MinCount = 1, MaxCount = null };
@@ -1017,6 +1039,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Survival()//food, water, shelter
         {
             var survival = new TemplateForIncident("Survival");
+            survival.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var survivors = new Role("Survivors") { MinCount = 1, MaxCount = null };

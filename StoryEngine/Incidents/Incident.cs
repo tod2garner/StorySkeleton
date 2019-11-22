@@ -13,8 +13,8 @@ namespace StoryEngine
         private Tone theTone;
         public Tone TheTone { get { return theTone; } }
 
-        public EnergyVariation TheEnergyVariation;
-        public StressVariation TheStressVariation;
+        public EnergyLevel TheEnergyVariation;
+        public Pleasantness TheStressVariation;
 
         public void SetToneRandomly(Random rng)
         {
