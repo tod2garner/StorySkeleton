@@ -14,17 +14,19 @@ namespace UnitTests
 
         private Character theCharacter;
         private Character otherOne;
+        private Random rng;
 
         [TestInitialize]
         public void TestInitialize()
         {
+            rng = new Random();
             theCharacter = new Character(0, "given");
 
             Assert.AreEqual(theCharacter.Id, 0);
             Assert.AreEqual(theCharacter.Name, "given");
 
             otherOne = new Character(1, "other1");
-            theCharacter.CreateRelationshipWith(otherOne, null);
+            theCharacter.CreateRelationshipWith(otherOne, rng);
 
             Assert.AreEqual(theCharacter.AllRelations.Count, 1);
         }
@@ -77,7 +79,7 @@ namespace UnitTests
             int countBefore = theCharacter.AllRelations.Count;
 
             var other = new Character(2, "other2");
-            theCharacter.CreateRelationshipWith(other, null);
+            theCharacter.CreateRelationshipWith(other, rng);
 
             int countAfter = theCharacter.AllRelations.Count;
 
@@ -90,14 +92,14 @@ namespace UnitTests
         public void CharacterCreateRelationship_ErrorWithDuplicate()
         {
             var duplicate = new Character(1, "other2");
-            theCharacter.CreateRelationshipWith(duplicate, null);
+            theCharacter.CreateRelationshipWith(duplicate, rng);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void CharacterCreateRelationship_ErrorWithSelf()
         {
-            theCharacter.CreateRelationshipWith(theCharacter, null);
+            theCharacter.CreateRelationshipWith(theCharacter, rng);
         }
 
 
@@ -175,7 +177,7 @@ namespace UnitTests
         [TestMethod]
         public void IsTrustLevelMutual_IsTrue()
         {
-            otherOne.CreateRelationshipWith(theCharacter, null);
+            otherOne.CreateRelationshipWith(theCharacter, rng);
 
             Assert.IsTrue(theCharacter.IsTrustLevelMutual(otherOne));
         }
@@ -184,7 +186,7 @@ namespace UnitTests
         public void IsTrustLevelMutual_IsFalse()
         {
             otherOne.BaseSuspicion = SuspicionScale.Relaxed;
-            otherOne.CreateRelationshipWith(theCharacter, null);
+            otherOne.CreateRelationshipWith(theCharacter, rng);
 
             Assert.IsFalse(theCharacter.IsTrustLevelMutual(otherOne));
         }
@@ -198,7 +200,7 @@ namespace UnitTests
         [TestMethod]
         public void IsEthicsLevelMutual_IsTrue()
         {
-            otherOne.CreateRelationshipWith(theCharacter, null);
+            otherOne.CreateRelationshipWith(theCharacter, rng);
 
             Assert.IsTrue(theCharacter.IsEthicsLevelMutual(otherOne));
         }
@@ -207,7 +209,7 @@ namespace UnitTests
         public void IsEthicsLevelMutual_IsFalse()
         {
             otherOne.BaseMorality = Morality.Forgive;
-            otherOne.CreateRelationshipWith(theCharacter, null);
+            otherOne.CreateRelationshipWith(theCharacter, rng);
 
             Assert.IsFalse(theCharacter.IsEthicsLevelMutual(otherOne));
         }

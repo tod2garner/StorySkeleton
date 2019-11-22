@@ -16,7 +16,7 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            theCollection = new CollectionOfIncidentTemplates();
+            theCollection = new CollectionOfIncidentTemplates(100);
             throw new NotImplementedException();
         }        
 

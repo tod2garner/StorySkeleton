@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AObjectWithProbability.cs" />
     <Compile Include="Enums\Enums_Characters.cs" />
     <Compile Include="Enums\Enums_Incidents.cs" />
     <Compile Include="Incidents\CollectionOfIncidentTemplates.cs" />

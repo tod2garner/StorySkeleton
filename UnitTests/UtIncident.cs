@@ -38,31 +38,7 @@ namespace UnitTests
             theIncident.MyPrerequisites.Add(new MutualTrust_Min(EthicsScale.Cooperate, role1));
 
         }
-
-        [TestMethod]
-        public void OutcomeTotal_Is100Percent()
-        {
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(12));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(13));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(15));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(25));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(35));
-
-            Assert.AreEqual(100, theIncident.GetTotalOutcomePercentChance());
-        }
-
-        [TestMethod]
-        public void OutcomeTotal_Is90Percent()
-        {
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(10));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(11));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(12));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(23));
-            theIncident.AllPossibleOutcomes.Add(new PossibleResult(34));
-
-            Assert.AreEqual(90, theIncident.GetTotalOutcomePercentChance());
-        }
-
+        
         [TestMethod]
         public void TryToPopulateIncident_IsSuccessful()
         {

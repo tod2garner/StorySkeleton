@@ -13,28 +13,14 @@ namespace UnitTests
     {
         [TestInitialize]
         public void TestInitialize() { }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ConstructPossibleResult_InvalidPercent_TooSmall()
-        {
-            var newPossibleResult = new PossibleResult(0);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ConstructPossibleResult_InvalidPercent_TooLarge()
-        {
-            var newPossibleResult = new PossibleResult(101);
-        }
-
+        
         [TestMethod]
         public void ConstructPossibleResult_Successful()
         {
             int givenValue = 25;
             var theResult = new PossibleResult(givenValue);
 
-            Assert.AreEqual(givenValue, theResult.PercentChance);
+            Assert.AreEqual(givenValue, theResult.ProbabilityScore);
             Assert.IsNotNull(theResult.TheOutcomes);
         }
 
@@ -54,7 +40,7 @@ namespace UnitTests
 
             var theCopy = theResult.Copy(replacementList);
 
-            Assert.AreEqual(theResult.PercentChance, theCopy.PercentChance);
+            Assert.AreEqual(theResult.ProbabilityScore, theCopy.ProbabilityScore);
             Assert.AreEqual(theResult.TheOutcomes.Count, theCopy.TheOutcomes.Count);
 
             var copyOutcome1 = theCopy.TheOutcomes.First() as ChangeInTrust;

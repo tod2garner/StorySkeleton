@@ -8,15 +8,10 @@ using System.Runtime.Serialization;
 namespace StoryEngine
 {
     [DataContract]
-    public class PossibleResult
+    public class PossibleResult : AObjectWithProbability
     {
-        public PossibleResult(int thePercentChance)
+        public PossibleResult(int theProbabilityScore) : base(theProbabilityScore)
         {
-
-            if (thePercentChance > 100 || thePercentChance < 1)
-                throw new ArgumentOutOfRangeException();
-
-            this.percentChance = thePercentChance;
             this.theOutcomes = new List<AOutcome>();
         }
 
@@ -31,17 +26,7 @@ namespace StoryEngine
         [DataMember]
         private List<AOutcome> theOutcomes;
         public List<AOutcome> TheOutcomes { get { return theOutcomes; } }
-
-        [DataMember]
-        private int percentChance;
-        /// <summary>
-        /// Between 1 and 100
-        /// </summary>
-        public int PercentChance
-        {
-            get { return percentChance; }
-        }
-
+        
         public List<string> Execute()
         {
             var textSummary = new List<string>();
@@ -55,7 +40,7 @@ namespace StoryEngine
 
         public PossibleResult Copy(List<Role> replacementRoles)
         {
-            var theCopy = new PossibleResult(this.percentChance);
+            var theCopy = new PossibleResult(this.ProbabilityScore);
 
             foreach (AOutcome o in theOutcomes)
                 theCopy.theOutcomes.Add(o.Copy(replacementRoles));

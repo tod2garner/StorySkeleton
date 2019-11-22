@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
-    public class CollectionOfIncidentTemplates
+    [DataContract]
+    public class CollectionOfIncidentTemplates : AObjectWithProbability
     {
-        public CollectionOfIncidentTemplates()
+        public CollectionOfIncidentTemplates(int theProbabilityScore) : base(theProbabilityScore)
         {
             theTemplates = new List<TemplateForIncident>();
         }
 
+        [DataMember]
         private List<TemplateForIncident> theTemplates;
-
         public List<TemplateForIncident> TheTemplates
         {
             get { return theTemplates; }

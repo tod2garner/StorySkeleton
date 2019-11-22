@@ -17,14 +17,13 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             var theLibrary = new LibraryOfIncidents();
             var theCollection = SerializeXML.LoadFromXML<CollectionOfIncidentTemplates>(path);
-            var theTuple = new Tuple<int, CollectionOfIncidentTemplates>(100, theCollection);
-            theLibrary.AllCollections.Add(theTuple);
+            theLibrary.AllCollections.Add(theCollection);
             return theLibrary;
         }
 
         public static void GenerateFilesForDefaultLibrary()
         {
-            var defaultCollection = new CollectionOfIncidentTemplates();
+            var defaultCollection = new CollectionOfIncidentTemplates(100);
 
             //#TODO - fix emotional tone for each - energy & stress variations
 

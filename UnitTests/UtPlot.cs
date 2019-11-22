@@ -16,7 +16,9 @@ namespace UnitTests
         [TestInitialize]
         public void TestInitialize()
         {
-            thePlot = new Plot(null);
+            var theCast = new SocietySnapshot();
+            thePlot = new Plot(theCast);
+
             throw new NotImplementedException();
         }
 

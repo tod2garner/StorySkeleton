@@ -99,38 +99,14 @@ namespace StoryEngine
             var allAreFulfilled = !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
             return allAreFulfilled;
         }
-
-        public int GetTotalOutcomePercentChance()
-        {
-            int totalOutcomePercent = 0;
-
-            foreach (PossibleResult p in allPossibleOutcomes)
-            {
-                totalOutcomePercent += p.PercentChance;
-            }
-
-            return totalOutcomePercent;
-        }
-
+        
         public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng)
         {
             InitializeTextSummary();
 
-            if (rng == null)
-                rng = new Random();
+            var chosen = AObjectWithProbability.PickOne(AllPossibleOutcomes, rng);
 
-            var diceRoll = rng.Next(0, GetTotalOutcomePercentChance());
-
-            foreach (PossibleResult p in allPossibleOutcomes)
-            {
-                if (diceRoll < p.PercentChance)
-                {
-                    this.textSummary.AddRange(p.Execute());
-                    return;
-                }
-
-                diceRoll -= p.PercentChance;
-            }
+            this.textSummary.AddRange(chosen.Execute());
         }
 
         public virtual void InitializeTextSummary()
