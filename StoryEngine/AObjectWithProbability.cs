@@ -31,6 +31,8 @@ namespace StoryEngine
 
         public static T PickOne<T>(IEnumerable<T> theList, Random rng) where T : AObjectWithProbability
         {
+            //NOTE: This is used for relatively small lists. For the full collection/library of incidents there is a separate system.
+
             if (rng == null)
                 rng = new Random();
 

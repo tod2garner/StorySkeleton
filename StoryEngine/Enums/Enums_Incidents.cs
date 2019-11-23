@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
+    public enum Frequency
+    {
+        Often = 0,
+        Periodically = 1,
+        Rarely = 2,
+        ExtremelyRarely = 3
+    }
+
     public enum EnergyLevel
     {
         EitherLowOrHigh = 0,    //Example - social gathering, travel
@@ -39,13 +47,61 @@ namespace StoryEngine
         Anger,      //resentment, disdain       Red
         Fear,       //anxiety, terror           Black
     }
+
     public static class IncidentEnumExtensions
     {
+        public static Frequency GetRandomFrequency_Weighted(Random rng)
+        {
+            var diceRoll = rng.Next(0, 15); //#TODO - replace magic hard-set numbers
+
+            if (diceRoll == 0)
+                return Frequency.ExtremelyRarely;   //0
+            else if (diceRoll <= 2)
+                return Frequency.Rarely;            //1, 2
+            else if (diceRoll <= 6)
+                return Frequency.Periodically;      //3, 4, 5, 6
+            else
+                return Frequency.Often;             //7, 8, 9, 10, 11, 12, 13, 14
+        }
+
+        public static bool IsPleasant(this Tone me)
+        {
+            switch (me)
+            {
+                case Tone.Calm:
+                case Tone.Empathy:
+                case Tone.Curiousity:
+                case Tone.Excitement:
+                case Tone.Joy:
+                case Tone.Confidence:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public static bool IsHighEnergy(this Tone me)
+        {
+            switch (me)
+            {
+                case Tone.Curiousity:
+                case Tone.Excitement:
+                case Tone.Joy:
+                case Tone.Confidence:
+                case Tone.Shock:
+                case Tone.Anger:
+                case Tone.Fear:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         public static List<Tone> GetPossibleTones(EnergyLevel energy, Pleasantness stress)
         {
             var possibleTones = new List<Tone>();
 
-            if(energy != EnergyLevel.AlwaysHighEnergy)
+            if (energy != EnergyLevel.AlwaysHighEnergy)
             {
                 if (stress != Pleasantness.NeverPleasant)
                 {

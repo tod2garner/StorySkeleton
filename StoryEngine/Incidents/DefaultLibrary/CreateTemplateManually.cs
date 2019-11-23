@@ -32,6 +32,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Conversation_Personal()
         {
             var conversation = new TemplateForIncident("Personal Conversation");
+            conversation.TheFrequency = Frequency.Often;
 
             //Roles
             var conversants = new Role("Conversants") { MinCount = 2, MaxCount = 3 };
@@ -62,6 +63,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Argument_Personal()
         {
             var argument = new TemplateForIncident("Personal Argument");
+            argument.TheFrequency = Frequency.Often;
             argument.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -93,6 +95,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Cooperation_Utilitarian()
         {
             var utilitarianCooperation = new TemplateForIncident("Utilitarian Cooperation");
+            utilitarianCooperation.TheFrequency = Frequency.Often;
 
             //Roles
             var cooperatives = new Role("Cooperatives") { MinCount = 2, MaxCount = null };
@@ -118,6 +121,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Cooperation_Social()
         {
             var socialCooperation = new TemplateForIncident("Social Cooperation");
+            socialCooperation.TheFrequency = Frequency.Often;
             socialCooperation.IsPleasant = Pleasantness.AlwaysPleasant;
 
             //Roles
@@ -154,6 +158,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Aggression_Social()//mockery, public accusation, threats, blackmail
         {
             var socialAggression = new TemplateForIncident("Social Aggression");
+            socialAggression.TheFrequency = Frequency.Periodically;
             socialAggression.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -203,21 +208,22 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         public static TemplateForIncident Deception()//#TODO - add triggers, make success/fail rate based on duration of lie
         {
-            var socialAgression = new TemplateForIncident("Deception");
+            var deception = new TemplateForIncident("Deception");
+            deception.TheFrequency = Frequency.Periodically;
 
             //Add roles
             var partyAttacking = new Role("Party Deceiving") { MinCount = 1, MaxCount = null };
             var partyDefending = new Role("Party Being Deceived") { MinCount = 1, MaxCount = null };
 
-            socialAgression.TheRoles.Add(partyAttacking);
-            socialAgression.TheRoles.Add(partyDefending);
+            deception.TheRoles.Add(partyAttacking);
+            deception.TheRoles.Add(partyDefending);
 
             //Add prereqs
             DirectionalEthics_Max prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Befriend, partyAttacking, partyDefending);
             MutualTrust_Min prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
 
-            socialAgression.ThePrerequisites.Add(prereqEthicsMax);
-            socialAgression.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            deception.ThePrerequisites.Add(prereqEthicsMax);
+            deception.ThePrerequisites.Add(prereq_AttackerMinTrust);
 
             //Add outcomes
             ChangeInTrust bonding_Small = new ChangeInTrust(1, partyDefending, partyAttacking, "Believed - Small Bonding");
@@ -233,16 +239,17 @@ namespace StoryEngine.Incidents.DefaultLibrary
             PossibleResult caught = new PossibleResult(20);
             caught.TheOutcomes.Add(distrust_Large);
 
-            socialAgression.ThePossibleResults.Add(common_Believed);
-            socialAgression.ThePossibleResults.Add(unlikely_Believed);
-            socialAgression.ThePossibleResults.Add(caught);
+            deception.ThePossibleResults.Add(common_Believed);
+            deception.ThePossibleResults.Add(unlikely_Believed);
+            deception.ThePossibleResults.Add(caught);
 
-            return socialAgression;
+            return deception;
         }
 
         public static TemplateForIncident SacrificeForOther()
         {
             var sacrificeForOther = new TemplateForIncident("Sacrifice for Other(s)");
+            sacrificeForOther.TheFrequency = Frequency.Rarely;
 
             //Add roles
             var givers = new Role("Giver(s)") { MinCount = 1, MaxCount = null };
@@ -282,6 +289,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Rejection_Social()
         {
             var socialRejection = new TemplateForIncident("Social Rejection");
+            socialRejection.TheFrequency = Frequency.Rarely;
             socialRejection.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -324,6 +332,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Rejection_Emotional()
         {
             var emotionalRejection = new TemplateForIncident("Emotional Rejection");
+            emotionalRejection.TheFrequency = Frequency.Rarely;
             emotionalRejection.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -366,6 +375,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Betrayal_Social()//#TODO - make magnitude based on how strong trust was
         {
             var socialBetrayal = new TemplateForIncident("Social Betrayal");
+            socialBetrayal.TheFrequency = Frequency.ExtremelyRarely;
             socialBetrayal.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -403,6 +413,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Betrayal_Emotional()//#TODO - make magnitude based on how strong trust was
         {
             var emotionalBetrayal = new TemplateForIncident("Emotional Betrayal");
+            emotionalBetrayal.TheFrequency = Frequency.ExtremelyRarely;
             emotionalBetrayal.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -445,6 +456,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         {
             //Assign name
             var accidentalOffense = new TemplateForIncident("Accidental Offense");
+            accidentalOffense.TheFrequency = Frequency.Periodically;
             accidentalOffense.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -487,6 +499,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Travel()
         {
             var travel = new TemplateForIncident("Travel");
+            travel.TheFrequency = Frequency.Often;
 
             //Roles
             var travelers = new Role("Travelers") { MinCount = 1, MaxCount = null };
@@ -518,6 +531,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Training()
         {
             var training = new TemplateForIncident("Training");
+            training.TheFrequency = Frequency.Often;
 
             //Roles
             var trainer = new Role("Trainer") { MinCount = 0, MaxCount = 1 };
@@ -557,6 +571,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident SelfImprovement() //Practice, study, pondering, research
         {
             var selfImprovement = new TemplateForIncident("Self Improvement");
+            selfImprovement.TheFrequency = Frequency.Often;
 
             //Roles
             var participants = new Role("Participants") { MinCount = 1, MaxCount = null };
@@ -587,6 +602,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident SocialGathering()//ceremony, celebration, funeral, entertainment, games, performance
         {
             var socialGathering = new TemplateForIncident("Social Gathering");
+            socialGathering.TheFrequency = Frequency.Often;
 
             //Roles
             var participants = new Role("Attendee(s)") { MinCount = 1, MaxCount = null };
@@ -618,6 +634,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Message_Received() //new rumor, word of remote event
         {
             var receiveMessage = new TemplateForIncident("Receive Message");
+            receiveMessage.TheFrequency = Frequency.Periodically;
 
             //Roles
             var participants = new Role("Party Receiving") { MinCount = 1, MaxCount = null };
@@ -649,6 +666,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Message_Lost()
         {
             var lostMessage = new TemplateForIncident("Message Lost & Never Delivered");
+            lostMessage.TheFrequency = Frequency.ExtremelyRarely;
             lostMessage.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -687,6 +705,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident AcquireTool() //build or craft, find abandoned, purchase
         {
             var acquireTool = new TemplateForIncident("Acquire Tool or Equipment");
+            acquireTool.TheFrequency = Frequency.Periodically;
 
             //Roles
             var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
@@ -718,6 +737,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident EquipmentFailure()
         {
             var equipmentFailure = new TemplateForIncident("Equipment Failure");
+            equipmentFailure.TheFrequency = Frequency.Rarely;
             equipmentFailure.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -750,6 +770,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Injury_Accidental()
         {
             var accidentalInjury = new TemplateForIncident("Accidental Injury");
+            accidentalInjury.TheFrequency = Frequency.Rarely;
             accidentalInjury.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -782,6 +803,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident RestAndRecover()
         {
             var restAndRecover = new TemplateForIncident("Rest And Recover");
+            restAndRecover.TheFrequency = Frequency.Often;
 
             //Roles
             var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
@@ -813,6 +835,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident IndustrialDisaster()
         {
             var industrialDisaster = new TemplateForIncident("Industrial Disaster");
+            industrialDisaster.TheFrequency = Frequency.ExtremelyRarely;
             industrialDisaster.IsPleasant = Pleasantness.NeverPleasant;
             industrialDisaster.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
@@ -850,6 +873,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Luck_Good() //find valuable item, near-miss with danger, inherit fortune
         {
             var goodLuck = new TemplateForIncident("Chance Happening - Good Luck");
+            goodLuck.TheFrequency = Frequency.Periodically;
             goodLuck.IsPleasant = Pleasantness.AlwaysPleasant;
 
             //Roles
@@ -881,6 +905,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Luck_Bad() //lose valued item, obstacle when already late
         {
             var badLuck = new TemplateForIncident("Chance Happening - Bad Luck");
+            badLuck.TheFrequency = Frequency.Periodically;
             badLuck.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -912,6 +937,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident OrganizedCompetition() //#TODO - add trigger for multi-stage competitions
         {
             var organizedCompetition = new TemplateForIncident("Organized Competition");
+            organizedCompetition.TheFrequency = Frequency.Rarely;
             organizedCompetition.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
             //Roles
@@ -948,6 +974,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Aggression_Violent()//ambush, fist fight, battle, duel/challenge, outburst
         {
             var violentAggression = new TemplateForIncident("Violent Aggression");
+            violentAggression.TheFrequency = Frequency.Periodically;
             violentAggression.IsPleasant = Pleasantness.NeverPleasant;
             violentAggression.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
@@ -994,10 +1021,11 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return violentAggression;
         }
-        
+
         public static TemplateForIncident Aggression_Murderous()//enslave, murder, torture, abuse
         {
             var murderousAggression = new TemplateForIncident("Murderous Aggression");
+            murderousAggression.TheFrequency = Frequency.Rarely;
             murderousAggression.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
@@ -1043,6 +1071,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Persuit_NonViolent()//chase after, run from
         {
             var persuit = new TemplateForIncident("Persuit");
+            persuit.TheFrequency = Frequency.Often;
             persuit.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
             //Add roles
@@ -1074,7 +1103,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             PossibleResult unlikely = new PossibleResult(40);
             unlikely.TheOutcomes.Add(chasing_Bonding_Large);
             unlikely.TheOutcomes.Add(fleeing_Bonding_Large);
-            
+
             persuit.ThePossibleResults.Add(common);
             persuit.ThePossibleResults.Add(unlikely);
 
@@ -1084,6 +1113,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Persuit_Violent()//escape, retreat, seek refuge 
         {
             var violentPersuit = new TemplateForIncident("Violent Persuit");
+            violentPersuit.TheFrequency = Frequency.Often;
             violentPersuit.IsPleasant = Pleasantness.NeverPleasant;
             violentPersuit.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
@@ -1120,7 +1150,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             unlikely.TheOutcomes.Add(largeTrustLoss);
             unlikely.TheOutcomes.Add(fleeing_Bonding_Large);
             unlikely.TheOutcomes.Add(chasing_Bonding_Large);
-            
+
             violentPersuit.ThePossibleResults.Add(common);
             violentPersuit.ThePossibleResults.Add(unlikely);
 
@@ -1130,6 +1160,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Hide()
         {
             var hide = new TemplateForIncident("Hide");
+            hide.TheFrequency = Frequency.Periodically;
 
             //Roles
             var hiders = new Role("Hiding") { MinCount = 1, MaxCount = null };
@@ -1156,7 +1187,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return hide;
         }
-        
+
         /*
         Injury / poisoning
         Criminal activity (non-violent)
@@ -1186,6 +1217,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Lost()
         {
             var lost = new TemplateForIncident("Lost");
+            lost.TheFrequency = Frequency.Periodically;
             lost.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -1223,6 +1255,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Disease()
         {
             var disease = new TemplateForIncident("Disease");
+            disease.TheFrequency = Frequency.Rarely;
             disease.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -1257,6 +1290,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident NaturalDisaster()
         {
             var naturalDisaster = new TemplateForIncident("Natural Disaster");
+            naturalDisaster.TheFrequency = Frequency.ExtremelyRarely;
             naturalDisaster.IsPleasant = Pleasantness.NeverPleasant;
             naturalDisaster.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
@@ -1291,6 +1325,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Weather_Challenging()
         {
             var badWeather = new TemplateForIncident("Challenging Weather");
+            badWeather.TheFrequency = Frequency.Often;
             badWeather.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
@@ -1328,6 +1363,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident DangerousAnimal()
         {
             var dangerousAnimal = new TemplateForIncident("Dangerous Animal");
+            dangerousAnimal.TheFrequency = Frequency.Periodically;
             dangerousAnimal.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
             dangerousAnimal.IsPleasant = Pleasantness.NeverPleasant;
 
@@ -1365,7 +1401,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         public static TemplateForIncident Survival()//food, water, shelter
         {
-            var survival = new TemplateForIncident("Survival");
+            var survival = new TemplateForIncident("Survival - Seek Basic Needs");
+            survival.TheFrequency = Frequency.Often;
             survival.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles

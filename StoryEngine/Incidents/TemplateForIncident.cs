@@ -12,7 +12,10 @@ namespace StoryEngine
     {
         [DataMember]
         public string Name;
-        
+
+        [DataMember]
+        public Frequency TheFrequency;
+
         [DataMember]
         public EnergyLevel IsHighEnergy;
 

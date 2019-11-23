@@ -24,6 +24,9 @@ namespace StoryEngine
         private string name;
         public string Name { get { return name; } }
 
+        private Frequency theFrequency;
+        public Frequency TheFrequency { get { return theFrequency; } }
+
         protected List<string> textSummary;
         public List<string> GetTextSummary() { return textSummary; }
 
@@ -56,9 +59,9 @@ namespace StoryEngine
                 rng = new Random();
 
             var nonParticipants = currentCast.AllCharacters.ToList();//must copy list to avoid changes to original
-            
+
             //Start with whichever role is hardest to fill
-            var rolesOrderedByCountOfFirstCandidates = allRoles.OrderBy(r => 
+            var rolesOrderedByCountOfFirstCandidates = allRoles.OrderBy(r =>
                             r.FirstCandidateOptions(nonParticipants, MyPrerequisites, currentCast).Count
                             + (r.MinCount == 0 ? 1 : 0));//add to count if min particpants == 0
 
@@ -100,11 +103,11 @@ namespace StoryEngine
             {
                 PopulateAllRoles_FollowingPrereqs(currentCast, rng);
             }
-            
+
             var allAreFulfilled = !prerequisites.Any(p => p.IsMetByCurrentParticipants() == false);
             return allAreFulfilled;
         }
-        
+
         public void RollDiceAndExecuteOneOutcome(SocietySnapshot currentCast, Random rng)
         {
             InitializeTextSummary();
