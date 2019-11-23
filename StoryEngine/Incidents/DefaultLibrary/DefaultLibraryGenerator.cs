@@ -12,66 +12,83 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         public static LibraryOfIncidents LoadDefaultLibraryFromFile()
         {
-            //#TODO - fix with relative references & multiple collections
-            var path = "C:\\temp\\DefaultLibrary\\collection1.xml";
+            //#TODO - fix with relative references
+
+            var collectionNames = new List<string>();
+            collectionNames.Add("CharacterDevelopment.xml");
+            collectionNames.Add("Generic.xml");
+            collectionNames.Add("Action.xml");
+            collectionNames.Add("Survival.xml");
 
             var theLibrary = new LibraryOfIncidents();
-            var theCollection = SerializeXML.LoadFromXML<CollectionOfIncidentTemplates>(path);
-            theLibrary.AllCollections.Add(theCollection);
+
+            foreach(string name in collectionNames)
+            {
+                var path = SAVE_FILE_PATH + name;
+                var theCollection = SerializeXML.LoadFromXML<CollectionOfIncidentTemplates>(path);
+                theLibrary.AllCollections.Add(theCollection);
+            }
+            
             return theLibrary;
         }
 
         public static void GenerateFilesForDefaultLibrary()
         {
-            var defaultCollection = new CollectionOfIncidentTemplates(100);
-
             //#TODO - align emotional tone with outcomes
 
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.AccidentalOffense());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Aggression_Social());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Argument_Personal());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Betrayal_Emotional());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Betrayal_Social());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Conversation_Personal());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Cooperation_Social());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Cooperation_Utilitarian());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Deception());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Rejection_Emotional());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
+            var characterDevelopment = new CollectionOfIncidentTemplates(30);
+            var generic = new CollectionOfIncidentTemplates(40);
+            var action = new CollectionOfIncidentTemplates(20);
+            var survival = new CollectionOfIncidentTemplates(10);
 
-            //#TODO - break into separate collection Generic
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Training());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Travel());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.SocialGathering());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Message_Received());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Message_Lost());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.AcquireTool());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.EquipmentFailure());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Injury_Accidental());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.RestAndRecover());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.IndustrialDisaster());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Luck_Bad());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Luck_Good());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.OrganizedCompetition());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.AccidentalOffense());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Aggression_Social());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Argument_Personal());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Betrayal_Emotional());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Betrayal_Social());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Conversation_Personal());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Cooperation_Social());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Cooperation_Utilitarian());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Deception());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Emotional());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
 
-            //#TODO - break into separate collection Action
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Aggression_Violent());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Aggression_Murderous());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Persuit_NonViolent());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Persuit_Violent());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Hide());
+            characterDevelopment.SaveToXML(SAVE_FILE_PATH + "CharacterDevelopment.xml");            
 
-            //#TODO - break into separate collection Survival
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Lost());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.NaturalDisaster());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Disease());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Weather_Challenging());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.DangerousAnimal());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Survival());
+            generic.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
+            generic.TheTemplates.Add(CreateTemplateManually.Training());
+            generic.TheTemplates.Add(CreateTemplateManually.Travel());
+            generic.TheTemplates.Add(CreateTemplateManually.SocialGathering());
+            generic.TheTemplates.Add(CreateTemplateManually.Message_Received());
+            generic.TheTemplates.Add(CreateTemplateManually.Message_Lost());
+            generic.TheTemplates.Add(CreateTemplateManually.AcquireTool());
+            generic.TheTemplates.Add(CreateTemplateManually.EquipmentFailure());
+            generic.TheTemplates.Add(CreateTemplateManually.Injury_Accidental());
+            generic.TheTemplates.Add(CreateTemplateManually.RestAndRecover());
+            generic.TheTemplates.Add(CreateTemplateManually.IndustrialDisaster());
+            generic.TheTemplates.Add(CreateTemplateManually.Luck_Bad());
+            generic.TheTemplates.Add(CreateTemplateManually.Luck_Good());
+            generic.TheTemplates.Add(CreateTemplateManually.OrganizedCompetition());
 
-            defaultCollection.SaveToXML(SAVE_FILE_PATH + "collection1.xml");
+            generic.SaveToXML(SAVE_FILE_PATH + "Generic.xml");
+            
+            action.TheTemplates.Add(CreateTemplateManually.Aggression_Violent());
+            action.TheTemplates.Add(CreateTemplateManually.Aggression_Murderous());
+            action.TheTemplates.Add(CreateTemplateManually.Persuit_NonViolent());
+            action.TheTemplates.Add(CreateTemplateManually.Persuit_Violent());
+            action.TheTemplates.Add(CreateTemplateManually.Hide());
+
+            action.SaveToXML(SAVE_FILE_PATH + "Action.xml");
+
+            survival.TheTemplates.Add(CreateTemplateManually.Lost());
+            survival.TheTemplates.Add(CreateTemplateManually.NaturalDisaster());
+            survival.TheTemplates.Add(CreateTemplateManually.Disease());
+            survival.TheTemplates.Add(CreateTemplateManually.Weather_Challenging());
+            survival.TheTemplates.Add(CreateTemplateManually.DangerousAnimal());
+            survival.TheTemplates.Add(CreateTemplateManually.Survival());
+
+            survival.SaveToXML(SAVE_FILE_PATH + "Survival.xml");
         }
 
     }
