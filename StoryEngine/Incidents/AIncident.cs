@@ -56,19 +56,24 @@ namespace StoryEngine
                 rng = new Random();
 
             var nonParticipants = currentCast.AllCharacters.ToList();//must copy list to avoid changes to original
-
-            //One cycle through roles, adding one participant to each
-            var rolesOrderedByCountOfFirstCandidates = allRoles.OrderBy(r => r.FirstCandidateOptions(nonParticipants, MyPrerequisites, currentCast).Count);
-
+            
             //Start with whichever role is hardest to fill
+            var rolesOrderedByCountOfFirstCandidates = allRoles.OrderBy(r => 
+                            r.FirstCandidateOptions(nonParticipants, MyPrerequisites, currentCast).Count
+                            + (r.MinCount == 0 ? 1 : 0));//add to count if min particpants == 0
+
             var roleToStartWith = rolesOrderedByCountOfFirstCandidates.First();
             var firstCandidates = roleToStartWith.FirstCandidateOptions(nonParticipants, MyPrerequisites, currentCast);
             roleToStartWith.AddOneParticipantRandomly(firstCandidates, rng);
             nonParticipants = nonParticipants.Where(n => false == roleToStartWith.Participants.Any(p => n.Id == p.Id)).ToList();
 
-            foreach (Role r in this.allRoles) //#TODO - fix later to allow roles with zero participants
+            //One cycle through roles, adding one participant to each
+            foreach (Role r in this.allRoles)
             {
                 if (r.RoleName == roleToStartWith.RoleName)
+                    continue;
+
+                if (r.MinCount == 0 && rng.Next(0, Role.DEFAULT_ROLE_MAX_COUNT) == 0)//chance to leave empty roles that are allow to have 0 participants
                     continue;
 
                 var theCandidates = r.CandidatesThatPassPrereqs(nonParticipants, MyPrerequisites);

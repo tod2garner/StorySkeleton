@@ -285,7 +285,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             socialRejection.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
-            var partyAttacking = new Role("Party Rejecting") { MinCount = 1, MaxCount = null };
+            var partyAttacking = new Role("Party Rejecting") { MinCount = 0, MaxCount = null };
             var partyDefending = new Role("Party Being Rejected") { MinCount = 1, MaxCount = null };
 
             socialRejection.TheRoles.Add(partyAttacking);
@@ -369,7 +369,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             socialBetrayal.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
-            var partyAttacking = new Role("Party Betraying") { MinCount = 1, MaxCount = null };
+            var partyAttacking = new Role("Party Betraying") { MinCount = 0, MaxCount = null };
             var partyDefending = new Role("Party Being Betrayed") { MinCount = 1, MaxCount = null };
 
             socialBetrayal.TheRoles.Add(partyAttacking);
@@ -968,7 +968,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
             violentAggression.ThePrerequisites.Add(prereq_DefenderMinTrust);
 
             //Add outcomes
-            ChangeInTrust smallTrustLoss = new ChangeInTrust(-1, partyDefending, partyAttacking, "Small Trust Loss");
             ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
             ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
             ChangeInTrust reverseTrustLoss = new ChangeInTrust(-1, partyAttacking, partyDefending, "Reciprocal Trust Loss");
@@ -977,7 +976,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             ChangeInTrust defendersBonding_Major = new ChangeInTrust(3, partyDefending, partyDefending, "Major Defender Bonding");
 
             PossibleResult common = new PossibleResult(40);
-            common.TheOutcomes.Add(smallTrustLoss);
+            common.TheOutcomes.Add(largeTrustLoss);
             common.TheOutcomes.Add(defendersBonding_Small);
 
             PossibleResult unlikely = new PossibleResult(35);
@@ -1187,6 +1186,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Lost()
         {
             var lost = new TemplateForIncident("Lost");
+            lost.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
             var travelers = new Role("Travelers") { MinCount = 1, MaxCount = null };
