@@ -106,7 +106,7 @@ namespace UnitTests
 
         private IIncident createIncidentManually_Agression_Social()
         {
-            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Agression_Social().CreateIncident(null);
+            return StoryEngine.Incidents.DefaultLibrary.CreateTemplateManually.Aggression_Social().CreateIncident(null);
         }
 
         private IIncident createIncidentManually_Cooperation_Social()

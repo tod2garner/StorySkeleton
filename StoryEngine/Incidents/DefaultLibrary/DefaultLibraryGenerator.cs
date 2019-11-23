@@ -25,10 +25,10 @@ namespace StoryEngine.Incidents.DefaultLibrary
         {
             var defaultCollection = new CollectionOfIncidentTemplates(100);
 
-            //#TODO - align emotional tone with outcomes?
+            //#TODO - align emotional tone with outcomes
 
             defaultCollection.TheTemplates.Add(CreateTemplateManually.AccidentalOffense());
-            defaultCollection.TheTemplates.Add(CreateTemplateManually.Agression_Social());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Aggression_Social());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Argument_Personal());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Betrayal_Emotional());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Betrayal_Social());
@@ -40,7 +40,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
 
-            //#TODO - break into separate collection
+            //#TODO - break into separate collection Generic
             defaultCollection.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Training());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Travel());
@@ -51,8 +51,19 @@ namespace StoryEngine.Incidents.DefaultLibrary
             defaultCollection.TheTemplates.Add(CreateTemplateManually.EquipmentFailure());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Injury_Accidental());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.RestAndRecover());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.IndustrialDisaster());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Luck_Bad());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Luck_Good());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.OrganizedCompetition());
 
-            //#TODO - break into separate collection
+            //#TODO - break into separate collection Action
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Aggression_Violent());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Aggression_Murderous());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Persuit_NonViolent());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Persuit_Violent());
+            defaultCollection.TheTemplates.Add(CreateTemplateManually.Hide());
+
+            //#TODO - break into separate collection Survival
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Lost());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.NaturalDisaster());
             defaultCollection.TheTemplates.Add(CreateTemplateManually.Disease());

@@ -151,26 +151,26 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return socialCooperation;
         }
 
-        public static TemplateForIncident Agression_Social()
+        public static TemplateForIncident Aggression_Social()//mockery, public accusation, threats, blackmail
         {
-            var socialAgression = new TemplateForIncident("Social Agression");
-            socialAgression.IsPleasant = Pleasantness.NeverPleasant;
+            var socialAggression = new TemplateForIncident("Social Aggression");
+            socialAggression.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
             var partyAttacking = new Role("Party Attacking") { MinCount = 1, MaxCount = null };
             var partyDefending = new Role("Party Defending") { MinCount = 1, MaxCount = null };
 
-            socialAgression.TheRoles.Add(partyAttacking);
-            socialAgression.TheRoles.Add(partyDefending);
+            socialAggression.TheRoles.Add(partyAttacking);
+            socialAggression.TheRoles.Add(partyDefending);
 
             //Add prereqs
             var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, partyAttacking, partyDefending);
             var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyAttacking);
             var prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyDefending);
 
-            socialAgression.ThePrerequisites.Add(prereqEthicsMax);
-            socialAgression.ThePrerequisites.Add(prereq_AttackerMinTrust);
-            socialAgression.ThePrerequisites.Add(prereq_DefenderMinTrust);
+            socialAggression.ThePrerequisites.Add(prereqEthicsMax);
+            socialAggression.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            socialAggression.ThePrerequisites.Add(prereq_DefenderMinTrust);
 
             //Add outcomes
             ChangeInTrust smallTrustLoss = new ChangeInTrust(-1, partyDefending, partyAttacking, "Small Trust Loss");
@@ -194,11 +194,11 @@ namespace StoryEngine.Incidents.DefaultLibrary
             rare.TheOutcomes.Add(reverseTrustLoss);
             rare.TheOutcomes.Add(defendersBonding_Major);
 
-            socialAgression.ThePossibleResults.Add(common);
-            socialAgression.ThePossibleResults.Add(unlikely);
-            socialAgression.ThePossibleResults.Add(rare);
+            socialAggression.ThePossibleResults.Add(common);
+            socialAggression.ThePossibleResults.Add(unlikely);
+            socialAggression.ThePossibleResults.Add(rare);
 
-            return socialAgression;
+            return socialAggression;
         }
 
         public static TemplateForIncident Deception()//#TODO - add triggers, make success/fail rate based on duration of lie
@@ -449,7 +449,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             //Add roles
             var partyGivingOffense = new Role("Party Giving Offense") { MinCount = 1, MaxCount = null };
-            var partyOffended = new Role("Party Offended") { MinCount = 1, MaxCount = null };
+            var partyOffended = new Role("Party Offended") { MinCount = 0, MaxCount = null };
 
             accidentalOffense.TheRoles.Add(partyGivingOffense);
             accidentalOffense.TheRoles.Add(partyOffended);
@@ -483,18 +483,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #endregion
 
         #region Generic
-        /*
-       Don't use? -- Interruption of routine task
-       Don't use? -- Send Message
-                   
-       Industrial disaster
-               
-       
-       Windfall, find/win item of value
-       Organized Competition
-
-            --Specific social gathering, or distinct? entertainment, games, performances
-         */
 
         public static TemplateForIncident Travel()
         {
@@ -532,8 +520,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var training = new TemplateForIncident("Training");
 
             //Roles
-            var trainer = new Role("Trainer") { MinCount = 1, MaxCount = 1 };
-            var students = new Role("Student(s)") { MinCount = 1, MaxCount = null };
+            var trainer = new Role("Trainer") { MinCount = 0, MaxCount = 1 };
+            var students = new Role("Student(s)") { MinCount = 0, MaxCount = null };
 
             training.TheRoles.Add(trainer);
             training.TheRoles.Add(students);
@@ -596,7 +584,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return selfImprovement;
         }
 
-        public static TemplateForIncident SocialGathering()
+        public static TemplateForIncident SocialGathering()//ceremony, celebration, funeral, entertainment, games, performance
         {
             var socialGathering = new TemplateForIncident("Social Gathering");
 
@@ -664,8 +652,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             lostMessage.IsPleasant = Pleasantness.NeverPleasant;
 
             //Roles
-            var senders = new Role("Sender(s)") { MinCount = 1, MaxCount = null };
-            var getters = new Role("Receiver(s)") { MinCount = 1, MaxCount = null };
+            var senders = new Role("Sender(s)") { MinCount = 0, MaxCount = null };
+            var getters = new Role("Receiver(s)") { MinCount = 0, MaxCount = null };
 
             lostMessage.TheRoles.Add(senders);
             lostMessage.TheRoles.Add(getters);
@@ -822,28 +810,367 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return restAndRecover;
         }
 
+        public static TemplateForIncident IndustrialDisaster()
+        {
+            var industrialDisaster = new TemplateForIncident("Industrial Disaster");
+            industrialDisaster.IsPleasant = Pleasantness.NeverPleasant;
+            industrialDisaster.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = 5 };
+
+            industrialDisaster.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            industrialDisaster.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, participants, participants, "Large Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Large);
+
+            var unlikely = new PossibleResult(25);
+            unlikely.TheOutcomes.Add(bonding_Small);
+
+            var rare = new PossibleResult(15);
+            rare.TheOutcomes.Add(distrust_Small);
+
+            industrialDisaster.ThePossibleResults.Add(common);
+            industrialDisaster.ThePossibleResults.Add(unlikely);
+            industrialDisaster.ThePossibleResults.Add(rare);
+
+            return industrialDisaster;
+        }
+
+        public static TemplateForIncident Luck_Good() //find valuable item, near-miss with danger, inherit fortune
+        {
+            var goodLuck = new TemplateForIncident("Chance Happening - Good Luck");
+            goodLuck.IsPleasant = Pleasantness.AlwaysPleasant;
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
+
+            goodLuck.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            goodLuck.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, participants, participants, "Large Bonding");
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(bonding_Large);
+
+            goodLuck.ThePossibleResults.Add(common);
+            goodLuck.ThePossibleResults.Add(unlikely);
+
+            return goodLuck;
+        }
+
+        public static TemplateForIncident Luck_Bad() //lose valued item, obstacle when already late
+        {
+            var badLuck = new TemplateForIncident("Chance Happening - Bad Luck");
+            badLuck.IsPleasant = Pleasantness.NeverPleasant;
+
+            //Roles
+            var participants = new Role("Involved") { MinCount = 1, MaxCount = null };
+
+            badLuck.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            badLuck.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+            var distrust_Large = new ChangeInTrust(-2, participants, participants, "Large Distrust");
+
+            var common = new PossibleResult(70);
+            common.TheOutcomes.Add(distrust_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(distrust_Large);
+
+            badLuck.ThePossibleResults.Add(common);
+            badLuck.ThePossibleResults.Add(unlikely);
+
+            return badLuck;
+        }
+
+        public static TemplateForIncident OrganizedCompetition() //#TODO - add trigger for multi-stage competitions
+        {
+            var organizedCompetition = new TemplateForIncident("Organized Competition");
+            organizedCompetition.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Roles
+            var competitors = new Role("Competitor(s)") { MinCount = 1, MaxCount = null };
+
+            organizedCompetition.TheRoles.Add(competitors);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Exploit, competitors);
+
+            organizedCompetition.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, competitors, competitors, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, competitors, competitors, "Small Distrust");
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            organizedCompetition.ThePossibleResults.Add(common);
+            organizedCompetition.ThePossibleResults.Add(unlikely);
+
+            return organizedCompetition;
+        }
+
 
         #endregion
 
         #region Action
-        /*
 
-        Aggression - violent
-        Betrayal - violent
-        Chase fleeing agent / Run from pursuit
+        public static TemplateForIncident Aggression_Violent()//ambush, fist fight, battle, duel/challenge, outburst
+        {
+            var violentAggression = new TemplateForIncident("Violent Aggression");
+            violentAggression.IsPleasant = Pleasantness.NeverPleasant;
+            violentAggression.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var partyAttacking = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var partyDefending = new Role("Defender(s)") { MinCount = 0, MaxCount = null };
+
+            violentAggression.TheRoles.Add(partyAttacking);
+            violentAggression.TheRoles.Add(partyDefending);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Beat, partyAttacking, partyDefending);
+            var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
+            var prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Exploit, partyDefending);
+
+            violentAggression.ThePrerequisites.Add(prereqEthicsMax);
+            violentAggression.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            violentAggression.ThePrerequisites.Add(prereq_DefenderMinTrust);
+
+            //Add outcomes
+            ChangeInTrust smallTrustLoss = new ChangeInTrust(-1, partyDefending, partyAttacking, "Small Trust Loss");
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            ChangeInTrust reverseTrustLoss = new ChangeInTrust(-1, partyAttacking, partyDefending, "Reciprocal Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, partyDefending, partyDefending, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, partyDefending, partyDefending, "Large Defender Bonding");
+            ChangeInTrust defendersBonding_Major = new ChangeInTrust(3, partyDefending, partyDefending, "Major Defender Bonding");
+
+            PossibleResult common = new PossibleResult(40);
+            common.TheOutcomes.Add(smallTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(35);
+            unlikely.TheOutcomes.Add(largeTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+
+            PossibleResult rare = new PossibleResult(25);
+            rare.TheOutcomes.Add(majorTrustLoss);
+            rare.TheOutcomes.Add(reverseTrustLoss);
+            rare.TheOutcomes.Add(defendersBonding_Major);
+
+            violentAggression.ThePossibleResults.Add(common);
+            violentAggression.ThePossibleResults.Add(unlikely);
+            violentAggression.ThePossibleResults.Add(rare);
+
+            return violentAggression;
+        }
+        
+        public static TemplateForIncident Aggression_Murderous()//enslave, murder, torture, abuse
+        {
+            var murderousAggression = new TemplateForIncident("Murderous Aggression");
+            murderousAggression.IsPleasant = Pleasantness.NeverPleasant;
+
+            //Add roles
+            var partyAttacking = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var partyDefending = new Role("Defender(s)") { MinCount = 1, MaxCount = null };
+
+            murderousAggression.TheRoles.Add(partyAttacking);
+            murderousAggression.TheRoles.Add(partyDefending);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Murder, partyAttacking, partyDefending);
+            var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
+
+            murderousAggression.ThePrerequisites.Add(prereqEthicsMax);
+            murderousAggression.ThePrerequisites.Add(prereq_AttackerMinTrust);
+
+            //Add outcomes
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            ChangeInTrust massiveTrustLoss = new ChangeInTrust(-4, partyDefending, partyAttacking, "Massive Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, partyDefending, partyDefending, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, partyDefending, partyDefending, "Large Defender Bonding");
+            ChangeInTrust defendersBonding_Major = new ChangeInTrust(3, partyDefending, partyDefending, "Major Defender Bonding");
+
+            PossibleResult common = new PossibleResult(40);
+            common.TheOutcomes.Add(majorTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(35);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+
+            PossibleResult rare = new PossibleResult(25);
+            rare.TheOutcomes.Add(massiveTrustLoss);
+            rare.TheOutcomes.Add(defendersBonding_Major);
+
+            murderousAggression.ThePossibleResults.Add(common);
+            murderousAggression.ThePossibleResults.Add(unlikely);
+            murderousAggression.ThePossibleResults.Add(rare);
+
+            return murderousAggression;
+        }
+
+        public static TemplateForIncident Persuit_NonViolent()//chase after, run from
+        {
+            var persuit = new TemplateForIncident("Persuit");
+            persuit.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var chasing = new Role("Persuer(s)") { MinCount = 0, MaxCount = null };
+            var fleeing = new Role("Fleeing") { MinCount = 0, MaxCount = null };
+
+            persuit.TheRoles.Add(chasing);
+            persuit.TheRoles.Add(fleeing);
+
+            //Add prereqs
+            var prereqEthicsMin = new DirectionalEthics_Min(EthicsScale.Exploit, chasing, fleeing);
+            var prereq_Chaser_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, chasing);
+            var prereq_Fleeing_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, fleeing);
+
+            persuit.ThePrerequisites.Add(prereq_Chaser_MutualMinTrust);
+            persuit.ThePrerequisites.Add(prereq_Fleeing_MutualMinTrust);
+            persuit.ThePrerequisites.Add(prereqEthicsMin);
+
+            //Add outcomes
+            ChangeInTrust fleeing_Bonding_Small = new ChangeInTrust(1, fleeing, fleeing, "Small Bonding - Those Fleeing");
+            ChangeInTrust fleeing_Bonding_Large = new ChangeInTrust(1, fleeing, fleeing, "Large Bonding - Those Fleeing");
+            ChangeInTrust chasing_Bonding_Small = new ChangeInTrust(1, chasing, chasing, "Small Bonding - Persuers");
+            ChangeInTrust chasing_Bonding_Large = new ChangeInTrust(1, chasing, chasing, "Large Bonding - Persuers");
+
+            PossibleResult common = new PossibleResult(60);
+            common.TheOutcomes.Add(chasing_Bonding_Small);
+            common.TheOutcomes.Add(fleeing_Bonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(chasing_Bonding_Large);
+            unlikely.TheOutcomes.Add(fleeing_Bonding_Large);
+            
+            persuit.ThePossibleResults.Add(common);
+            persuit.ThePossibleResults.Add(unlikely);
+
+            return persuit;
+        }
+
+        public static TemplateForIncident Persuit_Violent()//escape, retreat, seek refuge 
+        {
+            var violentPersuit = new TemplateForIncident("Violent Persuit");
+            violentPersuit.IsPleasant = Pleasantness.NeverPleasant;
+            violentPersuit.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var chasing = new Role("Persuer(s)") { MinCount = 0, MaxCount = null };
+            var fleeing = new Role("Fleeing") { MinCount = 0, MaxCount = null };
+
+            violentPersuit.TheRoles.Add(chasing);
+            violentPersuit.TheRoles.Add(fleeing);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Beat, chasing, fleeing);
+            var prereq_Chaser_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, chasing);
+            var prereq_Fleeing_MutualMinTrust = new MutualTrust_Min(EthicsScale.Exploit, fleeing);
+
+            violentPersuit.ThePrerequisites.Add(prereqEthicsMax);
+            violentPersuit.ThePrerequisites.Add(prereq_Chaser_MutualMinTrust);
+            violentPersuit.ThePrerequisites.Add(prereq_Fleeing_MutualMinTrust);
+
+            //Add outcomes
+            ChangeInTrust smallTrustLoss = new ChangeInTrust(-1, fleeing, chasing, "Small Trust Loss");
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, fleeing, chasing, "Large Trust Loss");
+            ChangeInTrust fleeing_Bonding_Small = new ChangeInTrust(1, fleeing, fleeing, "Small Bonding - Those Fleeing");
+            ChangeInTrust fleeing_Bonding_Large = new ChangeInTrust(1, fleeing, fleeing, "Large Bonding - Those Fleeing");
+            ChangeInTrust chasing_Bonding_Small = new ChangeInTrust(1, chasing, chasing, "Small Bonding - Persuers");
+            ChangeInTrust chasing_Bonding_Large = new ChangeInTrust(1, chasing, chasing, "Large Bonding - Persuers");
+
+            PossibleResult common = new PossibleResult(60);
+            common.TheOutcomes.Add(smallTrustLoss);
+            common.TheOutcomes.Add(fleeing_Bonding_Small);
+            common.TheOutcomes.Add(chasing_Bonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(largeTrustLoss);
+            unlikely.TheOutcomes.Add(fleeing_Bonding_Large);
+            unlikely.TheOutcomes.Add(chasing_Bonding_Large);
+            
+            violentPersuit.ThePossibleResults.Add(common);
+            violentPersuit.ThePossibleResults.Add(unlikely);
+
+            return violentPersuit;
+        }
+
+        public static TemplateForIncident Hide()
+        {
+            var hide = new TemplateForIncident("Hide");
+
+            //Roles
+            var hiders = new Role("Hiding") { MinCount = 1, MaxCount = null };
+
+            hide.TheRoles.Add(hiders);
+
+            //Prereqs
+            MutualTrust_Min prereq_TravelerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, hiders);
+
+            hide.ThePrerequisites.Add(prereq_TravelerMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, hiders, hiders, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, hiders, hiders, "Small Distrust");
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            hide.ThePossibleResults.Add(common);
+            hide.ThePossibleResults.Add(unlikely);
+
+            return hide;
+        }
+        
+        /*
         Injury / poisoning
         Criminal activity (non-violent)
-        Framed
-        Hide in secret place
-        Seek refuge
+        Betrayal - violent
         Captured / Trapped / Imprisoned
-        EscapeLocation
+        Escape
         Rescue
         Surrender
-        Enslaved
         Sabotague
-       Public unrest - riot / rebellion / revolution
+        Public unrest - riot / rebellion / revolution
+        Framed *deception?*
         */
+
         #endregion
 
         #region Mystery
