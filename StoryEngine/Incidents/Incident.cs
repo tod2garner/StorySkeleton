@@ -30,7 +30,7 @@ namespace StoryEngine
         {
             base.InitializeTextSummary();
 
-            var summarizeTone = string.Format("EMOTIONAL TONE: {0}", this.theTone.ToString());
+            var summarizeTone = string.Format("EMOTIONAL TONE: {0}", this.theTone.ToCustomString());
             this.textSummary.Add(summarizeTone);
         }
 

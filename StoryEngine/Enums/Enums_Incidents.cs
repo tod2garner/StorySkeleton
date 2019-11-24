@@ -41,9 +41,8 @@ namespace StoryEngine
         Confusion,  //turmoil, suspicion        Grey_Dark
         Apathy,     //resignation, bored        Grey_Light  
 
-        Curiousity, //intrigue                  Purple
-        Excitement, //surprise, anticipation    Yellow_Pale
-        Joy,        //cheer, humor              Yellow_Bright
+        Curiousity, //intrigue, surprise        Purple
+        Joy,        //cheer, humor, excitement  Yellow
         Confidence, //determined, hopeful       Orange
 
         Shock,      //disgust, horror           Brown 
@@ -67,6 +66,38 @@ namespace StoryEngine
                 return Frequency.Often;             //7, 8, 9, 10, 11, 12, 13, 14
         }
 
+        public static string ToCustomString(this Tone me)
+        {
+            switch(me)
+            {
+                case Tone.Calm:
+                    return "[White] - Calm, Peace, Relief";
+                case Tone.Empathy:
+                    return "[Green] - Empathy, Connection, Compassion";
+                case Tone.Sadness:
+                    return "[Blue] - Sadness, Melancholy";
+                case Tone.Shame:
+                    return "[Charcoal] - Shame, Inferiority, Self-Doubt, Guilt";
+                case Tone.Confusion:
+                    return "[Smoke] - Confusion, Turmoil, Suspicion";
+                case Tone.Apathy:
+                    return "[Grey] - Apathy, Resignation, Boredom";
+                case Tone.Curiousity:
+                    return "[Purple] - Curiousity, Surprise, Intrigue";
+                case Tone.Joy:
+                    return "[Yellow] - Joy, Excitement, Humor";
+                case Tone.Confidence:
+                    return "[Orange] - Confidence, Hope, Determination";
+                case Tone.Shock:
+                    return "[Brown] - Shock, Disgust, Horror";
+                case Tone.Anger:
+                    return "[Red] - Anger, Resentment, Disdain";
+                case Tone.Fear:
+                default:
+                    return "[Black] - Fear, Anxiety, Terror";
+            }
+        }
+
         public static bool IsPleasant(this Tone me)
         {
             switch (me)
@@ -74,7 +105,6 @@ namespace StoryEngine
                 case Tone.Calm:
                 case Tone.Empathy:
                 case Tone.Curiousity:
-                case Tone.Excitement:
                 case Tone.Joy:
                 case Tone.Confidence:
                     return true;
@@ -88,7 +118,6 @@ namespace StoryEngine
             switch (me)
             {
                 case Tone.Curiousity:
-                case Tone.Excitement:
                 case Tone.Joy:
                 case Tone.Confidence:
                 case Tone.Shock:
@@ -126,7 +155,6 @@ namespace StoryEngine
                 if (stress != Pleasantness.NeverPleasant)
                 {
                     possibleTones.Add(Tone.Curiousity);
-                    possibleTones.Add(Tone.Excitement);
                     possibleTones.Add(Tone.Joy);
                     possibleTones.Add(Tone.Confidence);
                 }

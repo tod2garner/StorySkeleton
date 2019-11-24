@@ -656,19 +656,19 @@ namespace StoryEngine.Incidents.DefaultLibrary
             training.ThePrerequisites.Add(prereq_StudentTrustMin);
 
             //Outcomes
-            var bonding_Small_Peers = new ChangeInTrust(1, students, students, "Small Bonding");
-            var bonding_Small_Trainer = new ChangeInTrust(1, students, trainer, "Small Bonding");
-            var distrust_Small_Trainer = new ChangeInTrust(-1, students, trainer, "Small Distrust");
+            var bonding_Small_Peers = new ChangeInTrust(1, students, students, "Small Bonding - Peers");
+            var bonding_Small_Trainer = new ChangeInTrust(1, students, trainer, "Small Bonding - Trainer");
+            var distrust_Small_Trainer = new ChangeInTrust(-1, students, trainer, "Small Distrust - Trainer");
 
             var common = new PossibleResult(50);
             common.TheOutcomes.Add(bonding_Small_Peers);
 
             var unlikely = new PossibleResult(30);
-            common.TheOutcomes.Add(bonding_Small_Trainer);
-            common.TheOutcomes.Add(bonding_Small_Peers);
+            unlikely.TheOutcomes.Add(bonding_Small_Trainer);
+            unlikely.TheOutcomes.Add(bonding_Small_Peers);
 
             var rare = new PossibleResult(20);
-            unlikely.TheOutcomes.Add(distrust_Small_Trainer);
+            rare.TheOutcomes.Add(distrust_Small_Trainer);
 
             training.ThePossibleResults.Add(common);
             training.ThePossibleResults.Add(unlikely);
@@ -981,7 +981,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Luck_Good() //find valuable item, near-miss with danger, inherit fortune
         {
             var goodLuck = new TemplateForIncident("Chance Happening - Good Luck");
-            goodLuck.TheFrequency = Frequency.Periodically;
+            goodLuck.TheFrequency = Frequency.Rarely;
             goodLuck.IsPleasant = Pleasantness.AlwaysPleasant;
 
             //Roles
