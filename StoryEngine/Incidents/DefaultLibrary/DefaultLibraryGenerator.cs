@@ -41,6 +41,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var action = new CollectionOfIncidentTemplates(20);
             var survival = new CollectionOfIncidentTemplates(10);
 
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.AccidentalEmbarrassment());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.AccidentalOffense());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Aggression_Social());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Argument_Personal());
@@ -50,6 +51,9 @@ namespace StoryEngine.Incidents.DefaultLibrary
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Cooperation_Social());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Cooperation_Utilitarian());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Deception());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.ImpulsiveDecision());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Internal_Realization());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Internal_Struggle());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Emotional());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace StoryEngine
 {
+    /// <summary>
+    /// Relative rarity of incident - within specific genre/collection (e.g. violence is not rare within action genre)
+    /// </summary>
     public enum Frequency
     {
         Often = 0,
@@ -36,7 +39,7 @@ namespace StoryEngine
         Sadness,    //meloncholy                Blue
         Shame,      //inferior, guilty          Blue_Dark   
         Confusion,  //turmoil, suspicion        Grey_Dark
-        Apathy,     //listless, bored           Grey_Light  
+        Apathy,     //resignation, bored        Grey_Light  
 
         Curiousity, //intrigue                  Purple
         Excitement, //surprise, anticipation    Yellow_Pale

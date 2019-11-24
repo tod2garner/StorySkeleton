@@ -9,27 +9,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
     public static class CreateTemplateManually
     {
         #region CharacterDevelopment
-        /*
-        Future - NewCharacter?
-        Future - RemoveCharacter (death, permanent relocation, etc)
-        
-        Accidental humiliation
-        Internal struggle
-        Impulsive emotional decision
-        Epiphany / self-discovery
-        
-        Agreement/Promise/contract - offered / accepted / broken
-        Compete for favor - competitors, person they are trying to impress
 
-            //Other conversations - interrogation, negotiation
-
-            3+ roles            
-       Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
-       
-
-        */
-
-        public static TemplateForIncident Conversation_Personal()
+        public static TemplateForIncident Conversation_Personal()//discussion, request, planning, negotiation
         {
             var conversation = new TemplateForIncident("Personal Conversation");
             conversation.TheFrequency = Frequency.Often;
@@ -60,7 +41,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return conversation;
         }
 
-        public static TemplateForIncident Argument_Personal()
+        public static TemplateForIncident Argument_Personal()//disagreement, misunderstanding, emotional outburst
         {
             var argument = new TemplateForIncident("Personal Argument");
             argument.TheFrequency = Frequency.Often;
@@ -92,7 +73,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return argument;
         }
 
-        public static TemplateForIncident Cooperation_Utilitarian()
+        public static TemplateForIncident Cooperation_Utilitarian()//contract, teaming-up temporarily
         {
             var utilitarianCooperation = new TemplateForIncident("Utilitarian Cooperation");
             utilitarianCooperation.TheFrequency = Frequency.Often;
@@ -118,7 +99,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return utilitarianCooperation;
         }
 
-        public static TemplateForIncident Cooperation_Social()
+        public static TemplateForIncident Cooperation_Social()//promise, teamwork
         {
             var socialCooperation = new TemplateForIncident("Social Cooperation");
             socialCooperation.TheFrequency = Frequency.Often;
@@ -206,7 +187,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return socialAggression;
         }
 
-        public static TemplateForIncident Deception()//#TODO - add triggers, make success/fail rate based on duration of lie
+        //#TODO - add triggers, make success/fail rate based on duration of lie
+        public static TemplateForIncident Deception()
         {
             var deception = new TemplateForIncident("Deception");
             deception.TheFrequency = Frequency.Periodically;
@@ -372,7 +354,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return emotionalRejection;
         }
 
-        public static TemplateForIncident Betrayal_Social()//#TODO - make magnitude based on how strong trust was
+        //#TODO - make magnitude based on how strong trust was
+        public static TemplateForIncident Betrayal_Social()//broken contract, manipulation
         {
             var socialBetrayal = new TemplateForIncident("Social Betrayal");
             socialBetrayal.TheFrequency = Frequency.ExtremelyRarely;
@@ -410,7 +393,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return socialBetrayal;
         }
 
-        public static TemplateForIncident Betrayal_Emotional()//#TODO - make magnitude based on how strong trust was
+        //#TODO - make magnitude based on how strong trust was
+        public static TemplateForIncident Betrayal_Emotional()//broken promise, deception
         {
             var emotionalBetrayal = new TemplateForIncident("Emotional Betrayal");
             emotionalBetrayal.TheFrequency = Frequency.ExtremelyRarely;
@@ -491,7 +475,138 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return accidentalOffense;
         }
 
+        public static TemplateForIncident AccidentalEmbarrassment()
+        {
+            //Assign name
+            var accidentalEmbarrassment = new TemplateForIncident("Accidental Embarrassment");
+            accidentalEmbarrassment.TheFrequency = Frequency.Periodically;
+            accidentalEmbarrassment.IsPleasant = Pleasantness.NeverPleasant;
 
+            //Add roles
+            var partyEmbarrassed = new Role("Party Embarrassed") { MinCount = 1, MaxCount = null };
+
+            accidentalEmbarrassment.TheRoles.Add(partyEmbarrassed);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyEmbarrassed);
+
+            accidentalEmbarrassment.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Add outcomes
+            ChangeInTrust smallBonding = new ChangeInTrust(1, partyEmbarrassed, partyEmbarrassed, "Small Bonding");
+            ChangeInTrust smallTrustLoss = new ChangeInTrust(-1, partyEmbarrassed, partyEmbarrassed, "Small Trust Loss");
+
+            PossibleResult common = new PossibleResult(60);
+            common.TheOutcomes.Add(smallBonding);
+
+            PossibleResult unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(smallTrustLoss);
+
+            accidentalEmbarrassment.ThePossibleResults.Add(common);
+            accidentalEmbarrassment.ThePossibleResults.Add(unlikely);
+
+            return accidentalEmbarrassment;
+        }
+
+        //#TODO, add outcomes that can change character traits/personality
+        public static TemplateForIncident Internal_Struggle()//crisis of faith, crisis of loyalty, guilty conscience
+        {
+            var internalStruggle = new TemplateForIncident("Internal Struggle");
+            internalStruggle.TheFrequency = Frequency.Rarely;
+            internalStruggle.IsPleasant = Pleasantness.NeverPleasant;
+
+            //Roles
+            var individual = new Role("Individual") { MinCount = 1, MaxCount = 1 };
+
+            internalStruggle.TheRoles.Add(individual);
+
+            //Prereqs - none
+
+            //Outcomes - #TODO, add outcomes that can change character traits/personality
+
+            var common = new PossibleResult(80);
+
+            var unlikely = new PossibleResult(20);
+
+            internalStruggle.ThePossibleResults.Add(common);
+            internalStruggle.ThePossibleResults.Add(unlikely);
+
+            return internalStruggle;
+        }
+
+        //#TODO, add outcomes that can change character traits/personality
+        public static TemplateForIncident Internal_Realization()//epiphany, self-discovery, change in world view, new philosophy
+        {
+            var internalRealization = new TemplateForIncident("Internal Realization");
+            internalRealization.TheFrequency = Frequency.ExtremelyRarely;
+
+            //Roles
+            var individual = new Role("Individual") { MinCount = 1, MaxCount = 1 };
+
+            internalRealization.TheRoles.Add(individual);
+
+            //Prereqs - none
+
+            //Outcomes - #TODO, add outcomes that can change character traits/personality
+
+            var common = new PossibleResult(80);
+
+            var unlikely = new PossibleResult(20);
+
+            internalRealization.ThePossibleResults.Add(common);
+            internalRealization.ThePossibleResults.Add(unlikely);
+
+            return internalRealization;
+        }
+
+        public static TemplateForIncident ImpulsiveDecision()//emotional choice, rushed choice, poorly thought out choice
+        {
+            var impulsiveDecision = new TemplateForIncident("Impulsive Decision");
+            impulsiveDecision.TheFrequency = Frequency.Periodically;
+
+            //Roles
+            var participants = new Role("Group") { MinCount = 1, MaxCount = null };
+
+            impulsiveDecision.TheRoles.Add(participants);
+
+            //Prereqs
+            var prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            impulsiveDecision.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, participants, participants, "Large Bonding");
+
+            var commonBonding = new PossibleResult(80);
+            commonBonding.TheOutcomes.Add(bonding_Small);
+
+            var unlikelyBonding = new PossibleResult(20);
+            unlikelyBonding.TheOutcomes.Add(bonding_Large);
+
+            impulsiveDecision.ThePossibleResults.Add(commonBonding);
+            impulsiveDecision.ThePossibleResults.Add(unlikelyBonding);
+
+            return impulsiveDecision;
+        }
+
+       /*
+       Future - NewCharacter?
+       Future - RemoveCharacter (death, permanent relocation, etc)
+       Future - Compete for favor - competitors, person they are trying to impress
+       
+           3+ roles            
+       Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
+       
+       Split into subtypes:
+            Agreement/Promise/contract - offered / accepted / broken
+            broken = betrayal
+            contract = cooperation_utilitarian
+            promise = cooperation_social      
+                  
+            //Other conversations - interrogation, negotiation
+
+        */
         #endregion
 
         #region Generic
@@ -1287,7 +1402,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return disease;
         }
 
-        public static TemplateForIncident NaturalDisaster()
+        public static TemplateForIncident NaturalDisaster()//wildfire, flood, earthquake, hurricane, tornado
         {
             var naturalDisaster = new TemplateForIncident("Natural Disaster");
             naturalDisaster.TheFrequency = Frequency.ExtremelyRarely;
@@ -1322,7 +1437,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return naturalDisaster;
         }
 
-        public static TemplateForIncident Weather_Challenging()
+        public static TemplateForIncident Weather_Challenging()//rainstorm, blizzard, extreme heat, hail
         {
             var badWeather = new TemplateForIncident("Challenging Weather");
             badWeather.TheFrequency = Frequency.Often;
@@ -1360,7 +1475,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return badWeather;
         }
 
-        public static TemplateForIncident DangerousAnimal()
+        public static TemplateForIncident DangerousAnimal()//in-the-wild, loose in populated area
         {
             var dangerousAnimal = new TemplateForIncident("Dangerous Animal");
             dangerousAnimal.TheFrequency = Frequency.Periodically;
@@ -1445,7 +1560,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
 
        3+ Role Incidents
-       Interrupted Aggression - Attacker, Victim, Protector / Rescuer
+       *rescue/defend* Interrupted Aggression - Attacker, Victim, Protector / Rescuer
        {anything normal event with added observers / witnesses}
 
         */
