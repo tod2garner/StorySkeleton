@@ -911,7 +911,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident RestAndRecover()
         {
             var restAndRecover = new TemplateForIncident("Rest And Recover");
-            restAndRecover.TheFrequency = Frequency.Often;
+            restAndRecover.TheFrequency = Frequency.Periodically;
 
             //Roles
             var participants = new Role("Involved") { MinCount = 1, MaxCount = null };

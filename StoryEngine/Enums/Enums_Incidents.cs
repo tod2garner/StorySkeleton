@@ -73,28 +73,28 @@ namespace StoryEngine
                 case Tone.Calm:
                     return "[White] - Calm, Peace, Relief";
                 case Tone.Empathy:
-                    return "[Green] - Empathy, Connection, Compassion";
+                    return "[Green] - Empathy, Compassion, Connection";
                 case Tone.Sadness:
                     return "[Blue] - Sadness, Melancholy";
                 case Tone.Shame:
-                    return "[Charcoal] - Shame, Inferiority, Self-Doubt, Guilt";
+                    return "[Charcoal] - Self-Doubt, Inferiority, Guilt, Shame";
                 case Tone.Confusion:
-                    return "[Smoke] - Confusion, Turmoil, Suspicion";
+                    return "[Smoke] - Confusion, Suspicion, Turmoil";
                 case Tone.Apathy:
-                    return "[Grey] - Apathy, Resignation, Boredom";
+                    return "[Grey] - Boredom, Resignation, Apathy";
                 case Tone.Curiousity:
-                    return "[Purple] - Curiousity, Surprise, Intrigue";
+                    return "[Purple] - Curiousity, Intrigue, Surprise";
                 case Tone.Joy:
-                    return "[Yellow] - Joy, Excitement, Humor";
+                    return "[Yellow] - Excitement, Humor, Joy";
                 case Tone.Confidence:
-                    return "[Orange] - Confidence, Hope, Determination";
+                    return "[Orange] - Hope, Confidence, Determination";
                 case Tone.Shock:
-                    return "[Brown] - Shock, Disgust, Horror";
+                    return "[Brown] - Disgust, Shock, Horror";
                 case Tone.Anger:
-                    return "[Red] - Anger, Resentment, Disdain";
+                    return "[Red] - Resentment, Anger, Disdain";
                 case Tone.Fear:
                 default:
-                    return "[Black] - Fear, Anxiety, Terror";
+                    return "[Black] - Anxiety, Fear, Terror";
             }
         }
 
