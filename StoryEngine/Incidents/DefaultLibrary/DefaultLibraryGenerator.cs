@@ -82,6 +82,11 @@ namespace StoryEngine.Incidents.DefaultLibrary
             action.TheTemplates.Add(CreateTemplateManually.Persuit_NonViolent());
             action.TheTemplates.Add(CreateTemplateManually.Persuit_Violent());
             action.TheTemplates.Add(CreateTemplateManually.Hide());
+            action.TheTemplates.Add(CreateTemplateManually.CriminalAction_NonViolent());
+            action.TheTemplates.Add(CreateTemplateManually.Betrayal_Violent());
+            action.TheTemplates.Add(CreateTemplateManually.Trapped());
+            action.TheTemplates.Add(CreateTemplateManually.Surrender());
+            action.TheTemplates.Add(CreateTemplateManually.Sabotage());
 
             action.SaveToXML(SAVE_FILE_PATH + "Action.xml");
 

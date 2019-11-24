@@ -143,8 +143,8 @@ namespace StoryEngine.Incidents.DefaultLibrary
             socialAggression.IsPleasant = Pleasantness.NeverPleasant;
 
             //Add roles
-            var partyAttacking = new Role("Party Attacking") { MinCount = 1, MaxCount = null };
-            var partyDefending = new Role("Party Defending") { MinCount = 1, MaxCount = null };
+            var partyAttacking = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var partyDefending = new Role("Defender(s)") { MinCount = 1, MaxCount = null };
 
             socialAggression.TheRoles.Add(partyAttacking);
             socialAggression.TheRoles.Add(partyDefending);
@@ -188,13 +188,13 @@ namespace StoryEngine.Incidents.DefaultLibrary
         }
 
         //#TODO - add triggers, make success/fail rate based on duration of lie
-        public static TemplateForIncident Deception()
+        public static TemplateForIncident Deception()//lying, framing other, disguise
         {
             var deception = new TemplateForIncident("Deception");
             deception.TheFrequency = Frequency.Periodically;
 
             //Add roles
-            var partyAttacking = new Role("Party Deceiving") { MinCount = 1, MaxCount = null };
+            var partyAttacking = new Role("Deceiver(s)") { MinCount = 1, MaxCount = null };
             var partyDefending = new Role("Party Being Deceived") { MinCount = 1, MaxCount = null };
 
             deception.TheRoles.Add(partyAttacking);
@@ -589,24 +589,17 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return impulsiveDecision;
         }
+        
+        /*
+        Future - NewCharacter? (if not, need a way to delay using a character that already was created until later)
+        Future - RemoveCharacter (death, permanent relocation, etc)
+        Future - Compete for favor - competitors, person they are trying to impress
 
-       /*
-       Future - NewCharacter?
-       Future - RemoveCharacter (death, permanent relocation, etc)
-       Future - Compete for favor - competitors, person they are trying to impress
-       
-           3+ roles            
-       Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
-       
-       Split into subtypes:
-            Agreement/Promise/contract - offered / accepted / broken
-            broken = betrayal
-            contract = cooperation_utilitarian
-            promise = cooperation_social      
-                  
-            //Other conversations - interrogation, negotiation
+            3+ roles            
+        Conversation_About3rdParty - Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
+        Rescue_Social - Aggressor, Victim, Rescuer
 
-        */
+         */
         #endregion
 
         #region Generic
@@ -1085,7 +1078,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #endregion
 
         #region Action
-
+        
         public static TemplateForIncident Aggression_Violent()//ambush, fist fight, battle, duel/challenge, outburst
         {
             var violentAggression = new TemplateForIncident("Violent Aggression");
@@ -1183,7 +1176,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return murderousAggression;
         }
 
-        public static TemplateForIncident Persuit_NonViolent()//chase after, run from
+        public static TemplateForIncident Persuit_NonViolent()
         {
             var persuit = new TemplateForIncident("Persuit");
             persuit.TheFrequency = Frequency.Often;
@@ -1228,7 +1221,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
         public static TemplateForIncident Persuit_Violent()//escape, retreat, seek refuge 
         {
             var violentPersuit = new TemplateForIncident("Violent Persuit");
-            violentPersuit.TheFrequency = Frequency.Often;
+            violentPersuit.TheFrequency = Frequency.Periodically;
             violentPersuit.IsPleasant = Pleasantness.NeverPleasant;
             violentPersuit.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
@@ -1303,17 +1296,227 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return hide;
         }
 
+        //#TODO - add prerequisiste so that "good" characters do not end up robbing minor/unnamed characters
+        public static TemplateForIncident CriminalAction_NonViolent()//theft, fraud, smuggling
+        {
+            var crime_Nonviolent = new TemplateForIncident("Criminal Action");
+            crime_Nonviolent.TheFrequency = Frequency.Periodically;
+            crime_Nonviolent.IsPleasant = Pleasantness.NeverPleasant;
+
+            //Add roles
+            var criminals = new Role("Criminal(s)") { MinCount = 0, MaxCount = null };
+            var targets = new Role("Target(s)") { MinCount = 0, MaxCount = null };
+
+            crime_Nonviolent.TheRoles.Add(criminals);
+            crime_Nonviolent.TheRoles.Add(targets);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, criminals, targets);
+            var prereq_MutualMinTrust_Criminals = new MutualTrust_Min(EthicsScale.Cooperate, criminals);
+            var prereq_MutualMinTrust_Targets = new MutualTrust_Min(EthicsScale.Coexist, targets);
+
+            crime_Nonviolent.ThePrerequisites.Add(prereqEthicsMax);
+            crime_Nonviolent.ThePrerequisites.Add(prereq_MutualMinTrust_Criminals);
+            crime_Nonviolent.ThePrerequisites.Add(prereq_MutualMinTrust_Targets);
+
+            //Add outcomes
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, targets, criminals, "Large Trust Loss");
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, targets, criminals, "Major Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, targets, targets, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, targets, targets, "Large Defender Bonding");
+
+            PossibleResult common = new PossibleResult(70);
+            common.TheOutcomes.Add(largeTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+            
+            crime_Nonviolent.ThePossibleResults.Add(common);
+            crime_Nonviolent.ThePossibleResults.Add(unlikely);
+
+            return crime_Nonviolent;
+        }
+        
+        //#TODO - make magnitude based on how strong trust was
+        public static TemplateForIncident Betrayal_Violent()
+        {
+            var violentBetrayal = new TemplateForIncident("Violent Betrayal");
+            violentBetrayal.TheFrequency = Frequency.ExtremelyRarely;
+            violentBetrayal.IsPleasant = Pleasantness.NeverPleasant;
+            violentBetrayal.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var partyAttacking = new Role("Party Betraying") { MinCount = 0, MaxCount = null };
+            var partyDefending = new Role("Party Being Betrayed") { MinCount = 1, MaxCount = null };
+
+            violentBetrayal.TheRoles.Add(partyAttacking);
+            violentBetrayal.TheRoles.Add(partyDefending);
+
+            //Add prereqs
+            var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Beat, partyAttacking, partyDefending);
+            var prereq_DefenderTrustMin = new DirectionalTrust_Min(EthicsScale.Cooperate, partyDefending, partyAttacking);
+            var prereq_AttackerMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
+            var prereq_DefenderMutualTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyDefending);
+
+            violentBetrayal.ThePrerequisites.Add(prereq_AttackerEthicsMax);
+            violentBetrayal.ThePrerequisites.Add(prereq_DefenderTrustMin);
+            violentBetrayal.ThePrerequisites.Add(prereq_AttackerMutualTrust);
+            violentBetrayal.ThePrerequisites.Add(prereq_DefenderMutualTrust);
+
+            //Add outcomes
+            var majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            var massiveTrustLoss = new ChangeInTrust(-4, partyDefending, partyAttacking, "Massive Trust Loss");
+
+            var common = new PossibleResult(60);
+            common.TheOutcomes.Add(majorTrustLoss);
+
+            var unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(massiveTrustLoss);
+
+            violentBetrayal.ThePossibleResults.Add(common);
+            violentBetrayal.ThePossibleResults.Add(unlikely);
+
+            return violentBetrayal;
+        }
+
+        public static TemplateForIncident Trapped()//captured, surrounded
+        {
+            var trapped = new TemplateForIncident("Trapped");
+            trapped.TheFrequency = Frequency.Rarely;
+            trapped.IsPleasant = Pleasantness.NeverPleasant;
+
+            //Add roles
+            var partyAttacking = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var partyDefending = new Role("Defender(s)") { MinCount = 1, MaxCount = null };
+
+            trapped.TheRoles.Add(partyAttacking);
+            trapped.TheRoles.Add(partyDefending);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Beat, partyAttacking, partyDefending);
+            var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
+            var prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Coexist, partyDefending);
+
+            trapped.ThePrerequisites.Add(prereqEthicsMax);
+            trapped.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            trapped.ThePrerequisites.Add(prereq_DefenderMinTrust);
+
+            //Add outcomes
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, partyDefending, partyDefending, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, partyDefending, partyDefending, "Large Defender Bonding");
+
+            PossibleResult common = new PossibleResult(40);
+            common.TheOutcomes.Add(largeTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(35);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+            
+            trapped.ThePossibleResults.Add(common);
+            trapped.ThePossibleResults.Add(unlikely);
+
+            return trapped;
+        }
+
+        //#TODO - make trigger only?
+        public static TemplateForIncident Surrender()
+        {
+            var surrender = new TemplateForIncident("Surrender");
+            surrender.TheFrequency = Frequency.ExtremelyRarely;
+            surrender.IsPleasant = Pleasantness.NeverPleasant;
+
+            //Add roles
+            var partyAttacking = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var partyDefending = new Role("Defender(s)") { MinCount = 1, MaxCount = null };
+
+            surrender.TheRoles.Add(partyAttacking);
+            surrender.TheRoles.Add(partyDefending);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Beat, partyAttacking, partyDefending);
+            var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyAttacking);
+            var prereq_DefenderMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, partyDefending);
+
+            surrender.ThePrerequisites.Add(prereqEthicsMax);
+            surrender.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            surrender.ThePrerequisites.Add(prereq_DefenderMinTrust);
+
+            //Add outcomes
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, partyDefending, partyAttacking, "Large Trust Loss");
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, partyDefending, partyAttacking, "Major Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, partyDefending, partyDefending, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, partyDefending, partyDefending, "Large Defender Bonding");
+
+            PossibleResult common = new PossibleResult(40);
+            common.TheOutcomes.Add(largeTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(35);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+
+            surrender.ThePossibleResults.Add(common);
+            surrender.ThePossibleResults.Add(unlikely);
+
+            return surrender;
+        }
+
+        public static TemplateForIncident Sabotage()
+        {
+            var sabotage = new TemplateForIncident("Sabotage");
+            sabotage.TheFrequency = Frequency.Periodically;
+            sabotage.IsPleasant = Pleasantness.NeverPleasant;
+            sabotage.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var attackers = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var targets = new Role("Target(s)") { MinCount = 0, MaxCount = null };
+
+            sabotage.TheRoles.Add(attackers);
+            sabotage.TheRoles.Add(targets);
+
+            //Add prereqs
+            var prereqEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, attackers, targets);
+            var prereq_MutualMinTrust_Attackers = new MutualTrust_Min(EthicsScale.Cooperate, attackers);
+            var prereq_MutualMinTrust_Targets = new MutualTrust_Min(EthicsScale.Coexist, targets);
+
+            sabotage.ThePrerequisites.Add(prereqEthicsMax);
+            sabotage.ThePrerequisites.Add(prereq_MutualMinTrust_Attackers);
+            sabotage.ThePrerequisites.Add(prereq_MutualMinTrust_Targets);
+
+            //Add outcomes
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, targets, attackers, "Large Trust Loss");
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, targets, attackers, "Major Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, targets, targets, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, targets, targets, "Large Defender Bonding");
+
+            PossibleResult common = new PossibleResult(70);
+            common.TheOutcomes.Add(largeTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+
+            sabotage.ThePossibleResults.Add(common);
+            sabotage.ThePossibleResults.Add(unlikely);
+
+            return sabotage;
+        }
+
         /*
-        Injury / poisoning
-        Criminal activity (non-violent)
-        Betrayal - violent
-        Captured / Trapped / Imprisoned
-        Escape
-        Rescue
-        Surrender
-        Sabotague
+        Add more common action incidents? Right now only Persuit_Nonviolent
+        
+        Injury / poisoning **trigger only?**      
         Public unrest - riot / rebellion / revolution
-        Framed *deception?*
+
+            3+ parties
+        Rescue_Violent - aggressor, victim, rescuer
         */
 
         #endregion
