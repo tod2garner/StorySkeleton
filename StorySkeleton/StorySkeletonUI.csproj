@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +56,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\Characters\CastOverview.xaml.cs">
+      <DependentUpon>CastOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Characters\EditCharacterView.xaml.cs">
+      <DependentUpon>EditCharacterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Characters\NewCharacterView.xaml.cs">
+      <DependentUpon>NewCharacterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Incidents\IncidentDetailView.xaml.cs">
+      <DependentUpon>IncidentDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Incidents\IncidentLibraryView.xaml.cs">
+      <DependentUpon>IncidentLibraryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Incidents\PlotOverview.xaml.cs">
+      <DependentUpon>PlotOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Incidents\RawTextView.xaml.cs">
+      <DependentUpon>RawTextView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Trends\RelationshipTrendView.xaml.cs">
+      <DependentUpon>RelationshipTrendView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +92,38 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Characters\CastOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Characters\EditCharacterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Characters\NewCharacterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Incidents\IncidentDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Incidents\IncidentLibraryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Incidents\PlotOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Incidents\RawTextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Trends\RelationshipTrendView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,6 +152,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="StorySkeleton.Views.NewCharacter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StorySkeleton.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="330" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="5">Randomize Traits</Button>
+                <Button Margin="5">Randomize Relationships</Button>
+            </StackPanel>
+            <local:EditCharacter />
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="5">Save</Button>
+                <Button Margin="5">Cancel</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
