@@ -58,13 +58,15 @@ namespace StoryEngine.Incidents.DefaultLibrary
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
 
-            characterDevelopment.SaveToXML(SAVE_FILE_PATH + "CharacterDevelopment.xml");            
+            characterDevelopment.SaveToXML(SAVE_FILE_PATH + "CharacterDevelopment.xml");
 
+            generic.TheTemplates.Add(CreateTemplateManually.RoutineTask());
             generic.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
             generic.TheTemplates.Add(CreateTemplateManually.Training());
             generic.TheTemplates.Add(CreateTemplateManually.Travel());
             generic.TheTemplates.Add(CreateTemplateManually.SocialGathering());
             generic.TheTemplates.Add(CreateTemplateManually.Message_Received());
+            generic.TheTemplates.Add(CreateTemplateManually.Message_Sent());
             generic.TheTemplates.Add(CreateTemplateManually.Message_Lost());
             generic.TheTemplates.Add(CreateTemplateManually.AcquireTool());
             generic.TheTemplates.Add(CreateTemplateManually.EquipmentFailure());

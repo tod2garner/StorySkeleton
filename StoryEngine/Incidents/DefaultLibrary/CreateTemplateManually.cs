@@ -589,7 +589,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return impulsiveDecision;
         }
-        
+
         /*
         Future - NewCharacter? (if not, need a way to delay using a character that already was created until later)
         Future - RemoveCharacter (death, permanent relocation, etc)
@@ -603,6 +603,38 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #endregion
 
         #region Generic
+
+        public static TemplateForIncident RoutineTask()//eat, sleep, work, grooming
+        {
+            var routineTask = new TemplateForIncident("Routine Task");
+            routineTask.TheFrequency = Frequency.Often;
+
+            //Roles
+            var participants = new Role("Participants") { MinCount = 1, MaxCount = null };
+
+            routineTask.TheRoles.Add(participants);
+
+            //Prereqs
+            MutualTrust_Min prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, participants);
+
+            routineTask.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var distrust_Small = new ChangeInTrust(-1, participants, participants, "Small Distrust");
+
+
+            var common = new PossibleResult(70);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(30);
+            unlikely.TheOutcomes.Add(distrust_Small);
+
+            routineTask.ThePossibleResults.Add(common);
+            routineTask.ThePossibleResults.Add(unlikely);
+
+            return routineTask;
+        }
 
         public static TemplateForIncident Travel()
         {
@@ -769,6 +801,38 @@ namespace StoryEngine.Incidents.DefaultLibrary
             receiveMessage.ThePossibleResults.Add(unlikely);
 
             return receiveMessage;
+        }
+
+        public static TemplateForIncident Message_Sent() //request help, leave instructions
+        {
+            var sendMessage = new TemplateForIncident("Send Message");
+            sendMessage.TheFrequency = Frequency.Periodically;
+
+            //Roles
+            var participants = new Role("Sender(s)") { MinCount = 1, MaxCount = null };
+
+            sendMessage.TheRoles.Add(participants);
+
+            //Prereqs
+            MutualTrust_Min prereq_MutualMinTrust = new MutualTrust_Min(EthicsScale.Coexist, participants);
+
+            sendMessage.ThePrerequisites.Add(prereq_MutualMinTrust);
+
+            //Outcomes
+            var bonding_Small = new ChangeInTrust(1, participants, participants, "Small Bonding");
+            var bonding_Large = new ChangeInTrust(2, participants, participants, "Large Bonding");
+
+
+            var common = new PossibleResult(80);
+            common.TheOutcomes.Add(bonding_Small);
+
+            var unlikely = new PossibleResult(20);
+            unlikely.TheOutcomes.Add(bonding_Large);
+
+            sendMessage.ThePossibleResults.Add(common);
+            sendMessage.ThePossibleResults.Add(unlikely);
+
+            return sendMessage;
         }
 
         public static TemplateForIncident Message_Lost()
