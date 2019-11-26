@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StorySkeleton"
+        xmlns:characterView="clr-namespace:StorySkeleton.Views.Characters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="500" Width="525">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -32,12 +33,7 @@
             </RibbonTab>
         </Ribbon>
         <StackPanel Grid.Row="1">
-            <TextBlock>Tab1 - Characters</TextBlock>
-            <TextBlock>Starting Cast w/ mini-overview of selected charater</TextBlock>
-            <TextBlock>Detailed One Character View - edit properties</TextBlock>
-            <TextBlock>New Character / Random Character Generator</TextBlock>
-            <TextBlock>Tab2 - Events</TextBlock>
-            <TextBlock>Tab3 - Trends</TextBlock>
+            <characterView:CastOverview />
         </StackPanel>
     </Grid>
 </Window>

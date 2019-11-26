@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StorySkeleton.Views
+namespace StorySkeleton.Views.Characters
 {
     /// <summary>
     /// Interaction logic for NewCharacter.xaml

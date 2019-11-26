@@ -56,6 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\CharacterVM.cs" />
+    <Compile Include="ViewModels\IncidentCollectionVM.cs" />
+    <Compile Include="ViewModels\IncidentLibraryVM.cs" />
+    <Compile Include="ViewModels\IncidentTemplateVM.cs" />
+    <Compile Include="ViewModels\a__MainWindowVM.cs" />
+    <Compile Include="ViewModels\PlotGeneratorVM.cs" />
+    <Compile Include="ViewModels\PlotVM.cs" />
+    <Compile Include="ViewModels\SocietyVM.cs" />
     <Compile Include="Views\Characters\CastOverview.xaml.cs">
       <DependentUpon>CastOverview.xaml</DependentUpon>
     </Compile>

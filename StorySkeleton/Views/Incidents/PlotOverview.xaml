@@ -8,6 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
+            <TextBlock>Generator Used</TextBlock>
             <TextBlock>Library Used</TextBlock>
             <TextBlock>Character count</TextBlock>
             <TextBlock>Event count</TextBlock>

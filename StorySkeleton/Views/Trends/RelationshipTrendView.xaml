@@ -7,6 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <StackPanel>
+            <TextBlock Margin="10" TextAlignment="Center" FontSize="14">Relationship Over Time</TextBlock>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="25" />
+                    <ColumnDefinition MinWidth="75" />
+                    <ColumnDefinition MinWidth="25" />
+                    <ColumnDefinition MinWidth="75" />
+                    <ColumnDefinition MinWidth="25" />
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="cbChar1" Grid.Column="1" />
+                <ComboBox Name="cbChar2" Grid.Column="3" />
+            </Grid>
+            <Rectangle Name="InsertGraphHere" MinHeight="100"/>
+        </StackPanel>
     </Grid>
 </UserControl>
