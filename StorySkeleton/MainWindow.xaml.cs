@@ -20,9 +20,14 @@ namespace StorySkeleton
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ViewModels.MainWindowVM myVM;
+
         public MainWindow()
         {
             InitializeComponent();
+            myVM = new ViewModels.MainWindowVM();
+
+            this.DataContext = myVM;
         }
     }
 }

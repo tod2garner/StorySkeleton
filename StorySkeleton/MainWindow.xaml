@@ -21,6 +21,8 @@
             <!-- Application Menu, located at the left-hand side (down arrow) -->
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu KeyTip="F">
+                    <RibbonApplicationMenuItem Header="Save" />
+                    <RibbonApplicationMenuItem Header="Open" />
                     <RibbonApplicationMenuItem Header="Options" />
                     <RibbonApplicationMenuItem Header="Exit" />
                 </RibbonApplicationMenu>
@@ -33,7 +35,7 @@
             </RibbonTab>
         </Ribbon>
         <StackPanel Grid.Row="1">
-            <characterView:CastOverview />
+            <characterView:SocietyView DataContext="{Binding StartingCast}" />
         </StackPanel>
     </Grid>
 </Window>

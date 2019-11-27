@@ -18,9 +18,9 @@ namespace StorySkeleton.Views.Characters
     /// <summary>
     /// Interaction logic for CastOverview.xaml
     /// </summary>
-    public partial class CastOverview : UserControl
+    public partial class SocietyView : UserControl
     {
-        public CastOverview()
+        public SocietyView()
         {
             InitializeComponent();
         }

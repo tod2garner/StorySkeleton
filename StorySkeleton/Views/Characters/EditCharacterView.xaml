@@ -6,10 +6,21 @@
              xmlns:local="clr-namespace:StorySkeleton.Views.Characters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="250">
+    <UserControl.Resources>
+        <DataTemplate x:Key="keyTemplate">
+            <Grid Margin="15,0,0,0">
+                <TextBlock Text="{Binding Name}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
         <StackPanel Width="Auto">
-            <TextBlock FontSize="16" HorizontalAlignment="Center">Bind Name</TextBlock>
-            <GroupBox Header="Traits" Margin="10">
+            <TextBlock FontSize="16" 
+                       HorizontalAlignment="Center" 
+                       Text="{Binding Name}" />
+            <GroupBox Header="Traits" 
+                      ToolTip="Details used by the Plot Generator in the rules for how characters interact."
+                      Margin="10">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Right">Morality</TextBlock>
@@ -17,30 +28,59 @@
                     </StackPanel>
                     <TextBlock Width="25"/>
                     <StackPanel>
-                        <TextBlock>Bind Morality</TextBlock>
-                        <TextBlock>Bind Suspicion</TextBlock>
+                        <TextBlock Text="{Binding BaseMorality}" />
+                        <TextBlock Text="{Binding BaseSuspicion}" />
                     </StackPanel>
                 </StackPanel>
-
             </GroupBox>
             <GroupBox Header="Relationships" Margin="10">
                 <StackPanel Margin="5">
-                    <TextBlock>Confide</TextBlock>
-                    <ItemsControl Name="icConfidantsList">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="15,0,0,0">
-                                    <TextBlock Text="{Binding Name}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <TextBlock>Friend (hidden if none)</TextBlock>
-                    <TextBlock>Cooperate (hidden if none)</TextBlock>
-                    <TextBlock>Coexist (hidden if none)</TextBlock>
-                    <TextBlock>Exploit (hidden if none)</TextBlock>
-                    <TextBlock>Beat (hidden if none)</TextBlock>
-                    <TextBlock>Murder (hidden if none)</TextBlock>
+                    <TextBlock Text="This character has no relationships" 
+                               Visibility="{Binding HasAnyRelationships}"
+                               FontStyle="Italic"
+                               TextAlignment="Center"/>
+                    <TextBlock Text="Confide"
+                               Visibility="{Binding HasZero_Confide}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Confide}"
+                        ItemsSource="{Binding Names_Confide}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
+                    <TextBlock Text="Friend"
+                               Visibility="{Binding HasZero_Friend}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Friend}"
+                        ItemsSource="{Binding Names_Friend}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
+                    <TextBlock Text="Cooperate"
+                               Visibility="{Binding HasZero_Cooperate}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Cooperate}"
+                        ItemsSource="{Binding Names_Cooperate}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
+                    <TextBlock Text="Coexist"
+                               Visibility="{Binding HasZero_Coexist}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Coexist}"
+                        ItemsSource="{Binding Names_Coexist}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
+                    <TextBlock Text="Exploit"
+                               Visibility="{Binding HasZero_Exploit}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Exploit}"
+                        ItemsSource="{Binding Names_Exploit}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
+                    <TextBlock Text="Beat"
+                               Visibility="{Binding HasZero_Beat}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Beat}"
+                        ItemsSource="{Binding Names_Beat}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
+                    <TextBlock Text="Murder"
+                               Visibility="{Binding HasZero_Murder}"/>
+                    <ItemsControl 
+                        Visibility="{Binding HasZero_Murder}"
+                        ItemsSource="{Binding Names_Murder}"
+                        ItemTemplate="{StaticResource keyTemplate}" />
                 </StackPanel>
 
             </GroupBox>

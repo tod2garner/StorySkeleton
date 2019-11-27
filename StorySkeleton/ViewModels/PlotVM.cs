@@ -8,6 +8,6 @@ namespace StorySkeleton.ViewModels
 {
     public class PlotVM
     {
-        //StartingCast = SocietyVM
+        public SocietyVM StartingCast;
     }
 }

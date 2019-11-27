@@ -61,11 +61,12 @@
     <Compile Include="ViewModels\IncidentLibraryVM.cs" />
     <Compile Include="ViewModels\IncidentTemplateVM.cs" />
     <Compile Include="ViewModels\a__MainWindowVM.cs" />
+    <Compile Include="ViewModels\IncidentVM.cs" />
     <Compile Include="ViewModels\PlotGeneratorVM.cs" />
     <Compile Include="ViewModels\PlotVM.cs" />
     <Compile Include="ViewModels\SocietyVM.cs" />
-    <Compile Include="Views\Characters\CastOverview.xaml.cs">
-      <DependentUpon>CastOverview.xaml</DependentUpon>
+    <Compile Include="Views\Characters\SocietyView.xaml.cs">
+      <DependentUpon>SocietyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Characters\EditCharacterView.xaml.cs">
       <DependentUpon>EditCharacterView.xaml</DependentUpon>
@@ -100,7 +101,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Characters\CastOverview.xaml">
+    <Page Include="Views\Characters\SocietyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,7 +161,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\StoryEngine\StoryEngine.csproj">
+      <Project>{454AD953-46D8-4EF8-BAA1-821E8E44013A}</Project>
+      <Name>StoryEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
