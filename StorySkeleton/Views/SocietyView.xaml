@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="StorySkeleton.Views.Characters.SocietyView"
+﻿<UserControl x:Class="StorySkeleton.Views.SocietyView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StorySkeleton.Views.Characters"
+             xmlns:local="clr-namespace:StorySkeleton.Views"
+             xmlns:char="clr-namespace:StorySkeleton.Views.Characters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -16,7 +17,7 @@
                          MinWidth="100" 
                          MinHeight="250"/>
             </StackPanel>
-            <local:EditCharacter x:Name="ucSelectedCharacter"
+            <char:EditCharacter x:Name="ucSelectedCharacter"
                                  DataContext="{Binding SelectedCharacter}"/>
         </StackPanel>
     </Grid>

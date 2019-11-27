@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace StorySkeleton.ViewModels
 {
-    public class IncidentCollectionVM : ViewModel_Base
+    public abstract class ViewModel_Base
     {
+        //#TODO - add common properties and methods
     }
 }

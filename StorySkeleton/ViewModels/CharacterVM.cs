@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace StorySkeleton.ViewModels
 {
-    public class CharacterVM
+    public class CharacterVM : ViewModel_Base
     {
 
         public CharacterVM(Character givenBase, SocietySnapshot society)

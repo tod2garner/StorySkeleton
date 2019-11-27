@@ -4,9 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StorySkeleton"
-        xmlns:characterView="clr-namespace:StorySkeleton.Views.Characters"
+        xmlns:views="clr-namespace:StorySkeleton.Views"
+        xmlns:vm="clr-namespace:StorySkeleton.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="525">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:PlotGeneratorVM}">
+            <views:PlotGeneratorView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PlotVM}">
+            <views:PlotOverview/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SocietyVM}">
+            <views:SocietyView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,6 +39,8 @@
                     <RibbonApplicationMenuItem Header="Exit" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Generator" KeyTip="G">
+            </RibbonTab>
             <RibbonTab Header="Characters" KeyTip="C">
             </RibbonTab>
             <RibbonTab Header="Plot" KeyTip="P">
@@ -34,8 +48,6 @@
             <RibbonTab Header="Trends" KeyTip="T">
             </RibbonTab>
         </Ribbon>
-        <StackPanel Grid.Row="1">
-            <characterView:SocietyView DataContext="{Binding StartingCast}" />
-        </StackPanel>
+        <ContentControl Content="{Binding VM_of_Current_View}"/>
     </Grid>
 </Window>

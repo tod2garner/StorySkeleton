@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StorySkeleton.ViewModels
 {
-    public class IncidentTemplateVM
+    public class IncidentTemplateVM : ViewModel_Base
     {
     }
 }

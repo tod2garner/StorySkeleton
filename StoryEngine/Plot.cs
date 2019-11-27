@@ -25,6 +25,7 @@ namespace StoryEngine
         /// Character information before Event #1
         /// </summary>
         private SocietySnapshot startingCast;
+        public SocietySnapshot StartingCast { get { return startingCast; } }
 
         private List<SocietySnapshot> theCastOverTime;
         /// <summary>

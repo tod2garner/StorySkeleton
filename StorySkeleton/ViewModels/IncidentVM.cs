@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StorySkeleton.ViewModels
 {
-    public class IncidentVM
+    public class IncidentVM : ViewModel_Base
     {
         //Have actual list of Roles (with names of particpants to display)
 

@@ -65,7 +65,11 @@
     <Compile Include="ViewModels\PlotGeneratorVM.cs" />
     <Compile Include="ViewModels\PlotVM.cs" />
     <Compile Include="ViewModels\SocietyVM.cs" />
-    <Compile Include="Views\Characters\SocietyView.xaml.cs">
+    <Compile Include="ViewModels\ViewModel_Base.cs" />
+    <Compile Include="Views\PlotGeneratorView.xaml.cs">
+      <DependentUpon>PlotGeneratorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SocietyView.xaml.cs">
       <DependentUpon>SocietyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Characters\EditCharacterView.xaml.cs">
@@ -80,7 +84,7 @@
     <Compile Include="Views\Incidents\IncidentLibraryView.xaml.cs">
       <DependentUpon>IncidentLibraryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Incidents\PlotOverview.xaml.cs">
+    <Compile Include="Views\PlotOverview.xaml.cs">
       <DependentUpon>PlotOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Incidents\RawTextView.xaml.cs">
@@ -101,7 +105,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Characters\SocietyView.xaml">
+    <Page Include="Views\PlotGeneratorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SocietyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,7 +129,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Incidents\PlotOverview.xaml">
+    <Page Include="Views\PlotOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

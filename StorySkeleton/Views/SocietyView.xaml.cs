@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StorySkeleton.Views.Incidents
+namespace StorySkeleton.Views
 {
     /// <summary>
-    /// Interaction logic for PlotOverview.xaml
+    /// Interaction logic for SocietyView.xaml
     /// </summary>
-    public partial class PlotOverview : UserControl
+    public partial class SocietyView : UserControl
     {
-        public PlotOverview()
+        public SocietyView()
         {
             InitializeComponent();
         }

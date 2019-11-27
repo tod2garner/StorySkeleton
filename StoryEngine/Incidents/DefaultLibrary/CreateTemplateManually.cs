@@ -1199,6 +1199,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             var murderousAggression = new TemplateForIncident("Murderous Aggression");
             murderousAggression.TheFrequency = Frequency.Rarely;
             murderousAggression.IsPleasant = Pleasantness.NeverPleasant;
+            murderousAggression.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
 
             //Add roles
             var partyAttacking = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };

@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace StorySkeleton.ViewModels
 {
-    public class SocietyVM
+    public class SocietyVM : ViewModel_Base
     {
         public SocietySnapshot MyBase;
 
-        public SocietyVM(SocietySnapshot givenBase)
-        {
-            MyBase = givenBase;
-            SelectedCharacter = new CharacterVM(null, MyBase);
-            SelectedId = 0;
-        }
+        public SocietyVM() { }
 
         public List<Character> AllCharacters { get { return MyBase.AllCharacters; } }
         

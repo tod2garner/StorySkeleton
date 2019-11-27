@@ -6,13 +6,50 @@ using System.Threading.Tasks;
 
 namespace StorySkeleton.ViewModels
 {
-    public class MainWindowVM
+    public class MainWindowVM : ViewModel_Base
     {
-        //These two not yet wired up
+        public MainWindowVM()
+        {
+            TheGenerator = new PlotGeneratorVM();
+            ThePlot = new PlotVM();
+
+            RibbonIndex = 0;
+        }
+
+        public ViewModel_Base VM_of_Current_View;
+
+        //Possible main views:
         public PlotGeneratorVM TheGenerator;
         public PlotVM ThePlot;
+        public SocietyVM StartingCast { get { return ThePlot.StartingCast; } }
 
-        //In future remove StartingCast and re-locate into ThePlot
-        public SocietyVM StartingCast;
+        private int ribbonIndex;
+        public int RibbonIndex
+        {
+            get { return ribbonIndex; }
+            set
+            {
+                if(ribbonIndex != value)
+                {
+                    ribbonIndex = value;
+
+                    switch(ribbonIndex)
+                    {
+                        case 0:
+                            VM_of_Current_View = TheGenerator;
+                            break;
+                        case 1:
+                            VM_of_Current_View = StartingCast;
+                            break;
+                        case 2:
+                        default:
+                            VM_of_Current_View = ThePlot;
+                            break;
+                    }
+                }
+            }
+        }
+               
+        
     }
 }
