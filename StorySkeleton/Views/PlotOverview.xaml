@@ -6,22 +6,55 @@
              xmlns:local="clr-namespace:StorySkeleton.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate x:Key="FormatCharacter">
+            <TextBlock Margin="5,0,0,0" Text="{Binding Name}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FormatRole">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding RoleName}"
+                           FontWeight="DemiBold"/>
+                <ItemsControl Margin="10,0,0,0"
+                    ItemsSource="{Binding Participants}" 
+                    ItemTemplate="{StaticResource FormatCharacter}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="FormatIncident">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"
+                           FontWeight="Bold"/>
+                    <TextBlock Margin="5,0,0,0" 
+                               FontStyle="Italic"
+                               FontWeight="Bold"
+                               Text="{Binding TheTone, StringFormat='[{0}]'}"/>
+                </StackPanel>
+                <ItemsControl Margin="20,0,0,10"
+                    ItemsSource="{Binding AllParticipantRoles}"
+                    ItemTemplate="{StaticResource FormatRole}"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <TextBlock>Generator Used</TextBlock>
-            <TextBlock>Library Used</TextBlock>
-            <TextBlock>Character count</TextBlock>
-            <TextBlock>Event count</TextBlock>
-            <TextBlock Margin="5" TextAlignment="Center">Sequence of Events</TextBlock>
-            <ItemsControl>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock>Name</TextBlock>
-                        <TextBlock>Tone</TextBlock>
-                        <TextBlock>List Characters Involved</TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock>Generator Used --- Library Used</TextBlock>
+        <TextBlock Grid.Row="1">Character count --- Event count</TextBlock>
+        <TextBlock Grid.Row="2" Margin="5" FontSize="15" TextAlignment="Center">Sequence of Events</TextBlock>
+        <ScrollViewer Grid.Row="3" Margin="30,0,30,5">
+            <ItemsControl FontSize="12"
+                    ItemsSource="{Binding AllIncidents}" 
+                    ItemTemplate="{StaticResource FormatIncident}"/>
+        </ScrollViewer>
     </Grid>
 </UserControl>

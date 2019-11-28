@@ -34,6 +34,7 @@ namespace StorySkeleton.ViewModels
             OnPropertyChanged("StartingCast");
         }
 
+        public List<IIncident> AllIncidents { get { return myBase.TheIncidents; } }
 
     }
 }
