@@ -16,7 +16,16 @@ namespace StorySkeleton.ViewModels
             RibbonIndex = 1;
         }
 
-        public ViewModel_Base VM_of_Current_View;
+        private ViewModel_Base vm_of_current_view;
+        public ViewModel_Base VM_of_Current_View
+        {
+            get { return vm_of_current_view; }
+            set
+            {
+                vm_of_current_view = value;
+                OnPropertyChanged("VM_of_Current_View");
+            }
+        }
 
         //Possible main views:
         public PlotGeneratorVM TheGenerator;
@@ -32,8 +41,9 @@ namespace StorySkeleton.ViewModels
                 if(ribbonIndex != value)
                 {
                     ribbonIndex = value;
+                    OnPropertyChanged("RibbonIndex");
 
-                    switch(ribbonIndex)
+                    switch (ribbonIndex)
                     {
                         case 0:
                             VM_of_Current_View = TheGenerator;
@@ -46,8 +56,6 @@ namespace StorySkeleton.ViewModels
                             VM_of_Current_View = ThePlot;
                             break;
                     }
-
-                    OnPropertyChanged("VM_of_Current_View");
                 }
             }
         }

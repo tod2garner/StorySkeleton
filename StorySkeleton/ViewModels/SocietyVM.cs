@@ -14,7 +14,7 @@ namespace StorySkeleton.ViewModels
         public SocietyVM(SocietySnapshot givenBase)
         {
             MyBase = givenBase;
-            SelectedId = 0;
+            UpdateSelectedCharacter();
         }
 
         public List<Character> AllCharacters { get { return MyBase?.AllCharacters; } }

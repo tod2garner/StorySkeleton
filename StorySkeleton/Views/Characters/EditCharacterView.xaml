@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="250">
     <UserControl.Resources>
         <DataTemplate x:Key="keyTemplate">
-            <Grid Margin="20,0,0,0">
+            <Grid Margin="50,0,0,0">
                 <TextBlock Text="{Binding}" />
             </Grid>
         </DataTemplate>
@@ -41,42 +41,49 @@
                                FontStyle="Italic"
                                TextAlignment="Center"/>
                     <TextBlock Text="Confide"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Confide}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Confide}"
                         ItemsSource="{Binding Names_Confide}"
                         ItemTemplate="{StaticResource keyTemplate}" />
                     <TextBlock Text="Friend"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Friend}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Friend}"
                         ItemsSource="{Binding Names_Friend}"
                         ItemTemplate="{StaticResource keyTemplate}" />
                     <TextBlock Text="Cooperate"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Cooperate}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Cooperate}"
                         ItemsSource="{Binding Names_Cooperate}"
                         ItemTemplate="{StaticResource keyTemplate}" />
                     <TextBlock Text="Coexist"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Coexist}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Coexist}"
                         ItemsSource="{Binding Names_Coexist}"
                         ItemTemplate="{StaticResource keyTemplate}" />
                     <TextBlock Text="Exploit"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Exploit}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Exploit}"
                         ItemsSource="{Binding Names_Exploit}"
                         ItemTemplate="{StaticResource keyTemplate}" />
                     <TextBlock Text="Beat"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Beat}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Beat}"
                         ItemsSource="{Binding Names_Beat}"
                         ItemTemplate="{StaticResource keyTemplate}" />
                     <TextBlock Text="Murder"
+                               FontStyle="Italic"
                                Visibility="{Binding HasZero_Murder}"/>
                     <ItemsControl 
                         Visibility="{Binding HasZero_Murder}"

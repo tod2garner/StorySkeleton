@@ -24,7 +24,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Ribbon x:Name="MainRibbon"  SelectedIndex="0">
+        <Ribbon x:Name="MainRibbon"  
+                SelectedIndex="{Binding RibbonIndex}">
             <Ribbon.QuickAccessToolBar>
                 <RibbonQuickAccessToolBar>
                     <!--RibbonButton x:Name ="Save" SmallImageSource="Images\save.png" /-->
@@ -45,9 +46,9 @@
             </RibbonTab>
             <RibbonTab Header="Plot" KeyTip="P">
             </RibbonTab>
-            <RibbonTab Header="Trends" KeyTip="T">
+            <RibbonTab Header="Trends" KeyTip="T" IsEnabled="False">
             </RibbonTab>
         </Ribbon>
-        <ContentControl Content="{Binding StartingCast}" Grid.Row="1"/>
+        <ContentControl Content="{Binding VM_of_Current_View}" Grid.Row="1"/>
     </Grid>
 </Window>
