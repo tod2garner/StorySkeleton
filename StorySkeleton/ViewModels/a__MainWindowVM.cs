@@ -11,9 +11,9 @@ namespace StorySkeleton.ViewModels
         public MainWindowVM()
         {
             TheGenerator = new PlotGeneratorVM();
-            ThePlot = new PlotVM();
+            ThePlot = TheGenerator.GeneratePlotVM();
 
-            RibbonIndex = 0;
+            RibbonIndex = 1;
         }
 
         public ViewModel_Base VM_of_Current_View;
@@ -46,6 +46,8 @@ namespace StorySkeleton.ViewModels
                             VM_of_Current_View = ThePlot;
                             break;
                     }
+
+                    OnPropertyChanged("VM_of_Current_View");
                 }
             }
         }

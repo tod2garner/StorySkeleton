@@ -22,19 +22,20 @@ namespace StorySkeleton.ViewModels
         /// </summary>
         private SocietySnapshot storedSociety;
 
+        private Character myBase;
         public Character MyBase
         {
-            get { return MyBase; }
+            get { return myBase; }
             set
             {
-                MyBase = value;
+                myBase = value;
                 LoadAllNames(storedSociety);
             }
         }
 
         public string Name { get { return MyBase.Name; } }
-        public Morality Morality { get { return MyBase.BaseMorality; } }
-        public SuspicionScale Suspicion { get { return MyBase.BaseSuspicion; } }
+        public Morality BaseMorality { get { return MyBase.BaseMorality; } }
+        public SuspicionScale BaseSuspicion { get { return MyBase.BaseSuspicion; } }
 
         public Visibility HasAnyRelationships { get { return MyBase.AllRelations.Any() ? Visibility.Collapsed : Visibility.Visible; } }
         public Visibility HasZero_Confide { get { return names_Confide.Count == 0 ? Visibility.Collapsed : Visibility.Visible; } }
@@ -69,6 +70,15 @@ namespace StorySkeleton.ViewModels
             names_Exploit = LoadNames_OfGivenTrust(society, EthicsScale.Exploit);
             names_Beat = LoadNames_OfGivenTrust(society, EthicsScale.Beat);
             names_Murder = LoadNames_OfGivenTrust(society, EthicsScale.Murder);
+
+
+            OnPropertyChanged("names_Confide");
+            OnPropertyChanged("names_Friend");
+            OnPropertyChanged("names_Cooperate");
+            OnPropertyChanged("names_Coexist");
+            OnPropertyChanged("names_Exploit");
+            OnPropertyChanged("names_Beat");
+            OnPropertyChanged("names_Murder");
         }
 
         public List<string> LoadNames_OfGivenTrust(SocietySnapshot society, EthicsScale givenTrust)

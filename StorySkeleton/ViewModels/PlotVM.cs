@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StoryEngine;
 
 namespace StorySkeleton.ViewModels
 {
     public class PlotVM : ViewModel_Base
     {
-        public PlotVM()
+        public PlotVM(Plot givenBase)
         {
-            StartingCast = new SocietyVM();
+            myBase = givenBase;
+            StartingCast = new SocietyVM(givenBase.StartingCast);
         }
 
         public SocietyVM StartingCast;
 
-        public StoryEngine.Plot MyBase
+        private Plot myBase;
+        public Plot MyBase
         {
-            get { return MyBase; }
+            get { return myBase; }
             set
             {
-                MyBase = value;
+                myBase = value;
                 UpdateStartingCast();
             }
         }
@@ -28,6 +31,7 @@ namespace StorySkeleton.ViewModels
         private void UpdateStartingCast()
         {
             StartingCast.MyBase = MyBase.StartingCast;
+            OnPropertyChanged("StartingCast");
         }
 
 

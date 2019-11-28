@@ -13,8 +13,6 @@ namespace StorySkeleton.ViewModels
 
         public IncidentLibraryVM TheLibrary;
 
-        public int MaxEventCount { get; set; }
-
         public PlotGeneratorVM()
         {
             MyBase = new PlotGenerator_Default();//#TODO - allow user to select between different types of generators
@@ -24,9 +22,8 @@ namespace StorySkeleton.ViewModels
         public PlotVM GeneratePlotVM()
         {
             //#TODO - allow user to setups starting cast first
-            var thePlot = MyBase.GenerateNewPlot(TheLibrary.MyBase, null, MaxEventCount);
-            var plotVM = new PlotVM();
-            plotVM.MyBase = thePlot;
+            var thePlot = MyBase.GenerateNewPlot(TheLibrary.MyBase, null, null);
+            var plotVM = new PlotVM(thePlot);
 
             return plotVM;
         }

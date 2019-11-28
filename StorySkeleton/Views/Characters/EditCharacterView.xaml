@@ -8,8 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="250">
     <UserControl.Resources>
         <DataTemplate x:Key="keyTemplate">
-            <Grid Margin="15,0,0,0">
-                <TextBlock Text="{Binding Name}" />
+            <Grid Margin="20,0,0,0">
+                <TextBlock Text="{Binding}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -33,7 +33,8 @@
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Relationships" Margin="10">
+            <GroupBox Header="Relationships" 
+                      Margin="10">
                 <StackPanel Margin="5">
                     <TextBlock Text="This character has no relationships" 
                                Visibility="{Binding HasAnyRelationships}"

@@ -11,29 +11,43 @@ namespace StorySkeleton.ViewModels
     {
         public SocietySnapshot MyBase;
 
-        public SocietyVM() { }
+        public SocietyVM(SocietySnapshot givenBase)
+        {
+            MyBase = givenBase;
+            SelectedId = 0;
+        }
 
-        public List<Character> AllCharacters { get { return MyBase.AllCharacters; } }
-        
+        public List<Character> AllCharacters { get { return MyBase?.AllCharacters; } }
+
+        private int selectedId;
         public int SelectedId
         {
-            get { return SelectedId; }
+            get { return selectedId; }
             set
             {
-                if(value != SelectedId)
+                if(value != selectedId)
                 {
-                    SelectedId = value;
+                    selectedId = value;
                     UpdateSelectedCharacter();
                 }
             }
         }
 
-        public CharacterVM SelectedCharacter;
+        private CharacterVM selectedCharacter;
+        public CharacterVM SelectedCharacter
+        {
+            get { return selectedCharacter; }
+            set
+            {
+                selectedCharacter = value;
+                OnPropertyChanged("SelectedCharacter");
+            }
+        }
 
         private void UpdateSelectedCharacter()
         {
             var theBaseChar = MyBase.AllCharacters.FirstOrDefault(c => c.Id == SelectedId);
-            SelectedCharacter.MyBase = theBaseChar;
+            SelectedCharacter = new CharacterVM(theBaseChar, MyBase);
         }
     }
 }

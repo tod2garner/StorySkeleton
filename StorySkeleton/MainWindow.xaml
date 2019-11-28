@@ -48,6 +48,6 @@
             <RibbonTab Header="Trends" KeyTip="T">
             </RibbonTab>
         </Ribbon>
-        <ContentControl Content="{Binding VM_of_Current_View}"/>
+        <ContentControl Content="{Binding StartingCast}" Grid.Row="1"/>
     </Grid>
 </Window>
