@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="StorySkeleton.Views.Incidents.IncidentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StorySkeleton.Views.Incidents"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="250">
+    <UserControl.Resources>
+        <DataTemplate x:Key="outcomeText">
+            <Grid Margin="50,0,0,0">
+                <TextBlock Text="{Binding}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="FormatCharacter">
+            <TextBlock Margin="5,0,0,0" Text="{Binding Name}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FormatRole">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding RoleName}"
+                           FontWeight="DemiBold"/>
+                <ItemsControl Margin="10,0,0,0"
+                    ItemsSource="{Binding Participants}" 
+                    ItemTemplate="{StaticResource FormatCharacter}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="{Binding Name}"
+                           FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Margin="5,0,0,0" 
+                         Height="8"
+                         Width="8" 
+                         Stroke="Black"
+                         Fill="{Binding ColorOfTone}"/>
+                <TextBlock Margin="5,0,0,0" 
+                           FontStyle="Italic"
+                           Text="{Binding DescribeTone}"/>
+            </StackPanel>
+            <ItemsControl Margin="20,0,0,0"
+                    ItemsSource="{Binding AllParticipantRoles}"
+                    ItemTemplate="{StaticResource FormatRole}"/>
+            <Expander Margin="20,0,0,10" 
+                      Visibility="{Binding HasAnyOutcomeText}"
+                      Header="Outcome">
+                <ItemsControl ItemsSource="{Binding OutcomeText}"
+                              ItemTemplate="{StaticResource outcomeText}"/>
+            </Expander>
+        </StackPanel>
+    </Grid>
+</UserControl>

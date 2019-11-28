@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StorySkeleton.Views.Incidents
 {
     /// <summary>
-    /// Interaction logic for RawTextView.xaml
+    /// Interaction logic for IncidentTemplateView.xaml
     /// </summary>
-    public partial class RawTextView : UserControl
+    public partial class IncidentTemplateView : UserControl
     {
-        public RawTextView()
+        public IncidentTemplateView()
         {
             InitializeComponent();
         }

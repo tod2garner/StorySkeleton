@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="StorySkeleton.Views.Incidents.IncidentDetailView"
+﻿<UserControl x:Class="StorySkeleton.Views.Incidents.IncidentTemplateView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,8 +13,8 @@
             <TextBlock>Bind IsPleasant</TextBlock>
             <TextBlock>Bind IsHighEnergy</TextBlock>
             <TextBlock Margin="5">List roles</TextBlock>
-            <TextBlock Margin="5">List prerequisites (also summary window for selected?)</TextBlock>
-            <TextBlock Margin="5">List results (also summary window for selected?)</TextBlock>
+            <TextBlock Margin="5">List prerequisites</TextBlock>
+            <TextBlock Margin="5">List results</TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -19,6 +19,9 @@ namespace StoryEngine
             prerequisites = new List<IPrerequisite>();
             allRoles = new List<Role>();
             allPossibleOutcomes = new List<PossibleResult>();
+
+            textSummary = new List<string>();
+            outcomeTextSummary = new List<string>();
         }
 
         private string name;
@@ -29,6 +32,10 @@ namespace StoryEngine
 
         protected List<string> textSummary;
         public List<string> GetTextSummary() { return textSummary; }
+
+        private List<string> outcomeTextSummary;
+        public List<string> OutcomeTextSummary { get { return outcomeTextSummary; } }
+
 
         protected List<IPrerequisite> prerequisites;
         public List<IPrerequisite> MyPrerequisites { get { return prerequisites; } }
@@ -114,7 +121,8 @@ namespace StoryEngine
 
             var chosen = AObjectWithProbability.PickOne(AllPossibleOutcomes, rng);
 
-            this.textSummary.AddRange(chosen.Execute());
+            this.outcomeTextSummary.AddRange(chosen.Execute());
+            this.textSummary.AddRange(outcomeTextSummary);
         }
 
         public virtual void InitializeTextSummary()

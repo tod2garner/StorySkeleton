@@ -71,30 +71,30 @@ namespace StoryEngine
             switch(me)
             {
                 case Tone.Calm:
-                    return "[White] - Calm, Peace, Relief";
+                    return "Calm, Peace, Relief";                   //White
                 case Tone.Empathy:
-                    return "[Green] - Empathy, Compassion, Connection";
+                    return "Empathy, Compassion, Connection";       //Green
                 case Tone.Sadness:
-                    return "[Blue] - Sadness, Melancholy";
+                    return "Sadness, Melancholy";                   //Blue
                 case Tone.Shame:
-                    return "[Charcoal] - Self-Doubt, Inferiority, Guilt, Shame";
+                    return "Self-Doubt, Inferiority, Guilt, Shame"; //Charcoal
                 case Tone.Confusion:
-                    return "[Smoke] - Confusion, Suspicion, Turmoil";
+                    return "Confusion, Suspicion, Turmoil";         //Smoke
                 case Tone.Apathy:
-                    return "[Grey] - Boredom, Resignation, Apathy";
+                    return "Boredom, Resignation, Apathy";          //Grey
                 case Tone.Curiousity:
-                    return "[Purple] - Curiousity, Intrigue, Surprise";
+                    return "Curiousity, Intrigue, Surprise";        //Purple
                 case Tone.Joy:
-                    return "[Yellow] - Excitement, Humor, Joy";
+                    return "Excitement, Humor, Joy";                //Yellow
                 case Tone.Confidence:
-                    return "[Orange] - Hope, Confidence, Determination";
+                    return "Hope, Confidence, Determination";       //Orange
                 case Tone.Shock:
-                    return "[Brown] - Disgust, Shock, Horror";
+                    return "Disgust, Shock, Horror";                //Brown
                 case Tone.Anger:
-                    return "[Red] - Resentment, Anger, Disdain";
+                    return "Resentment, Anger, Disdain";            //Red
                 case Tone.Fear:
                 default:
-                    return "[Black] - Anxiety, Fear, Terror";
+                    return "Anxiety, Fear, Terror";                 //Black
             }
         }
 
