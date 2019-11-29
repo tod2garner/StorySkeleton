@@ -101,23 +101,23 @@ namespace StoryEngine
             this.AllRelations.Add(newRelation);
         }
 
-        public string ChangeTrust(int magnitude, Character target)
+        public List<string> ChangeTrust(int magnitude, Character target)
         {
+            List<string> textSummary = new List<string>();
+
             if (magnitude == 0 || this.Id == target.Id)
-                return string.Empty;
-
-            string textSummary = "";
-
+                return textSummary;
+            
             if (this.IsAcquaintedWith(target.Id) == false)
             {
                 CreateRelationshipWith(target, null);
-                textSummary += string.Format("{0} meets {1} for the first time. ", this.Name, target.Name);
+                textSummary.Add(string.Format("{0} meets {1} for the first time. ", this.Name, target.Name));
             }
 
             var relation = this.AllRelations.First(r => r.OtherId == target.Id);
             relation.ChangeTrust(magnitude, this.BaseSuspicion, this.BaseMorality);
 
-            textSummary += this.DescribeTrustTowards(target, true);
+            textSummary.Add(this.DescribeTrustTowards(target, true));
 
             return textSummary;
         }

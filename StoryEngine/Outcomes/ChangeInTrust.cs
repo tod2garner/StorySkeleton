@@ -50,7 +50,7 @@ namespace StoryEngine
 
             if (beingChanged.Participants.Any(a => towards.Participants.Any(b => a.Id != b.Id)))
             {
-                textSummary.Add(string.Format("OUTCOME: {0}", this.name));
+                textSummary.Add(this.name);
                 textSummary.Add(DescribeOutcomeParticipants());
             }
 
@@ -60,8 +60,8 @@ namespace StoryEngine
                 {
                     var description = s.ChangeTrust(magnitude, t);
 
-                    if (description.Length > 0)
-                        textSummary.Add(string.Format("    - {0}", description));
+                    foreach(string d in description)
+                        textSummary.Add(string.Format("    - {0}", d));
                 }
             }
 

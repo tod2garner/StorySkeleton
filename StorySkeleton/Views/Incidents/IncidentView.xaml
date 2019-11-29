@@ -13,13 +13,13 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="FormatCharacter">
-            <TextBlock Margin="5,0,0,0" Text="{Binding Name}"/>
+            <TextBlock Margin="5,0,0,0" Text="{Binding Name, StringFormat=' -  {0}'}"/>
         </DataTemplate>
         <DataTemplate x:Key="FormatRole">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding RoleName}"
                            FontWeight="DemiBold"/>
-                <ItemsControl Margin="10,0,0,0"
+                <ItemsControl
                     ItemsSource="{Binding Participants}" 
                     ItemTemplate="{StaticResource FormatCharacter}">
                     <ItemsControl.ItemsPanel>
@@ -46,18 +46,19 @@
                            VerticalAlignment="Center"
                            Text="{Binding DescribeTone}"/>
             </StackPanel>
-            <ItemsControl Margin="20,0,0,0"
+            <ItemsControl Margin="20,10,0,0"
                     ItemsSource="{Binding AllParticipantRoles}"
                     ItemTemplate="{StaticResource FormatRole}"/>
-            <Expander Margin="30,0,0,0" 
+            <Expander Margin="30,10,0,0" 
                       Visibility="{Binding HasAnyOutcomeText}"
                       FontSize="20"
                       Header=" Outcome">
-                <ItemsControl ItemsSource="{Binding OutcomeText}"
-                              ItemTemplate="{StaticResource outcomeText}"/>
-                <Expander.RenderTransform>
+                <ItemsControl FontSize="18"
+                    ItemsSource="{Binding OutcomeText}"
+                    ItemTemplate="{StaticResource outcomeText}"/>
+                <Expander.LayoutTransform>
                     <ScaleTransform ScaleX=".6" ScaleY=".6" />
-                </Expander.RenderTransform>
+                </Expander.LayoutTransform>
             </Expander>
         </StackPanel>
     </Grid>

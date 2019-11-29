@@ -20,12 +20,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock>Generator Used --- Library Used</TextBlock>
-        <TextBlock Grid.Row="1">Character count --- Event count</TextBlock>
+        <TextBlock TextAlignment="Center" Grid.Column="1">Generator Used --- Library Used</TextBlock>
+        <TextBlock TextAlignment="Center" Grid.Row="1">Character count --- Event count</TextBlock>
         <TextBlock Grid.Row="2" Margin="5" FontSize="15" TextAlignment="Center">Sequence of Events</TextBlock>
-        <ScrollViewer Grid.Row="3" Margin="30,0,30,5">
-            <ItemsControl FontSize="12"
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer  Grid.Column="1"
+                Margin="0,5,0,5">
+                <ItemsControl FontSize="12"
                     ItemsSource="{Binding AllIncidents}" />
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
+        
     </Grid>
 </UserControl>
