@@ -11,7 +11,7 @@ namespace StoryEngine
     public class Relationship
     {
         //#TODO - move const to config file later?
-        private const int SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS = 100;//Dictates how many events it takes to change trust levels
+        public const int SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS = 100;//Dictates how many events it takes to change trust levels
 
         public Relationship(int givenSelfId, int givenOtherId, EthicsScale initialTrust, EthicsScale initialEthics)
         {

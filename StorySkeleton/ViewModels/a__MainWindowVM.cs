@@ -13,8 +13,6 @@ namespace StorySkeleton.ViewModels
             TheGenerator = new PlotGeneratorVM();
             TheGenerator.GeneratePlot();
 
-            TheTrends = new TrendVM_Relation(ThePlot.MyBase);
-
             RibbonIndex = 1;
         }
 
@@ -33,7 +31,7 @@ namespace StorySkeleton.ViewModels
         public PlotGeneratorVM TheGenerator;
         public PlotVM ThePlot { get { return TheGenerator.ThePlotVM; } }
         public SocietyVM StartingCast { get { return ThePlot.StartingCast; } }
-        public TrendVM_Base TheTrends;
+        public TrendVM_Base TheTrends { get { return new TrendVM_Relation(ThePlot.MyBase); } }
 
         private int ribbonIndex;
         public int RibbonIndex

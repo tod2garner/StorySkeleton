@@ -37,6 +37,9 @@ namespace StorySkeleton.ViewModels
         public virtual void DrawGraph()
         {
             GraphCanvas = new Canvas();
+            GraphCanvas.Width = 300;
+            GraphCanvas.Height = 200;
+            GraphCanvas.Background = Brushes.Black;
 
             foreach (List<int> variable in allFreeVariables)
             {
@@ -53,19 +56,35 @@ namespace StorySkeleton.ViewModels
 
             for (int i = 0; i < xAxisPoints.Count; i++)
             {
-                collection.Add(new Point(xAxisPoints[i], yAxisPoints[i]));
+                var scaledX = Scale_X_value(xAxisPoints[i]);
+                var scaledY = Scale_Y_value(yAxisPoints[i]);
+                var thePoint = new Point(scaledX, scaledY);
+                collection.Add(thePoint);
             }
 
             line.Points = collection;
 
             if (theBrush == null)
-                theBrush = new SolidColorBrush(Colors.Black);
+                theBrush = new SolidColorBrush(Colors.Blue);
 
             line.Stroke = theBrush;
             line.StrokeThickness = 1;
 
             GraphCanvas.Children.Add(line);
         }
+        
+        protected double Scale_X_value(int x)
+        {
+            var maxX = this.TimeVariable.Max();
 
+            var drawnMax = GraphCanvas.Width;
+            //var drawnMax = (GraphCanvas.Parent as FrameworkElement)?.ActualWidth ?? 0;
+
+            double scaledX = (double)x * (double)drawnMax / (double)maxX;
+
+            return scaledX;
+        }
+
+        protected abstract double Scale_Y_value(int y);
     }
 }

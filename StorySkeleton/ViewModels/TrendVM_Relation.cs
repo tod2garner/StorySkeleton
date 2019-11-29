@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StoryEngine;
+using System.Windows;
 
 namespace StorySkeleton.ViewModels
 {
@@ -39,13 +40,13 @@ namespace StorySkeleton.ViewModels
         public override void UpdateTrendLines()
         {
             allFreeVariables = new List<List<int>>();
-
+            
             allFreeVariables.Add(GetPoints_Score(idCharacterA, idCharacterB, true));
             allFreeVariables.Add(GetPoints_Score(idCharacterA, idCharacterB, false));
             allFreeVariables.Add(GetPoints_Score(idCharacterB, idCharacterA, true));
             allFreeVariables.Add(GetPoints_Score(idCharacterB, idCharacterA, false));
 
-            base.DrawGraph();
+            DrawGraph();
         }
 
         protected List<int> GetPoints_Score(int idOne, int idTwo, bool GetTrust_NotEthics)
@@ -66,6 +67,21 @@ namespace StorySkeleton.ViewModels
             }
 
             return allTrustScores;
+        }
+
+        protected override double Scale_Y_value(int y)
+        {
+
+            //#TODOD - change to log scale
+            var maxY = (int) EthicsScale.Confide * Relationship.SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS;
+            var minY = (int)EthicsScale.Murder * Relationship.SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS;
+
+            var drawnMax = GraphCanvas.Height;
+            //var drawnMax = (GraphCanvas.Parent as FrameworkElement)?.ActualHeight ?? 0;
+
+            double scaledY = (double)(y - minY) * (double)drawnMax / (double)(maxY - minY);
+
+            return scaledY;
         }
     }
 }
