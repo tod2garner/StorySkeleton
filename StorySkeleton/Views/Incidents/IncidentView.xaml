@@ -32,27 +32,32 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
+        <StackPanel Margin="0,10,0,0">
             <TextBlock Text="{Binding Name}"
                            FontWeight="Bold"/>
             <StackPanel Orientation="Horizontal">
-                <Ellipse Margin="5,0,0,0" 
-                         Height="8"
-                         Width="8" 
+                <Ellipse Margin="20,0,0,0" 
+                         Height="11"
+                         Width="11" 
                          Stroke="Black"
                          Fill="{Binding ColorOfTone}"/>
                 <TextBlock Margin="5,0,0,0" 
                            FontStyle="Italic"
+                           VerticalAlignment="Center"
                            Text="{Binding DescribeTone}"/>
             </StackPanel>
             <ItemsControl Margin="20,0,0,0"
                     ItemsSource="{Binding AllParticipantRoles}"
                     ItemTemplate="{StaticResource FormatRole}"/>
-            <Expander Margin="20,0,0,10" 
+            <Expander Margin="30,0,0,0" 
                       Visibility="{Binding HasAnyOutcomeText}"
-                      Header="Outcome">
+                      FontSize="20"
+                      Header=" Outcome">
                 <ItemsControl ItemsSource="{Binding OutcomeText}"
                               ItemTemplate="{StaticResource outcomeText}"/>
+                <Expander.RenderTransform>
+                    <ScaleTransform ScaleX=".6" ScaleY=".6" />
+                </Expander.RenderTransform>
             </Expander>
         </StackPanel>
     </Grid>

@@ -32,8 +32,10 @@
                        IsEnabled="False"
                        TextAlignment="Center"/>
             <TextBox Name="tbMaxEventCount"
+                     Text="{Binding MaxEventCount}"
+                     TextAlignment="Center"
                      MaxWidth="50"/>
-            <Button Margin="75">Generate Random Plot</Button>
+            <Button Margin="75" Command="{Binding Command_GeneratePlot}">Generate Random Plot</Button>
         </StackPanel>
     </Grid>
 </UserControl>

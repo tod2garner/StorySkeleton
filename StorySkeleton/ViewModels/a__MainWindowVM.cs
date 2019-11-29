@@ -11,7 +11,7 @@ namespace StorySkeleton.ViewModels
         public MainWindowVM()
         {
             TheGenerator = new PlotGeneratorVM();
-            ThePlot = TheGenerator.GeneratePlotVM();
+            TheGenerator.GeneratePlot();
 
             RibbonIndex = 1;
         }
@@ -29,7 +29,7 @@ namespace StorySkeleton.ViewModels
 
         //Possible main views:
         public PlotGeneratorVM TheGenerator;
-        public PlotVM ThePlot;
+        public PlotVM ThePlot { get { return TheGenerator.ThePlotVM; } }
         public SocietyVM StartingCast { get { return ThePlot.StartingCast; } }
 
         private int ribbonIndex;

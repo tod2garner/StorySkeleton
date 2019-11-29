@@ -10,10 +10,6 @@ namespace StorySkeleton.ViewModels
 {
     public class IncidentVM : ViewModel_Base
     {
-        //Have actual list of Roles (with names of particpants to display)
-        //Instead of VM for each Prereq and Outcome for now, just have strings
-
-
         public IncidentVM(Incident givenBase)
         {
             MyBase = givenBase;
@@ -44,13 +40,13 @@ namespace StorySkeleton.ViewModels
                     case Tone.Sadness:
                         return System.Windows.Media.Brushes.RoyalBlue;
                     case Tone.Shame:
-                        return System.Windows.Media.Brushes.DarkSlateGray;
+                        return System.Windows.Media.Brushes.MidnightBlue;
                     case Tone.Confusion:
                         return System.Windows.Media.Brushes.Gray;
                     case Tone.Apathy:
                         return System.Windows.Media.Brushes.LightGray;
                     case Tone.Curiousity:
-                        return System.Windows.Media.Brushes.Purple;
+                        return System.Windows.Media.Brushes.MediumOrchid;
                     case Tone.Joy:
                         return System.Windows.Media.Brushes.Yellow;
                     case Tone.Confidence:

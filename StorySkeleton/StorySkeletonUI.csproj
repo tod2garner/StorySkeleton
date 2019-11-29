@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\CharacterVM.cs" />
     <Compile Include="ViewModels\IncidentCollectionVM.cs" />
     <Compile Include="ViewModels\IncidentLibraryVM.cs" />

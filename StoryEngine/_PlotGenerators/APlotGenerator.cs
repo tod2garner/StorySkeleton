@@ -8,7 +8,7 @@ namespace StoryEngine.PlotGenerators
 {
     public abstract class APlotGenerator : IPlotGenerator
     {
-        public const int MAX_INCIDENT_COUNT = 100;
+        public const int MAX_INCIDENT_COUNT = 75;
         public const int MAX_CHARACTER_COUNT = 20; //#TODO - not currently used
         protected const int DEFAULT_STARTING_CHARACTER_COUNT = 5;
 
