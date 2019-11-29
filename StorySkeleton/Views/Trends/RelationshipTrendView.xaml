@@ -7,32 +7,33 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <StackPanel>
-            <TextBlock Margin="10" TextAlignment="Center" FontSize="14">Relationship Over Time</TextBlock>
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="25" />
-                    <ColumnDefinition MinWidth="75" />
-                    <ColumnDefinition MinWidth="25" />
-                    <ColumnDefinition MinWidth="75" />
-                    <ColumnDefinition MinWidth="25" />
-                </Grid.ColumnDefinitions>
-                <ComboBox Name="cbChar1" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10" TextAlignment="Center" FontSize="14">Relationship Over Time</TextBlock>
+        <Grid Margin="10" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="25" />
+                <ColumnDefinition MinWidth="75" />
+                <ColumnDefinition MinWidth="25" />
+                <ColumnDefinition MinWidth="75" />
+                <ColumnDefinition MinWidth="25" />
+            </Grid.ColumnDefinitions>
+            <ComboBox Name="cbChar1" 
                          ItemsSource="{Binding AllCharacters}" DisplayMemberPath="Name"
                          SelectedValue="{Binding IdCharacterA}"  SelectedValuePath="Id"
                           Grid.Column="1" />
-                <ComboBox Name="cbChar2" 
+            <ComboBox Name="cbChar2" 
                          ItemsSource="{Binding AllCharacters}" DisplayMemberPath="Name"
                          SelectedValue="{Binding IdCharacterB}"  SelectedValuePath="Id"
                           Grid.Column="3" />
-            </Grid>
-            <DockPanel>
-                <Canvas Name="theGraphContainer" MinHeight="200">
-                    <ContentPresenter Content="{Binding GraphCanvas}"
-                                      Height="{Binding Path=ActualHeight, ElementName=theGraphContainer}"                                      
-                                      Width="{Binding Path=ActualWidth, ElementName=theGraphContainer}"/>
-                </Canvas>
-            </DockPanel>
-        </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Viewbox Stretch="Fill" Margin="5">
+                <ContentPresenter Content="{Binding GraphCanvas}"/>
+            </Viewbox>
+        </Grid>
     </Grid>
 </UserControl>

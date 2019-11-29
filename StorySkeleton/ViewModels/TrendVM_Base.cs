@@ -32,24 +32,24 @@ namespace StorySkeleton.ViewModels
 
         public abstract void UpdateTrendLines();
 
-        public Canvas GraphCanvas { get; private set; }
+        public Canvas GraphCanvas { get; protected set; }
 
         public virtual void DrawGraph()
         {
             GraphCanvas = new Canvas();
-            GraphCanvas.Width = 300;
+            GraphCanvas.Width = 400;
             GraphCanvas.Height = 200;
             GraphCanvas.Background = Brushes.Black;
 
             foreach (List<int> variable in allFreeVariables)
             {
-                DrawPolyline(timeVariable, variable, null);//#TODO - draw different colors
+                DrawPolyline(timeVariable, variable, 1, null);
             }
 
             OnPropertyChanged("GraphCanvas");
         }
 
-        private void DrawPolyline(List<int> xAxisPoints, List<int> yAxisPoints, Brush theBrush)
+        protected void DrawPolyline(List<int> xAxisPoints, List<int> yAxisPoints, double strokeSize, Brush theBrush, DoubleCollection dashPattern = null)
         {
             Polyline line = new Polyline();
             PointCollection collection = new PointCollection();
@@ -68,17 +68,19 @@ namespace StorySkeleton.ViewModels
                 theBrush = new SolidColorBrush(Colors.Blue);
 
             line.Stroke = theBrush;
-            line.StrokeThickness = 1;
+            line.StrokeThickness = strokeSize;
+
+            if (dashPattern != null)
+                line.StrokeDashArray = dashPattern;
 
             GraphCanvas.Children.Add(line);
         }
-        
+
         protected double Scale_X_value(int x)
         {
             var maxX = this.TimeVariable.Max();
 
             var drawnMax = GraphCanvas.Width;
-            //var drawnMax = (GraphCanvas.Parent as FrameworkElement)?.ActualWidth ?? 0;
 
             double scaledX = (double)x * (double)drawnMax / (double)maxX;
 
