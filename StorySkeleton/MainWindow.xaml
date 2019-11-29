@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StorySkeleton"
         xmlns:views="clr-namespace:StorySkeleton.Views"
+        xmlns:trends="clr-namespace:StorySkeleton.Views.Trends"
         xmlns:vm="clr-namespace:StorySkeleton.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="525">
@@ -17,6 +18,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SocietyVM}">
             <views:SocietyView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TrendVM_Relation}">
+            <trends:RelationshipTrendView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -46,7 +50,7 @@
             </RibbonTab>
             <RibbonTab Header="Plot" KeyTip="P">
             </RibbonTab>
-            <RibbonTab Header="Trends" KeyTip="T" IsEnabled="False">
+            <RibbonTab Header="Trends" KeyTip="T">
             </RibbonTab>
         </Ribbon>
         <ContentControl Content="{Binding VM_of_Current_View}" Grid.Row="1"/>

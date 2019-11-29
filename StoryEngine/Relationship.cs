@@ -68,6 +68,7 @@ namespace StoryEngine
         /// If positive, progress towards next higher trust level. If negative, progress towards next lowest level.
         /// </summary>
         public int DurabilityOfTrust { get { return durabilityOfTrust; } }
+        public int TotalTrustScore { get { return durabilityOfTrust + SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS * (int)Trust; } }
 
         [DataMember]
         private int durabilityOfEthics;
@@ -75,6 +76,7 @@ namespace StoryEngine
         /// If positive, progress towards next higher ethics level. If negative, progress towards next lowest level.
         /// </summary>
         public int DurabilityOfEthics { get { return durabilityOfEthics; } }
+        public int TotalEthicsScore { get { return durabilityOfEthics + SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS * (int)Ethics; } }
 
         public Relationship Copy()
         {

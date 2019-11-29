@@ -170,6 +170,17 @@ namespace StoryEngine
             return theTrust.Value;
         }
 
+        public int? GetTrust_Score_TowardsId(int otherCharacterId)
+        {
+            if (this.IsAcquaintedWith(otherCharacterId) == false)
+                return null;
+            else
+            {
+                var relation = this.AllRelations.First(r => r.OtherId == otherCharacterId);
+                return relation.TotalTrustScore;
+            }
+        }
+
         public EthicsScale? GetEthicsTowardsId(int otherCharacterId)
         {
             if (this.IsAcquaintedWith(otherCharacterId) == false)
@@ -195,6 +206,17 @@ namespace StoryEngine
             }
 
             return theEthics.Value;
+        }
+
+        public int? GetEthics_Score_TowardsId(int otherCharacterId)
+        {
+            if (this.IsAcquaintedWith(otherCharacterId) == false)
+                return null;
+            else
+            {
+                var relation = this.AllRelations.First(r => r.OtherId == otherCharacterId);
+                return relation.TotalEthicsScore;
+            }
         }
 
         public List<string> DescribeSelf()

@@ -17,10 +17,20 @@
                     <ColumnDefinition MinWidth="75" />
                     <ColumnDefinition MinWidth="25" />
                 </Grid.ColumnDefinitions>
-                <ComboBox Name="cbChar1" Grid.Column="1" />
-                <ComboBox Name="cbChar2" Grid.Column="3" />
+                <ComboBox Name="cbChar1" 
+                         ItemsSource="{Binding AllCharacters}" DisplayMemberPath="Name"
+                         SelectedValue="{Binding IdCharacterA}"  SelectedValuePath="Id"
+                          Grid.Column="1" />
+                <ComboBox Name="cbChar2" 
+                         ItemsSource="{Binding AllCharacters}" DisplayMemberPath="Name"
+                         SelectedValue="{Binding IdCharacterB}"  SelectedValuePath="Id"
+                          Grid.Column="3" />
             </Grid>
-            <Rectangle Name="InsertGraphHere" MinHeight="100"/>
+            <DockPanel>
+                <Canvas Name="theGraphCanvas">
+                    <ContentPresenter Content="{Binding GraphCanvas}"/>
+                </Canvas>
+            </DockPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -13,6 +13,8 @@ namespace StorySkeleton.ViewModels
             TheGenerator = new PlotGeneratorVM();
             TheGenerator.GeneratePlot();
 
+            TheTrends = new TrendVM_Relation(ThePlot.MyBase);
+
             RibbonIndex = 1;
         }
 
@@ -31,6 +33,7 @@ namespace StorySkeleton.ViewModels
         public PlotGeneratorVM TheGenerator;
         public PlotVM ThePlot { get { return TheGenerator.ThePlotVM; } }
         public SocietyVM StartingCast { get { return ThePlot.StartingCast; } }
+        public TrendVM_Base TheTrends;
 
         private int ribbonIndex;
         public int RibbonIndex
@@ -52,8 +55,11 @@ namespace StorySkeleton.ViewModels
                             VM_of_Current_View = StartingCast;
                             break;
                         case 2:
-                        default:
                             VM_of_Current_View = ThePlot;
+                            break;
+                        case 3:
+                        default:
+                            VM_of_Current_View = TheTrends;
                             break;
                     }
                 }

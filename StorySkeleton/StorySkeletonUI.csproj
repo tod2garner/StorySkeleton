@@ -69,6 +69,8 @@
     <Compile Include="ViewModels\PlotGeneratorVM.cs" />
     <Compile Include="ViewModels\PlotVM.cs" />
     <Compile Include="ViewModels\SocietyVM.cs" />
+    <Compile Include="ViewModels\TrendVM_Base.cs" />
+    <Compile Include="ViewModels\TrendVM_Relation.cs" />
     <Compile Include="ViewModels\ViewModel_Base.cs" />
     <Compile Include="Views\Incidents\IncidentView.xaml.cs">
       <DependentUpon>IncidentView.xaml</DependentUpon>
