@@ -114,18 +114,28 @@ namespace StorySkeleton.ViewModels
 
         protected override double Scale_Y_value(int y)
         {
+            double logY = LogScale_AbsVal(y);
 
-            //#TODOD - change to log scale
             var maxY = 1.25 * (int)EthicsScale.Confide * Relationship.SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS;
             var minY = 1.25 * (int)EthicsScale.Murder * Relationship.SCALE_FOR_GAPS_BETWEEN_TRUST_LEVELS;
 
             var drawnMax = GraphCanvas.Height;
 
-            double scaledY = (double)(y - minY) * (double)drawnMax / (double)(maxY - minY);
+            double scaledY = (logY - (double)minY) * (double)drawnMax / (double)(maxY - minY);
             scaledY = Math.Min(scaledY, drawnMax - 5);
             scaledY = Math.Max(scaledY, 5);
 
             return drawnMax - scaledY;//inverting so that Confide is at top and Murder is at bottom
+        }
+
+        protected double LogScale_AbsVal(int y)
+        {
+            var logY = 500 * Math.Log(Math.Abs((double)y)/100 + 1, 3);//arbitrary log scale with 0=0 base point
+
+            if (y < 0)
+                logY = logY * -1;
+
+            return logY;
         }
     }
 }
