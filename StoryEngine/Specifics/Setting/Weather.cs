@@ -44,11 +44,11 @@ namespace StoryEngine.Specifics.Weather
     {
         public Temperature() : base("Temperature")
         {
-            this.variations.Add(new Detail(10, "Freezing"));
+            this.variations.Add(new Detail(15, "Freezing"));
             this.variations.Add(new Detail(20, "Cold"));
-            this.variations.Add(new Detail(40, "Temperate"));
+            this.variations.Add(new Detail(25, "Temperate"));
             this.variations.Add(new Detail(20, "Warm"));
-            this.variations.Add(new Detail(10, "Hot"));
+            this.variations.Add(new Detail(15, "Hot"));
         }
     }
 

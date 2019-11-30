@@ -26,6 +26,7 @@ namespace StoryEngine.Specifics
 
         public void Randomize(Random rng)
         {
+            description.Clear();
             description.Add("Time of day: " + theTime.Randomize(rng));
             description.Add(theLocation.Randomize(rng));
             description.Add(theWeather.Randomize(rng));

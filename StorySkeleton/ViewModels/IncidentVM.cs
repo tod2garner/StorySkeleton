@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace StorySkeleton.ViewModels
 {
@@ -63,6 +64,23 @@ namespace StorySkeleton.ViewModels
                 }
             }
         }
+        
+        private ICommand command_RandomizeSpecifics;
+        public ICommand Command_RandomizeSpecifics
+        {
+            get
+            {
+                return command_RandomizeSpecifics ?? (command_RandomizeSpecifics = new RelayCommand(RandomizeSpecifics, CanExecute_RandomizeSpecifics));
+            }
+        }
 
+        public bool CanExecute_RandomizeSpecifics() { return true; }
+
+        public void RandomizeSpecifics()
+        {
+            var rng = new Random();
+            MyBase.TheSetting.Randomize(rng);
+            OnPropertyChanged("SettingText");
+        }
     }
 }

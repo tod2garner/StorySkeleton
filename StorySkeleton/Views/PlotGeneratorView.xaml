@@ -35,7 +35,9 @@
                      Text="{Binding MaxEventCount}"
                      TextAlignment="Center"
                      MaxWidth="50"/>
-            <Button Margin="75" Command="{Binding Command_GeneratePlot}">Generate Random Plot</Button>
+            <Button Margin="75" 
+                    Content="Generate Random Plot"
+                    Command="{Binding Command_GeneratePlot}"/>
         </StackPanel>
     </Grid>
 </UserControl>

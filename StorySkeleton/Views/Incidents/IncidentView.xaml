@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StorySkeleton.Views.Incidents"
+             xmlns:local="clr-namespace:StorySkeleton.Views.Incidents"             
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="250">
     <UserControl.Resources>
+        <BitmapImage x:Key="RefreshImage" UriSource="/Images/Refresh.png"/>
         <DataTemplate x:Key="generalText">
             <Grid Margin="50,0,0,0">
                 <TextBlock Text="{Binding}" />
@@ -50,9 +51,27 @@
             <ItemsControl Margin="20,10,0,0"
                     ItemsSource="{Binding AllParticipantRoles}"
                     ItemTemplate="{StaticResource FormatRole}"/>
-            <Expander Margin="30,10,0,0" 
-                      FontSize="20"
-                      Header=" Specifics">
+            <Expander Name ="expSpecifics"
+                      Margin="30,10,0,0" 
+                      FontSize="20">
+                <Expander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text=" Specifics "/>
+                        <Button Grid.Column="1"
+                                IsEnabled="{Binding ElementName=expSpecifics, Path=IsExpanded}"
+                                Command="{Binding Command_RandomizeSpecifics}"
+                                Width="20"
+                                Height="20">
+                            <Button.Background>
+                                <ImageBrush ImageSource="{StaticResource RefreshImage}" Stretch="Fill" TileMode="None" />
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                </Expander.Header>
                 <ItemsControl FontSize="18"
                     ItemsSource="{Binding SettingText}"
                     ItemTemplate="{StaticResource generalText}"/>

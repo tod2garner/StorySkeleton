@@ -26,7 +26,7 @@ namespace StoryEngine.Specifics.Location
                 if (feature != "None")
                     summary += feature + " in the ";
 
-                summary += new Climate().Randomize(rng);
+                summary += new Topography().Randomize(rng);
             }
             else
             {
@@ -96,14 +96,14 @@ namespace StoryEngine.Specifics.Location
         }
     }
 
-    public class Climate : ASpecific
+    public class Topography : ASpecific
     {
-        public Climate() : base("Climate")
+        public Topography() : base("Topography")
         {
             this.variations.Add(new Detail(10, "Forest"));
             this.variations.Add(new Detail(10, "Wetlands"));
             this.variations.Add(new Detail(10, "Shoreline"));
-            this.variations.Add(new Detail(10, "Desert"));
+            this.variations.Add(new Detail(10, "Barrens"));
             this.variations.Add(new Detail(10, "Hills"));
             this.variations.Add(new Detail(10, "Mountains"));
             this.variations.Add(new Detail(10, "Plains"));
