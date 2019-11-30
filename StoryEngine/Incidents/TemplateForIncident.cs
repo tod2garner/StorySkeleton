@@ -57,6 +57,8 @@ namespace StoryEngine
             theIncident.TheStressVariation = this.IsPleasant;
             theIncident.SetToneRandomly(rng);
 
+            theIncident.TheSetting.Randomize(rng);
+
             foreach(Role r in TheRoles)
                 theIncident.AllParticipantRoles.Add(r.Copy());
                         

@@ -8,7 +8,12 @@ namespace StoryEngine
 {
     public class Incident : AIncident
     {
-        public Incident(string givenName) : base(givenName) { }
+        public Incident(string givenName) : base(givenName)
+        {
+            TheSetting = new Specifics.Setting();
+        }
+
+        public Specifics.Setting TheSetting;
 
         private Tone theTone;
         public Tone TheTone { get { return theTone; } }

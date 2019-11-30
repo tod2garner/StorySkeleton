@@ -21,6 +21,8 @@ namespace StorySkeleton.ViewModels
 
         public List<Role> AllParticipantRoles { get { return MyBase.AllParticipantRoles; } }
 
+        public List<string> SettingText { get { return MyBase.TheSetting.Description; } }
+
         public List<string> OutcomeText { get { return MyBase.OutcomeTextSummary; } }
 
         public Visibility HasAnyOutcomeText { get { return MyBase.OutcomeTextSummary.Any() ? Visibility.Visible : Visibility.Collapsed; } }

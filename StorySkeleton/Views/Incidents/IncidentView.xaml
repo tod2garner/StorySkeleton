@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="250">
     <UserControl.Resources>
-        <DataTemplate x:Key="outcomeText">
+        <DataTemplate x:Key="generalText">
             <Grid Margin="50,0,0,0">
                 <TextBlock Text="{Binding}" />
             </Grid>
@@ -51,12 +51,22 @@
                     ItemsSource="{Binding AllParticipantRoles}"
                     ItemTemplate="{StaticResource FormatRole}"/>
             <Expander Margin="30,10,0,0" 
+                      FontSize="20"
+                      Header=" Specifics">
+                <ItemsControl FontSize="18"
+                    ItemsSource="{Binding SettingText}"
+                    ItemTemplate="{StaticResource generalText}"/>
+                <Expander.LayoutTransform>
+                    <ScaleTransform ScaleX=".6" ScaleY=".6" />
+                </Expander.LayoutTransform>
+            </Expander>
+            <Expander Margin="30,10,0,0" 
                       Visibility="{Binding HasAnyOutcomeText}"
                       FontSize="20"
                       Header=" Outcome">
                 <ItemsControl FontSize="18"
                     ItemsSource="{Binding OutcomeText}"
-                    ItemTemplate="{StaticResource outcomeText}"/>
+                    ItemTemplate="{StaticResource generalText}"/>
                 <Expander.LayoutTransform>
                     <ScaleTransform ScaleX=".6" ScaleY=".6" />
                 </Expander.LayoutTransform>

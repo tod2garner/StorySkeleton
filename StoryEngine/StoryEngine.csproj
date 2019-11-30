@@ -78,6 +78,11 @@
     <Compile Include="SocietyGenerators\RelationshipGenerator_RandomTrust.cs" />
     <Compile Include="SocietyGenerators\StartingCastGenerator_Default.cs" />
     <Compile Include="SocietySnapshot.cs" />
+    <Compile Include="Specifics\ASpecific.cs" />
+    <Compile Include="Specifics\Setting.cs" />
+    <Compile Include="Specifics\Setting\Location.cs" />
+    <Compile Include="Specifics\Setting\TimeOfDay.cs" />
+    <Compile Include="Specifics\Setting\Weather.cs" />
     <Compile Include="_PlotGenerators\IPlotGenerator.cs" />
     <Compile Include="_PlotGenerators\APlotGenerator.cs" />
     <Compile Include="_PlotGenerators\PlotGenerator_Default.cs" />
