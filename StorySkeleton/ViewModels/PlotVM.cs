@@ -77,7 +77,7 @@ namespace StorySkeleton.ViewModels
         void IncidentVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SettingText")
-                AllIncidents_Update();
+                AllIncidents_Update();//#TODO - fix later to not reset entire collection, only update one item
         }
     }
 }

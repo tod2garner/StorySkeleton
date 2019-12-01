@@ -1589,8 +1589,10 @@ namespace StoryEngine.Incidents.DefaultLibrary
         #region Mystery
         /*
         
-       Search for hidden person/object/information
-        Riddle to solve / mystery
+        Find riddle to solve / mystery (rare)
+        Search for hidden person/object/information (often)
+        Find clue / useful information (periodically)
+        Uncover explanation for mystery (extremely rare)
 
          */
         #endregion
@@ -1705,9 +1707,9 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return naturalDisaster;
         }
 
-        public static TemplateForIncident Weather_Challenging()//rainstorm, blizzard, extreme heat, hail
+        public static TemplateForIncident Weather_Challenging()//**Specifics have weather details, need this to be generic
         {
-            var badWeather = new TemplateForIncident("Challenging Weather");
+            var badWeather = new TemplateForIncident("Challenge Due To Weather");
             badWeather.TheFrequency = Frequency.Often;
             badWeather.IsPleasant = Pleasantness.NeverPleasant;
 

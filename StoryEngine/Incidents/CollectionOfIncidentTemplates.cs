@@ -36,8 +36,8 @@ namespace StoryEngine
         public IIncident GetRandomIncident(Random rng)
         {
             //First, exclude by rarity
-            var maxRarity = IncidentEnumExtensions.GetRandomFrequency_Weighted(rng);
-            var possibleTemplates = this.TheTemplates.Where(t => t.TheFrequency <= maxRarity).ToList();
+            var matchRarity = IncidentEnumExtensions.GetRandomFrequency_Weighted(rng);
+            var possibleTemplates = this.TheTemplates.Where(t => t.TheFrequency == matchRarity).ToList();
 
             var diceRoll = rng.Next(0, possibleTemplates.Count);
             return possibleTemplates[diceRoll].CreateIncident(rng);

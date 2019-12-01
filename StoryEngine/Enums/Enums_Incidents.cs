@@ -57,13 +57,13 @@ namespace StoryEngine
             var diceRoll = rng.Next(0, 15); //#TODO - replace magic hard-set numbers
 
             if (diceRoll == 0)
-                return Frequency.ExtremelyRarely;   //0
+                return Frequency.ExtremelyRarely;   // 7% - 0
             else if (diceRoll <= 2)
-                return Frequency.Rarely;            //1, 2
+                return Frequency.Rarely;            //13% - 1, 2
             else if (diceRoll <= 6)
-                return Frequency.Periodically;      //3, 4, 5, 6
+                return Frequency.Periodically;      //27% - 3, 4, 5, 6
             else
-                return Frequency.Often;             //7, 8, 9, 10, 11, 12, 13, 14
+                return Frequency.Often;             //53% - 7, 8, 9, 10, 11, 12, 13, 14
         }
 
         public static string ToCustomString(this Tone me)
