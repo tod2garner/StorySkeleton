@@ -11,12 +11,14 @@ namespace StoryEngine.PlotGenerators
         protected const int MAX_CONSECUTIVE_LOW_ENERGY = 2;
         protected const int MAX_CONSECUTIVE_PLEASANT = 2;
         protected const int MAX_CONSECUTIVE_HIGH_ENERGY = 5;
-        protected const int MAX_CONSECUTIVE_UNPLEASANT = 5;
+        protected const int MAX_CONSECUTIVE_UNPLEASANT = 8;
+        protected const int MAX_CONSECUTIVE_OFTEN = 3;
 
         protected int consecutive_LowEnergy;
         protected int consecutive_Pleasant;
         protected int consecutive_HighEnergy;
         protected int consecutive_Unpleasant;
+        protected int consecutive_Often;
 
         protected Incident fromPriorRound;
 
@@ -24,8 +26,9 @@ namespace StoryEngine.PlotGenerators
         {
             for (int i = 0; i < maxNumIncidents; i++)
             {
-                var isFinal = (i == maxNumIncidents - 1);
-                var nextIncident = this.GetNextEvent(rng, isFinal);
+                var isJustBeforeLast = (i > maxNumIncidents - 4) && (i != maxNumIncidents - 1);//Two prior
+                var isLast = (i == maxNumIncidents - 1);
+                var nextIncident = this.GetNextEvent(rng, isJustBeforeLast, isLast);
 
                 if (nextIncident == null) //Incident prerequisites not met, try again
                     continue;
@@ -34,17 +37,17 @@ namespace StoryEngine.PlotGenerators
             }
         }
 
-        protected IIncident GetNextEvent(Random rng, bool isFinalEvent)
+        protected IIncident GetNextEvent(Random rng, bool isJustBeforeEnding, bool isFinalEvent)
         {
-            //#TODO - add something to change rarity of last few events before final event
-
             var chosenCollection = this.possibleIncidents.ChooseRandomCollection(rng);
 
             Pleasantness allowedPleasantness = Pleasantness.EitherPleasantOrNot;
             EnergyLevel allowedEnergy = EnergyLevel.EitherLowOrHigh;
-            GetAllowedEnergyAndPleasantness(ref allowedPleasantness, ref allowedEnergy, isFinalEvent);
 
-            var chosenIncident = chosenCollection.GetRandomIncident(rng, allowedPleasantness, allowedEnergy);
+            GetAllowedEnergyAndPleasantness(ref allowedPleasantness, ref allowedEnergy, isFinalEvent);
+            Frequency minFrequency = GetMinFrequency(isJustBeforeEnding);
+
+            var chosenIncident = chosenCollection.GetRandomIncident(rng, allowedPleasantness, allowedEnergy, minFrequency);
 
             var popluatedSucessfully = chosenIncident?.TryToPopulateIncident(this.currentCast, rng) ?? false;
             if (popluatedSucessfully == false)
@@ -56,9 +59,21 @@ namespace StoryEngine.PlotGenerators
             }
         }
 
+        protected Frequency GetMinFrequency(bool isJustBeforeEnding)
+        {
+            Frequency minF = Frequency.Often;
+
+            if (isJustBeforeEnding)
+                minF = Frequency.Periodically;
+            else if (consecutive_Often >= MAX_CONSECUTIVE_OFTEN)
+                minF = Frequency.Rarely;
+
+            return minF;
+        }
+
         protected void GetAllowedEnergyAndPleasantness(ref Pleasantness p, ref EnergyLevel e, bool isFinalEvent)
         {
-            if(isFinalEvent)
+            if (isFinalEvent)
             {
                 //Final event has opposite energy of the one before it
                 if (fromPriorRound.TheTone.IsHighEnergy())
@@ -75,7 +90,7 @@ namespace StoryEngine.PlotGenerators
                 p = Pleasantness.NeverPleasant;
             else if (consecutive_Unpleasant >= MAX_CONSECUTIVE_UNPLEASANT)
                 p = Pleasantness.AlwaysPleasant;
-            
+
             //Future:
             //  Toggle to allow hook for follow-up story. If true,
             //  allow high energy unpleasant as final event. If false,
@@ -86,6 +101,7 @@ namespace StoryEngine.PlotGenerators
         {
             Update_ConsecutivePleasantness(chosen);
             Update_ConsecutiveEnergyLevel(chosen);
+            Update_ConsecutiveFrequency(chosen);
 
             fromPriorRound = chosen;
         }
@@ -140,6 +156,29 @@ namespace StoryEngine.PlotGenerators
                 {
                     consecutive_HighEnergy = 0;
                     consecutive_LowEnergy = 1;
+                }
+            }
+        }
+
+        protected void Update_ConsecutiveFrequency(Incident chosen)
+        {
+            var isOften_Now = chosen.TheTone.IsHighEnergy();
+            var isOften_Prior = fromPriorRound?.TheTone.IsHighEnergy() ?? !isOften_Now;
+
+            if (isOften_Now == isOften_Prior)
+            {
+                if (isOften_Now)
+                    consecutive_Often++;
+            }
+            else
+            {
+                if (isOften_Now)
+                {
+                    consecutive_Often = 1;
+                }
+                else
+                {
+                    consecutive_Often = 0;
                 }
             }
         }

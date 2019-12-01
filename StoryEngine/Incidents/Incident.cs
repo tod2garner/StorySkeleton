@@ -37,7 +37,7 @@ namespace StoryEngine
                 rng = new Random();
             
             var finalEnergy = e == EnergyLevel.EitherLowOrHigh ? TheEnergyVariation : e;
-            var finalStress = p == Pleasantness.AlwaysPleasant ? TheStressVariation : p;
+            var finalStress = p == Pleasantness.EitherPleasantOrNot ? TheStressVariation : p;
             var possibilities = IncidentEnumExtensions.GetPossibleTones(finalEnergy, finalStress);
 
             var diceRoll = rng.Next(0, possibilities.Count);

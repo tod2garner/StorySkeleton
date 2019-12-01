@@ -35,13 +35,17 @@ namespace StoryEngine
 
         public Incident GetRandomIncident(Random rng)
         {
-            return GetRandomIncident(rng, Pleasantness.EitherPleasantOrNot, EnergyLevel.EitherLowOrHigh);
+            return GetRandomIncident(rng, Pleasantness.EitherPleasantOrNot, EnergyLevel.EitherLowOrHigh, Frequency.Often);
         }
 
-        public Incident GetRandomIncident(Random rng, Pleasantness reqd_p, EnergyLevel reqd_e)
+        public Incident GetRandomIncident(Random rng, Pleasantness reqd_p, EnergyLevel reqd_e, Frequency min_f)
         {
             //First, exclude by Rarity
             var matchRarity = IncidentEnumExtensions.GetRandomFrequency_Weighted(rng);
+
+            if (matchRarity < min_f)
+                matchRarity = min_f;
+
             var possibleTemplates = this.TheTemplates.Where(t => t.TheFrequency == matchRarity).ToList();
 
             //Next, exclude by EnergyLevel
@@ -49,7 +53,7 @@ namespace StoryEngine
                 possibleTemplates = possibleTemplates.Where(t => t.IsHighEnergy == EnergyLevel.EitherLowOrHigh || t.IsHighEnergy == reqd_e).ToList();
 
             //Finally, exclude by Pleasantness
-            if (reqd_p != Pleasantness.EitherPleasantOrNot)
+            if (reqd_p != Pleasantness.EitherPleasantOrNot)//#TODO - need to add more rare incidents that are pleasant to the default library
                 possibleTemplates = possibleTemplates.Where(t => t.IsPleasant == Pleasantness.EitherPleasantOrNot || t.IsPleasant == reqd_p).ToList();
 
             if (false == possibleTemplates.Any())
