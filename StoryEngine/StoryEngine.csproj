@@ -85,7 +85,8 @@
     <Compile Include="Specifics\Setting\Weather.cs" />
     <Compile Include="_PlotGenerators\IPlotGenerator.cs" />
     <Compile Include="_PlotGenerators\APlotGenerator.cs" />
-    <Compile Include="_PlotGenerators\PlotGenerator_Default.cs" />
+    <Compile Include="_PlotGenerators\PlotGenerator_FullRandom.cs" />
+    <Compile Include="_PlotGenerators\PlotGenerator_TonePatterns.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

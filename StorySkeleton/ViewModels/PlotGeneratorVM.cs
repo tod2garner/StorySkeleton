@@ -12,7 +12,7 @@ namespace StorySkeleton.ViewModels
     {
         public PlotGeneratorVM()
         {
-            MyBase = new PlotGenerator_Default();//#TODO - allow user to select between different types of generators
+            MyBase = new PlotGenerator_FullRandom();//#TODO - allow user to select between different types of generators
             TheLibrary = new IncidentLibraryVM();
             MaxEventCount = 25;
         }

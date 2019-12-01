@@ -79,7 +79,7 @@ namespace UnitTests
         [TestMethod]
         public void aaa_GenerateNewRandomPlot()
         {
-            var theGenerator = new PlotGenerator_Default();
+            var theGenerator = new PlotGenerator_TonePatterns();
             var theLibrary = StoryEngine.Incidents.DefaultLibrary.DefaultLibraryGenerator.LoadDefaultLibraryFromFile();
 
             var thePlot = theGenerator.GenerateNewPlot(theLibrary, null, 20);

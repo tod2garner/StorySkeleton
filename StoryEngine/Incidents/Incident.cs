@@ -31,6 +31,19 @@ namespace StoryEngine
             theTone = possibilities[diceRoll];
         }
 
+        public void SetToneRandomly_WithLimits(Random rng, Pleasantness p, EnergyLevel e)
+        {
+            if (rng == null)
+                rng = new Random();
+            
+            var finalEnergy = e == EnergyLevel.EitherLowOrHigh ? TheEnergyVariation : e;
+            var finalStress = p == Pleasantness.AlwaysPleasant ? TheStressVariation : p;
+            var possibilities = IncidentEnumExtensions.GetPossibleTones(finalEnergy, finalStress);
+
+            var diceRoll = rng.Next(0, possibilities.Count);
+            theTone = possibilities[diceRoll];
+        }
+
         public override void InitializeTextSummary()
         {
             base.InitializeTextSummary();

@@ -12,12 +12,12 @@ namespace UnitTests
     [TestClass]
     public class UtPlotGenerator_Default
     {
-        private PlotGenerator_Default theGenerator;
+        private PlotGenerator_FullRandom theGenerator;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            theGenerator = new PlotGenerator_Default();           
+            theGenerator = new PlotGenerator_FullRandom();           
         }
 
         [TestMethod]

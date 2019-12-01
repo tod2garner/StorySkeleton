@@ -49,7 +49,7 @@ namespace StoryEngine
             ThePossibleResults = new List<PossibleResult>();
         }
 
-        public IIncident CreateIncident(Random rng)
+        public Incident CreateIncident(Random rng)
         {
             var theIncident = new Incident(Name);
 
@@ -69,6 +69,14 @@ namespace StoryEngine
                 theIncident.AllPossibleOutcomes.Add(pr.Copy(theIncident.AllParticipantRoles));
 
             return theIncident;
+        }
+
+
+        public Incident CreateIncident(Random rng, Pleasantness forced_P, EnergyLevel forced_E)
+        {
+            var theI = CreateIncident(rng);
+            theI.SetToneRandomly_WithLimits(rng, forced_P, forced_E);
+            return theI;
         }
     }
 }

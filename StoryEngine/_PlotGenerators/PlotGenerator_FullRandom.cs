@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace StoryEngine.PlotGenerators
 {
-    public class PlotGenerator_Default : APlotGenerator
+    public class PlotGenerator_FullRandom : APlotGenerator
     {
         protected override void CreateSequenceOfEvents(int maxNumIncidents, Random rng)
         {
-
             for (int i = 0; i < maxNumIncidents; i++)
             {
                 var nextIncident = this.GetNextEventRandomly(rng);
