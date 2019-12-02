@@ -73,7 +73,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return argument;
         }
 
-        public static TemplateForIncident Cooperation_Utilitarian()//contract, teaming-up temporarily
+        public static TemplateForIncident Cooperation_Utilitarian()//contract, debt, teaming-up temporarily
         {
             var utilitarianCooperation = new TemplateForIncident("Utilitarian Cooperation");
             utilitarianCooperation.TheFrequency = Frequency.Often;
@@ -590,6 +590,60 @@ namespace StoryEngine.Incidents.DefaultLibrary
             return impulsiveDecision;
         }
 
+        public static TemplateForIncident Rescue_Social()
+        {
+            var rescueSocial = new TemplateForIncident("Rescue Socially");
+            rescueSocial.TheFrequency = Frequency.Rarely;
+            rescueSocial.IsPleasant = Pleasantness.EitherPleasantOrNot;
+            rescueSocial.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var attackers = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var victims = new Role("Victim(s)") { MinCount = 1, MaxCount = null };
+            var rescuers = new Role("Rescuer(s)") { MinCount = 1, MaxCount = null };
+
+            rescueSocial.TheRoles.Add(attackers);
+            rescueSocial.TheRoles.Add(victims);
+            rescueSocial.TheRoles.Add(rescuers);
+
+            //Add prereqs
+            var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Exploit, attackers, victims);
+            var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, attackers);
+
+            var prereq_RescuerEthicsMin = new DirectionalEthics_Min(EthicsScale.Coexist, rescuers, victims);
+            var prereq_RescuerEthicsMax = new DirectionalEthics_Max(EthicsScale.Coexist, rescuers, attackers);
+            var prereq_RescuerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, rescuers);
+
+            rescueSocial.ThePrerequisites.Add(prereq_AttackerEthicsMax);
+            rescueSocial.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            rescueSocial.ThePrerequisites.Add(prereq_RescuerEthicsMin);
+            rescueSocial.ThePrerequisites.Add(prereq_RescuerEthicsMax);
+            rescueSocial.ThePrerequisites.Add(prereq_RescuerMinTrust);
+
+            //Add outcomes
+            ChangeInTrust largeTrustLoss = new ChangeInTrust(-2, victims, attackers, "Large Trust Loss");
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, victims, attackers, "Major Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, victims, victims, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, victims, victims, "Large Defender Bonding");
+            ChangeInTrust rescuerBonding_Small = new ChangeInTrust(1, victims, rescuers, "Small Bonding with Rescuer");
+            ChangeInTrust rescuerBonding_Large = new ChangeInTrust(2, victims, rescuers, "Large Bonding with Rescuer");
+
+            PossibleResult common = new PossibleResult(60);
+            common.TheOutcomes.Add(largeTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+            common.TheOutcomes.Add(rescuerBonding_Small);
+
+            PossibleResult unlikely = new PossibleResult(40);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+            common.TheOutcomes.Add(rescuerBonding_Large);
+
+            rescueSocial.ThePossibleResults.Add(common);
+            rescueSocial.ThePossibleResults.Add(unlikely);
+
+            return rescueSocial;
+        }
+
         /*
         Future - NewCharacter? (if not, need a way to delay using a character that already was created until later)
         Future - RemoveCharacter (death, permanent relocation, etc)
@@ -597,7 +651,6 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             3+ roles            
         Conversation_About3rdParty - Targeted Deception/Revelation (lying, unmasking, gossip) - PartyWhoIsTelling, PartyWhoListens, PartyBeingLiedAbout_OrRevealed
-        Rescue_Social - Aggressor, Victim, Rescuer
 
          */
         #endregion
@@ -1573,15 +1626,75 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
             return sabotage;
         }
+        
+        public static TemplateForIncident Rescue_Violent()
+        {
+            var rescueViolent = new TemplateForIncident("Rescue from Violence");
+            rescueViolent.TheFrequency = Frequency.Rarely;
+            rescueViolent.IsPleasant = Pleasantness.EitherPleasantOrNot;
+            rescueViolent.IsHighEnergy = EnergyLevel.AlwaysHighEnergy;
+
+            //Add roles
+            var attackers = new Role("Attacker(s)") { MinCount = 0, MaxCount = null };
+            var victims = new Role("Victim(s)") { MinCount = 1, MaxCount = null };
+            var rescuers = new Role("Rescuer(s)") { MinCount = 1, MaxCount = null };
+
+            rescueViolent.TheRoles.Add(attackers);
+            rescueViolent.TheRoles.Add(victims);
+            rescueViolent.TheRoles.Add(rescuers);
+
+            //Add prereqs
+            var prereq_AttackerEthicsMax = new DirectionalEthics_Max(EthicsScale.Beat, attackers, victims);
+            var prereq_AttackerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, attackers);
+
+            var prereq_RescuerEthicsMin = new DirectionalEthics_Min(EthicsScale.Cooperate, rescuers, victims);
+            var prereq_RescuerEthicsMax = new DirectionalEthics_Max(EthicsScale.Coexist, rescuers, attackers);
+            var prereq_RescuerMinTrust = new MutualTrust_Min(EthicsScale.Cooperate, rescuers);
+
+            rescueViolent.ThePrerequisites.Add(prereq_AttackerEthicsMax);
+            rescueViolent.ThePrerequisites.Add(prereq_AttackerMinTrust);
+            rescueViolent.ThePrerequisites.Add(prereq_RescuerEthicsMin);
+            rescueViolent.ThePrerequisites.Add(prereq_RescuerEthicsMax);
+            rescueViolent.ThePrerequisites.Add(prereq_RescuerMinTrust);
+
+            //Add outcomes
+            ChangeInTrust majorTrustLoss = new ChangeInTrust(-3, victims, attackers, "Major Trust Loss");
+            ChangeInTrust massiveTrustLoss = new ChangeInTrust(-4, victims, attackers, "Massive Trust Loss");
+            ChangeInTrust defendersBonding_Small = new ChangeInTrust(1, victims, victims, "Small Defender Bonding");
+            ChangeInTrust defendersBonding_Large = new ChangeInTrust(2, victims, victims, "Large Defender Bonding");
+            ChangeInTrust defendersBonding_Major = new ChangeInTrust(3, victims, victims, "Major Defender Bonding");
+            ChangeInTrust rescuerBonding_Large = new ChangeInTrust(2, victims, rescuers, "Large Bonding with Rescuer");
+            ChangeInTrust rescuerBonding_Major = new ChangeInTrust(3, victims, rescuers, "Major Bonding with Rescuer");
+
+            PossibleResult common = new PossibleResult(40);
+            common.TheOutcomes.Add(majorTrustLoss);
+            common.TheOutcomes.Add(defendersBonding_Small);
+            common.TheOutcomes.Add(rescuerBonding_Large);
+
+            PossibleResult unlikely = new PossibleResult(35);
+            unlikely.TheOutcomes.Add(majorTrustLoss);
+            unlikely.TheOutcomes.Add(defendersBonding_Large);
+            common.TheOutcomes.Add(rescuerBonding_Large);
+
+            PossibleResult rare = new PossibleResult(25);
+            rare.TheOutcomes.Add(massiveTrustLoss);
+            rare.TheOutcomes.Add(defendersBonding_Major);
+            common.TheOutcomes.Add(rescuerBonding_Major);
+
+            rescueViolent.ThePossibleResults.Add(common);
+            rescueViolent.ThePossibleResults.Add(unlikely);
+            rescueViolent.ThePossibleResults.Add(rare);
+
+            return rescueViolent;
+        }
+
 
         /*
         Add more common action incidents? Right now only Persuit_Nonviolent
         
         Injury / poisoning **trigger only?**      
         Public unrest - riot / rebellion / revolution
-
-            3+ parties
-        Rescue_Violent - aggressor, victim, rescuer
+        
         */
 
         #endregion
@@ -1826,11 +1939,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
 
         /*
 
-
-
-
        3+ Role Incidents
-       *rescue/defend* Interrupted Aggression - Attacker, Victim, Protector / Rescuer
        {anything normal event with added observers / witnesses}
 
         */

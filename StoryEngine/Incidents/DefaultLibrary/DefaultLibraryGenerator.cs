@@ -57,6 +57,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Emotional());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rejection_Social());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
+            characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rescue_Social());
 
             characterDevelopment.SaveToXML(SAVE_FILE_PATH + "CharacterDevelopment.xml");
 
@@ -89,6 +90,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             action.TheTemplates.Add(CreateTemplateManually.Trapped());
             action.TheTemplates.Add(CreateTemplateManually.Surrender());
             action.TheTemplates.Add(CreateTemplateManually.Sabotage());
+            action.TheTemplates.Add(CreateTemplateManually.Rescue_Violent());
 
             action.SaveToXML(SAVE_FILE_PATH + "Action.xml");
 
