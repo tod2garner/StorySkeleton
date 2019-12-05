@@ -26,8 +26,10 @@
                            Margin="20,0,20,20"
                           MinWidth="100"/>
             </StackPanel>
-            <TextBlock Text="Use custom starting cast" TextAlignment="Center"/>
-            <CheckBox IsChecked="False" IsEnabled="False" HorizontalAlignment="Center"/>
+            <TextBlock Text="Keep current starting cast" TextAlignment="Center"/>
+            <CheckBox IsChecked="{Binding KeepStartingCast}" 
+                      ToolTip="If un-checked, will randomly create new starting cast"
+                      HorizontalAlignment="Center"/>
             <TextBlock Text="Max. Event Count"
                        IsEnabled="False"
                        TextAlignment="Center"/>

@@ -43,10 +43,18 @@ namespace StorySkeleton.ViewModels
 
         public void GeneratePlot()
         {
-            //#TODO - allow user to setups starting cast first
-            var thePlot = MyBase.GenerateNewPlot(TheLibrary.MyBase, null, MaxEventCount);
+            var startingCast = keepStartingCast ? thePlotVM.StartingCast.MyBase.Copy() : null;
+            var thePlot = MyBase.GenerateNewPlot(TheLibrary.MyBase, startingCast, MaxEventCount);
             thePlotVM = new PlotVM(thePlot);
             OnPropertyChanged("ThePlotVM");
         }
+
+        private bool keepStartingCast;
+        public bool KeepStartingCast
+        {
+            get { return keepStartingCast; }
+            set { keepStartingCast = value; OnPropertyChanged("KeepStartingCast"); }
+        }
+
     }
 }

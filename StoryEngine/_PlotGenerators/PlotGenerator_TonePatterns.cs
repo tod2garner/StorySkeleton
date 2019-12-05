@@ -64,7 +64,7 @@ namespace StoryEngine.PlotGenerators
             Frequency minF = Frequency.Often;
 
             if (isJustBeforeEnding)
-                minF = Frequency.Periodically;
+                minF = fromPriorRound.TheFrequency < Frequency.Rarely ? Frequency.ExtremelyRarely : Frequency.Rarely;
             else if (consecutive_Often >= MAX_CONSECUTIVE_OFTEN)
                 minF = Frequency.Rarely;
 
