@@ -24,6 +24,8 @@ namespace StoryEngine.PlotGenerators
 
         protected override void CreateSequenceOfEvents(int maxNumIncidents, Random rng)
         {
+            int count_TryAgain = 0;
+
             for (int i = 0; i < maxNumIncidents; i++)
             {
                 var isJustBeforeLast = (i > maxNumIncidents - 4) && (i != maxNumIncidents - 1);//Two prior
@@ -31,7 +33,15 @@ namespace StoryEngine.PlotGenerators
                 var nextIncident = this.GetNextEvent(rng, isJustBeforeLast, isLast);
 
                 if (nextIncident == null) //Incident prerequisites not met, try again
+                {
+                    if(count_TryAgain < (maxNumIncidents / 3))
+                    {
+                        count_TryAgain++;
+                        maxNumIncidents++;
+                    }
+
                     continue;
+                }
 
                 plotInProgress.ExecuteIncidentAndStoreAfter(nextIncident, this.currentCast, rng);
             }

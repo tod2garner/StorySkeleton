@@ -9,6 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* #TODO
+ Informal Backlog
+    Create installer
+    Add events to default library for mystery - find out something puzzling, seek missing info/person/item, solve mystery, uncover deception
+    
+    Save starting cast
+    Load starting cast
+
+    Edit library - preset blend of collections for drama, action, mystery
+    Save / load changes to library
+    Edit plot generator type
+    
+    Trend of Tone over time
+    Trend of Rarity over time
+
+     */
+
 namespace UnitTests
 {
     [TestClass]
