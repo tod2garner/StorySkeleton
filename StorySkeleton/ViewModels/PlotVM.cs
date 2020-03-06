@@ -79,5 +79,8 @@ namespace StorySkeleton.ViewModels
             if (e.PropertyName == "SettingText")
                 AllIncidents_Update();//#TODO - fix later to not reset entire collection, only update one item
         }
+
+        public int Count_Characters { get{ return StartingCast.AllCharacters.Count; } }
+        public int Count_Incidents { get{ return AllIncidents.Count; } }
     }
 }

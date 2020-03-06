@@ -20,9 +20,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock TextAlignment="Center" Grid.Column="1">Generator Used --- Library Used</TextBlock>
-        <TextBlock TextAlignment="Center" Grid.Row="1">Character count --- Event count</TextBlock>
-        <TextBlock Grid.Row="2" Margin="5" FontSize="15" TextAlignment="Center">Sequence of Events</TextBlock>
+      <TextBlock Grid.Row="0" Margin="10" FontSize="20" TextAlignment="Center">Sequence of Events</TextBlock>
+        <TextBlock TextAlignment="Center" Grid.Column="1" Grid.Row="1">Generator Used --- Library Used</TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,5,0,5">
+          <TextBlock TextAlignment="Center" Text="{Binding Count_Characters}" />
+          <TextBlock TextAlignment="Center" Margin="4,0,40,0"> characters</TextBlock>
+          <TextBlock TextAlignment="Center" Text="{Binding Count_Incidents}" />
+          <TextBlock TextAlignment="Center" Margin="4,0,0,0"> events</TextBlock>
+        </StackPanel>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

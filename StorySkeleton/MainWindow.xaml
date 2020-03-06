@@ -37,12 +37,7 @@
             </Ribbon.QuickAccessToolBar>
             <!-- Application Menu, located at the left-hand side (down arrow) -->
             <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu KeyTip="F">
-                    <RibbonApplicationMenuItem Header="Save" />
-                    <RibbonApplicationMenuItem Header="Open" />
-                    <RibbonApplicationMenuItem Header="Options" />
-                    <RibbonApplicationMenuItem Header="Exit" />
-                </RibbonApplicationMenu>
+                <RibbonApplicationMenu Visibility="Collapsed"/>
             </Ribbon.ApplicationMenu>
             <RibbonTab Header="Generator" KeyTip="G">
             </RibbonTab>
