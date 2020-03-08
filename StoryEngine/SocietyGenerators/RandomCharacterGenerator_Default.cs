@@ -41,6 +41,8 @@ namespace StoryEngine.SocietyGenerators
             else
                 c.BaseMorality = Morality.Exploit;
 
+            c.TheSpecifics.Randomize(rng);
+
             return c;
         }
     }

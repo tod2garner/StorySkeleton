@@ -17,6 +17,7 @@ namespace StorySkeleton.ViewModels
             myBase = givenBase;
             StartingCast = new SocietyVM(givenBase.StartingCast);
             allIncidents = new ObservableCollection<IncidentVM>();
+            AllIncidents.CollectionChanged += AllIncidents_CollectionChanged;
             AllIncidents_Update();
         }
 

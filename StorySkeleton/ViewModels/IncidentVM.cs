@@ -80,7 +80,7 @@ namespace StorySkeleton.ViewModels
         {
             var rng = new Random();
             MyBase.TheSetting.Randomize(rng);
-            OnPropertyChanged("SettingText");
+            OnPropertyChanged(nameof(SettingText));
         }
     }
 }

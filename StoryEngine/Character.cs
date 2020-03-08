@@ -31,6 +31,7 @@ namespace StoryEngine
             allRelations = new List<Relationship>();
 
             this.baseSuspicion = SuspicionScale.Average;
+            TheSpecifics = new Specifics.CharacterSpecifics();
         }
 
         /// <summary>
@@ -76,12 +77,17 @@ namespace StoryEngine
             get { return baseMorality; }
             set { baseMorality = value; }
         }
+        
+        [DataMember]
+        public Specifics.CharacterSpecifics TheSpecifics;
 
         public Character Copy()
         {
             var theCopy = new Character(this.Id, this.Name);
             theCopy.BaseMorality = this.BaseMorality;
             theCopy.BaseSuspicion = this.BaseSuspicion;
+
+            theCopy.TheSpecifics = this.TheSpecifics;
 
             foreach (Relationship r in this.AllRelations)
                 theCopy.AllRelations.Add(r.Copy());

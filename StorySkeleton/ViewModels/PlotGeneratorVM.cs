@@ -14,7 +14,7 @@ namespace StorySkeleton.ViewModels
         {
             MyBase = new PlotGenerator_TonePatterns();//#TODO - allow user to select between different types of generators
             TheLibrary = new IncidentLibraryVM();
-            MaxEventCount = 25;
+            MaxEventCount = 15;
         }
 
         public APlotGenerator MyBase;

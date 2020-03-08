@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace StorySkeleton.ViewModels
 {
     public class CharacterVM : ViewModel_Base
     {
 
-        public CharacterVM(Character givenBase, SocietySnapshot society)
+        public CharacterVM(Character givenBase, SocietySnapshot givenSociety)
         {
-            storedSociety = society;
+            storedSociety = givenSociety;
             MyBase = givenBase;
         }
 
@@ -91,5 +92,61 @@ namespace StorySkeleton.ViewModels
 
             return theNames;
         }
+
+        public List<string> AppearanceText { get { return MyBase.TheSpecifics.TheAppearance.Description; } }
+        public List<string> PersonalityText { get { return MyBase.TheSpecifics.ThePersonality.Description; } }
+        public List<string> BackgroundText { get { return MyBase.TheSpecifics.TheBackground.Description; } }
+        public List<string> MotivationText { get { return MyBase.TheSpecifics.TheMotivation.Description; } }
+
+        public void RandomizeAppearance()
+        {
+            var rng = new Random();
+            MyBase.TheSpecifics.TheAppearance.Randomize(rng);
+
+            OnPropertyChanged(nameof(AppearanceText));
+        }
+
+        public void RandomizePersonality()
+        {
+            var rng = new Random();
+            MyBase.TheSpecifics.ThePersonality.Randomize(rng);
+
+            OnPropertyChanged(nameof(PersonalityText));
+        }
+
+        public void RandomizeBackground()
+        {
+            var rng = new Random();
+            MyBase.TheSpecifics.TheBackground.Randomize(rng);
+
+            OnPropertyChanged(nameof(BackgroundText));
+        }
+
+        public void RandomizeMotivation()
+        {
+            var rng = new Random();
+            MyBase.TheSpecifics.TheMotivation.Randomize(rng);
+
+            OnPropertyChanged(nameof(MotivationText));
+        }
+
+
+        private ICommand command_RandomizeAppearance;
+        public ICommand Command_RandomizeAppearance { get { return command_RandomizeAppearance ?? (command_RandomizeAppearance = new RelayCommand(RandomizeAppearance, CanExecute_RandomizeAppearance)); } }
+
+        private ICommand command_RandomizePersonality;
+        public ICommand Command_RandomizePersonality { get { return command_RandomizePersonality ?? (command_RandomizePersonality = new RelayCommand(RandomizePersonality, CanExecute_RandomizePersonality)); } }
+
+        private ICommand command_RandomizeBackground;
+        public ICommand Command_RandomizeBackground { get { return command_RandomizeBackground ?? (command_RandomizeBackground = new RelayCommand(RandomizeBackground, CanExecute_RandomizeBackground)); } }
+
+        private ICommand command_RandomizeMotivation;
+        public ICommand Command_RandomizeMotivation { get { return command_RandomizeMotivation ?? (command_RandomizeMotivation = new RelayCommand(RandomizeMotivation, CanExecute_RandomizeMotivation)); } }
+
+        public bool CanExecute_RandomizeAppearance() { return true; }
+        public bool CanExecute_RandomizePersonality() { return true; }
+        public bool CanExecute_RandomizeBackground() { return true; }
+        public bool CanExecute_RandomizeMotivation() { return true; }
+
     }
 }
