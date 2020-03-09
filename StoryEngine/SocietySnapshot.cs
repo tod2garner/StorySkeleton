@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine
 {
+    [DataContract]
     /// <summary>
     /// At a specific point in time, a snapshot of all characters with their traits and relationships
     /// </summary>
@@ -16,10 +18,11 @@ namespace StoryEngine
             allCharacters = new List<Character>();
         }
 
+        [DataMember]
         private List<Character> allCharacters;
         public List<Character> AllCharacters { get { return allCharacters; } }
 
-        //Future: implement generic groups (ie races, nationalities, economic classes)
+        //Future: implement generic groups (ie races, nationalities, economic classes) #TODO
 
         public SocietySnapshot Copy()
         {
@@ -29,6 +32,17 @@ namespace StoryEngine
                 theCopy.AllCharacters.Add(c.Copy());
 
             return theCopy;
+        }
+               
+        public static SocietySnapshot LoadFromFile(string file_path_and_name)
+        {
+            var theSociety = SerializeXML.LoadFromXML<SocietySnapshot>(file_path_and_name);
+            return theSociety;
+        }
+
+        public void SaveToFile(string file_path_and_name)
+        {
+            this.SaveToXML(file_path_and_name);
         }
 
         public List<string> GetTextSummary()

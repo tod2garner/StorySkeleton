@@ -39,13 +39,27 @@
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Collapsed"/>
             </Ribbon.ApplicationMenu>
-            <RibbonTab Header="Generator" KeyTip="G">
+            <RibbonTab Header="Generator" 
+                       KeyTip="G"
+                       DataContext="{Binding TheGenerator}">
             </RibbonTab>
-            <RibbonTab Header="Characters" KeyTip="C">
+            <RibbonTab Header="Characters" 
+                       KeyTip="C"
+                       DataContext="{Binding StartingCast}">
+                <RibbonGroup>
+                    <Button Command="{Binding Command_SaveToFile}"
+                        Margin="5"
+                        Width="100"
+                        Height="20">Save Starting Cast</Button>
+                </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Plot" KeyTip="P">
+            <RibbonTab Header="Plot" 
+                       KeyTip="P"
+                       DataContext="{Binding ThePlot}">
             </RibbonTab>
-            <RibbonTab Header="Trends" KeyTip="T">
+            <RibbonTab Header="Trends" 
+                       KeyTip="T"
+                       DataContext="{Binding TheTrends}">
             </RibbonTab>
         </Ribbon>
         <ContentControl Content="{Binding VM_of_Current_View}" Grid.Row="1"/>

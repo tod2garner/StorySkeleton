@@ -28,7 +28,7 @@ namespace StoryEngine
         public string Name { get { return name; } }
 
         private Frequency theFrequency;
-        public Frequency TheFrequency { get { return theFrequency; } }
+        public Frequency TheFrequency { get { return theFrequency; } set { theFrequency = value; } }
 
         protected List<string> textSummary;
         public List<string> GetTextSummary() { return textSummary; }

@@ -55,6 +55,7 @@ namespace StoryEngine
 
             theIncident.TheEnergyVariation = this.IsHighEnergy;
             theIncident.TheStressVariation = this.IsPleasant;
+            theIncident.TheFrequency = this.TheFrequency;
             theIncident.SetToneRandomly(rng);
 
             theIncident.TheSetting.Randomize(rng);

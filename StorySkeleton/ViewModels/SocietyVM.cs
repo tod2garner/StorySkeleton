@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace StorySkeleton.ViewModels
 {
@@ -26,7 +28,7 @@ namespace StorySkeleton.ViewModels
             get { return selectedId; }
             set
             {
-                if(value != selectedId)
+                if (value != selectedId)
                 {
                     selectedId = value;
                     UpdateSelectedCharacter();
@@ -49,20 +51,36 @@ namespace StorySkeleton.ViewModels
         {
             var theBaseChar = MyBase.AllCharacters.FirstOrDefault(c => c.Id == SelectedId);
 
-            if(SelectedCharacter != null)
+            if (SelectedCharacter != null)
                 SelectedCharacter.PropertyChanged -= CharacterVM_PropertyChanged;
 
             SelectedCharacter = new CharacterVM(theBaseChar, MyBase);
             SelectedCharacter.PropertyChanged += CharacterVM_PropertyChanged;
         }
-               
+
         void CharacterVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //#TODO - FIX - for now, force to change characters and back to trigger update
             var realID = selectedId;
             var tempID = (selectedId == 0) ? 1 : 0;
-            SelectedId = tempID;            
+            SelectedId = tempID;
             SelectedId = realID;
         }
+
+        public void SaveToFile()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Character file (*.cast)|*.cast";
+            saveFileDialog.FileName = "Society1.cast";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (saveFileDialog.ShowDialog() == true)
+                MyBase.SaveToFile(saveFileDialog.FileName);
+        }
+
+        private ICommand command_SaveToFile;
+        public ICommand Command_SaveToFile { get { return command_SaveToFile ?? (command_SaveToFile = new RelayCommand(SaveToFile, CanExecute_SaveToFile)); } }
+
+        public bool CanExecute_SaveToFile() { return true; }
     }
 }

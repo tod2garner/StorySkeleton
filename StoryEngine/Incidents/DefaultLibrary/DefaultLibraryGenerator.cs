@@ -30,7 +30,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             foreach(string name in collectionNames)
             {
                 var path = save_file_path + name;
-                var theCollection = SerializeXML.LoadFromXML<CollectionOfIncidentTemplates>(path);
+                var theCollection = CollectionOfIncidentTemplates.LoadFromFile(path);
                 theLibrary.AllCollections.Add(theCollection);
             }
             
@@ -64,7 +64,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.SacrificeForOther());
             characterDevelopment.TheTemplates.Add(CreateTemplateManually.Rescue_Social());
 
-            characterDevelopment.SaveToXML(save_file_path + "CharacterDevelopment.xml");
+            characterDevelopment.SaveToFile(save_file_path + "CharacterDevelopment.xml");
 
             generic.TheTemplates.Add(CreateTemplateManually.RoutineTask());
             generic.TheTemplates.Add(CreateTemplateManually.SelfImprovement());
@@ -83,7 +83,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             generic.TheTemplates.Add(CreateTemplateManually.Luck_Good());
             generic.TheTemplates.Add(CreateTemplateManually.OrganizedCompetition());
 
-            generic.SaveToXML(save_file_path + "Generic.xml");
+            generic.SaveToFile(save_file_path + "Generic.xml");
             
             action.TheTemplates.Add(CreateTemplateManually.Aggression_Violent());
             action.TheTemplates.Add(CreateTemplateManually.Aggression_Murderous());
@@ -97,7 +97,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             action.TheTemplates.Add(CreateTemplateManually.Sabotage());
             action.TheTemplates.Add(CreateTemplateManually.Rescue_Violent());
 
-            action.SaveToXML(save_file_path + "Action.xml");
+            action.SaveToFile(save_file_path + "Action.xml");
 
             survival.TheTemplates.Add(CreateTemplateManually.Lost());
             survival.TheTemplates.Add(CreateTemplateManually.NaturalDisaster());
@@ -106,7 +106,7 @@ namespace StoryEngine.Incidents.DefaultLibrary
             survival.TheTemplates.Add(CreateTemplateManually.DangerousAnimal());
             survival.TheTemplates.Add(CreateTemplateManually.Survival());
 
-            survival.SaveToXML(save_file_path + "Survival.xml");
+            survival.SaveToFile(save_file_path + "Survival.xml");
         }
 
     }

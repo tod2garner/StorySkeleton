@@ -23,14 +23,15 @@ namespace StoryEngine
             set { theTemplates = value; }
         }
 
-        public void LoadFromFile()
+        public static CollectionOfIncidentTemplates LoadFromFile(string file_path_and_name)
         {
-            throw new NotImplementedException(); //#TODO
+            var theCollection = SerializeXML.LoadFromXML<CollectionOfIncidentTemplates>(file_path_and_name);
+            return theCollection;
         }
 
-        public void SaveToFile()
+        public void SaveToFile(string file_path_and_name)
         {
-            throw new NotImplementedException();//#TODO
+            this.SaveToXML(file_path_and_name);
         }
 
         public Incident GetRandomIncident(Random rng)
