@@ -82,5 +82,26 @@ namespace StorySkeleton.ViewModels
         public ICommand Command_SaveToFile { get { return command_SaveToFile ?? (command_SaveToFile = new RelayCommand(SaveToFile, CanExecute_SaveToFile)); } }
 
         public bool CanExecute_SaveToFile() { return true; }
+
+        public void OpenFromFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Character file (*.cast)|*.cast";
+            openFileDialog.Multiselect = false;
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                MyBase = SocietySnapshot.LoadFromFile(openFileDialog.FileName);
+                OnPropertyChanged(nameof(AllCharacters));
+                SelectedId = 0;
+                OnPropertyChanged(nameof(SelectedId));
+            }                
+        }
+
+        private ICommand command_OpenFromFile;
+        public ICommand Command_OpenFromFile { get { return command_OpenFromFile ?? (command_OpenFromFile = new RelayCommand(OpenFromFile, CanExecute_OpenFromFile)); } }
+
+        public bool CanExecute_OpenFromFile() { return true; }
     }
 }

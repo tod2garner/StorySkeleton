@@ -49,8 +49,12 @@
                 <RibbonGroup>
                     <Button Command="{Binding Command_SaveToFile}"
                         Margin="5"
-                        Width="100"
-                        Height="20">Save Starting Cast</Button>
+                        Width="80"
+                        Height="20">Save Cast</Button>
+                    <Button Command="{Binding Command_OpenFromFile}"
+                        Margin="5"
+                        Width="80"
+                        Height="20">Load Cast</Button>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Plot" 

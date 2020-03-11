@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StoryEngine.Specifics.CharacterDetails;
+using System.Runtime.Serialization;
 
 namespace StoryEngine.Specifics
 {
+    [DataContract]
     public class Appearance
     {
         public Appearance()
@@ -22,14 +24,22 @@ namespace StoryEngine.Specifics
             theWeight = new Weight();
         }
 
+        [DataMember]
         private Age theAge;
+        [DataMember]
         private Beauty theBeauty;
+        [DataMember]
         private Dexterity theDexterity;
+        [DataMember]
         private Grooming theGrooming;
+        [DataMember]
         private Height theHeight;
+        [DataMember]
         private Strength theStrength;
+        [DataMember]
         private Weight theWeight;
 
+        [DataMember]
         private List<string> description;
         public List<string> Description { get { return description; } }
 

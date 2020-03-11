@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StoryEngine.Specifics.CharacterDetails;
+using System.Runtime.Serialization;
 
 namespace StoryEngine.Specifics
 {
+    [DataContract]
     public class Motivation
     {
         public Motivation()
@@ -17,9 +19,12 @@ namespace StoryEngine.Specifics
             theyEnjoy = new Enjoys();
         }
 
+        [DataMember]
         private CoreDesire theCoreDesire;
+        [DataMember]
         private Enjoys theyEnjoy;
 
+        [DataMember]
         private List<string> description;
         public List<string> Description { get { return description; } }
 

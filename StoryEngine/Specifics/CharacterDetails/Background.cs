@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StoryEngine.Specifics.CharacterDetails;
+using System.Runtime.Serialization;
 
 namespace StoryEngine.Specifics
 {
+    [DataContract]
     public class Background
     {
         public Background()
@@ -18,10 +20,14 @@ namespace StoryEngine.Specifics
             theWorkExperience = new WorkExperience();
         }
 
+        [DataMember]
         private BornClass theBornClass;
+        [DataMember]
         private CurrentClass theCurrentClass;
+        [DataMember]
         private WorkExperience theWorkExperience;
 
+        [DataMember]
         private List<string> description;
         public List<string> Description { get { return description; } }
 

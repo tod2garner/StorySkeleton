@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StoryEngine.Specifics.CharacterDetails;
+using System.Runtime.Serialization;
 
 namespace StoryEngine.Specifics
 {
+    [DataContract]
     public class Personality
     {
         public Personality()
@@ -20,12 +22,18 @@ namespace StoryEngine.Specifics
             theWisdom = new Wisdom();
         }
 
+        [DataMember]
         private Charisma theCharisma;
+        [DataMember]
         private Intelligence theIntelligence;
+        [DataMember]
         private SocialOpenness theSocialOpenness;
+        [DataMember]
         private SpeechStyle theSpeechStyle;
+        [DataMember]
         private Wisdom theWisdom;
 
+        [DataMember]
         private List<string> description;
         public List<string> Description { get { return description; } }
 

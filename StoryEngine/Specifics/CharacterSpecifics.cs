@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace StoryEngine.Specifics
 {
+    [DataContract]
     public class CharacterSpecifics
     {
         public CharacterSpecifics()
@@ -18,18 +20,23 @@ namespace StoryEngine.Specifics
             theMotivation = new Motivation();
         }
 
+        [DataMember]
         private Appearance theAppearance;
         public Appearance TheAppearance { get { return theAppearance; } }
 
+        [DataMember]
         private Personality thePersonality;
         public Personality ThePersonality { get { return thePersonality; } }
 
+        [DataMember]
         private Background theBackground;
         public Background TheBackground { get { return theBackground; } }
 
+        [DataMember]
         private Motivation theMotivation;
         public Motivation TheMotivation { get { return theMotivation; } }
 
+        [DataMember]
         private List<string> description;
         public List<string> Description { get { return description; } }
 
